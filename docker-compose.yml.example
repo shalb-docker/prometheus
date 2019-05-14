@@ -57,12 +57,9 @@ services:
       - "443:443"
 
 # nginx:
-#   image: artiloop/nginx-le-ssl
+#   image: nginx:1.15
 #   volumes:
-#     - ./nginx/conf.d:/etc/nginx/conf.d/configs
-#     - ./nginx/ssl:/etc/nginx/ssl
-#   environment:
-#       DOMAINS_LIST: "alertmanager.aws.revelator.tech,prometheus.aws.revelator.tech,grafana.aws.revelator.tech"
+#     - ./nginx/conf.d:/etc/nginx/conf.d/
 #   depends_on:
 #     - prometheus
 #     - alertmanager
