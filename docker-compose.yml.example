@@ -6,6 +6,7 @@ services:
     volumes:
       - ./prometheus/configs:/etc/prometheus/
       - ./prometheus/storage:/prometheus
+    restart: always
 #   ports:
 #     - "127.0.0.1:9090:9090"
     command: ["--log.level=debug",
@@ -21,6 +22,7 @@ services:
     volumes:
       - ./alertmanager/config.yml:/etc/alertmanager/config.yml
       - ./alertmanager/storage:/alertmanager
+    restart: always
 #   ports:
 #     - "127.0.0.1:9093:9093"
     command: ["--log.level=debug",
@@ -31,6 +33,7 @@ services:
     image: grafana/grafana:5.3.0
     volumes:
       - ./grafana/storage:/var/lib/grafana
+    restart: always
 #   ports:
 #     - "127.0.0.1:3000:3000"
     env_file:
@@ -48,9 +51,26 @@ services:
       - prometheus
       - alertmanager
       - grafana
+    restart: always
     ports:
       - "80:80"
       - "443:443"
+
+# nginx:
+#   image: artiloop/nginx-le-ssl
+#   volumes:
+#     - ./nginx/conf.d:/etc/nginx/conf.d/configs
+#     - ./nginx/ssl:/etc/nginx/ssl
+#   environment:
+#       DOMAINS_LIST: "alertmanager.aws.revelator.tech,prometheus.aws.revelator.tech,grafana.aws.revelator.tech"
+#   depends_on:
+#     - prometheus
+#     - alertmanager
+#     - grafana
+#   restart: always
+#   ports:
+#     - "80:80"
+#     - "443:443"
 
   postfix-relay:
     image: shalb/postfix-relay:0.0.1
