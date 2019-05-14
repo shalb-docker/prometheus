@@ -1,0 +1,23 @@
+groups:
+  - name: "remote host alerts"
+    rules:
+      - alert: "remote host down P4-5"
+        expr: node_monit{host_priority=~"P[4-5]",type="remote_host",key="status"} > 0
+        for: 15m
+        annotations:
+          summary: 'remote host: "{{ $labels.name }}" down'
+          description: 'Go to instance: "{{ $labels.instance }}"; find more info in monit config (grep -r {{ $labels.name }} /etc/monit.d/); monit log: /var/log/monit_collector.log'
+          grafana: "{{ grafana_all_alerts_dashboard }}"
+          access: "{{ wiki_monitoring_access }}"
+          priority: "P3"
+
+      - alert: "remote host down P1-3"
+        expr: node_monit{host_priority=~"P[1-3]",type="remote_host",key="status"} > 0
+        for: 5m
+        annotations:
+          summary: 'remote host: "{{ $labels.name }}" down'
+          description: 'Go to instance: "{{ $labels.instance }}"; find more info in monit config (grep -r {{ $labels.name }} /etc/monit.d/); monit log: /var/log/monit_collector.log'
+          grafana: "{{ grafana_all_alerts_dashboard }}"
+          access: "{{ wiki_monitoring_access }}"
+          priority: "P2"
+

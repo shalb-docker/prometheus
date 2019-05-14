@@ -1,0 +1,56 @@
+groups:
+  - name: mysqld alerts
+    rules:
+      - alert: "mysql replication delay > 1500"
+        expr: mysql_slave_status_seconds_behind_master > 1500
+        for: 3m
+        annotations:
+          summary: 'mysql have replication delay > 1500 from master: "{{ $labels.master_host }}"'
+          description: 'Go to instance: "{{ $labels.instance }}" and check why replication delay so high'
+          grafana: "{{ grafana_mysql_dashboard }}"
+          access: "{{ wiki_monitoring_access }}"
+          priority: "P3"
+
+      - alert: "mysql replication delay > 10000"
+        expr: mysql_slave_status_seconds_behind_master > 10000
+        for: 3m
+        annotations:
+          summary: 'mysql have replication delay > 10000 from master: "{{ $labels.master_host }}"'
+          description: 'Go to instance: "{{ $labels.instance }}" and check why replication delay so high'
+          priority: "P3"
+
+      - alert: "mysql have replication error"
+        expr: mysql_slave_status_last_errno != 0
+        annotations:
+          summary: 'mysql have replication error from master: "{{ $labels.master_host }}"'
+          description: 'Go to instance: "{{ $labels.instance }}" and check error message, fix  replication'
+          priority: "P3"
+
+      - alert: "mysql repliaction slave IO thread is not running"
+        expr: mysql_slave_status_slave_io_running != 1
+        annotations:
+          summary: 'mysql repliaction slave IO thread is not running for master: "{{ $labels.master_host }}"'
+          description: 'Go to instance: "{{ $labels.instance }}" and check repliaction slave IO thread is not running'
+          priority: "P3"
+
+      - alert: "mysql repliaction slave SQL thread is not running"
+        expr: mysql_slave_status_slave_sql_running != 1
+        annotations:
+          summary: 'mysql repliaction slave SQL thread is not running for master: "{{ $labels.master_host }}"'
+          description: 'Go to instance: "{{ $labels.instance }}" and check repliaction slave SQL thread is not running'
+          priority: "P3"
+
+      - alert: "mysql used connections > 80%"
+        expr: (mysql_global_status_threads_connected / mysql_global_variables_max_connections) * 100 > 80
+        annotations:
+          summary: 'mysql used connections > 80% on instance: "{{ $labels.instance }}"'
+          description: 'Go to instance: "{{ $labels.instance }}" and check why so many connections used, change global variable "max_connections" if needed by command: SET GLOBAL max_connections = 999;, you can get number of current connections by command: SHOW STATUS WHERE `Variable_name` = "Threads_connected";'
+          priority: "P3"
+
+      - alert: "mysql used memory > 95%"
+        expr: node_monit{name="mysql",key="memory_percenttotal"} > 95
+        annotations:
+          summary: 'mysql used memory > 95% on instance: "{{ $labels.instance }}"'
+          description: 'Go to instance: "{{ $labels.instance }}" and check why so many memory used'
+          priority: "P3"
+

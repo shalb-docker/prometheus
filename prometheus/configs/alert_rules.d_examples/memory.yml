@@ -1,0 +1,30 @@
+groups:
+  - name: memory usage alerts
+    rules:
+      - alert: "memory usage > 99% P4-P5"
+        expr: node_monit{host_priority=~"P[4-5]",key="system_memory_percent"} > 99
+        annotations:
+          summary: "Memory usage > 99%"
+          description: "Go to instance and find out why memory usage is so high"
+          grafana: "{{ grafana_monit_dashboard }}"
+          access: "{{ wiki_monitoring_access }}"
+          priority: "P3"
+
+      - alert: "memory usage > 97% P1-3"
+        expr: node_monit{host_priority=~"P[1-3]",key="system_memory_percent"} > 97
+        annotations:
+          summary: "Memory usage > 97%"
+          description: "Go to instance and find out why memory usage is so high"
+          grafana: "{{ grafana_monit_dashboard }}"
+          access: "{{ wiki_monitoring_access }}"
+          priority: "P3"
+
+      - alert: "memory usage > 97%"
+        expr: node_monit{host_priority!~"P[1-5]",key="system_memory_percent"} > 97
+        annotations:
+          summary: "Memory usage > 97%"
+          description: "Go to instance and find out why memory usage is so high"
+          grafana: "{{ grafana_monit_dashboard }}"
+          access: "{{ wiki_monitoring_access }}"
+          priority: "P3"
+

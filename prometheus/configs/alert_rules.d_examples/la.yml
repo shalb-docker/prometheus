@@ -1,0 +1,72 @@
+groups:
+  - name: get number of cores
+    rules:
+# enable if you have old node_exporters (version 0.15)
+#   - record: instance:node_cpus_old:count
+#     expr: count(node_cpu{mode="idle"}) without (cpu,mode)
+    - record: instance:node_cpus:count
+      expr: count(node_cpu_seconds_total{mode="idle"}) without (cpu,mode)
+
+
+  - name: load alerts
+    rules:
+      - alert: "LA > 110% P5"
+        expr: node_load1{host_priority="P5"} > (instance:node_cpus:count + 1)
+        for: 15m
+        annotations:
+          summary: "LA > 110%: {{ $value }}"
+          description: 'Check why LA is to high on instance: "{{ $labels.instance }}"'
+          grafana: "{{ grafana_monit_dashboard }}"
+          access: "{{ wiki_monitoring_access }}"
+          priority: "P3"
+
+      - alert: "LA > 110% P4"
+        expr: node_load1{host_priority="P4"} > (instance:node_cpus:count + 1)
+        for: 10m
+        annotations:
+          summary: "LA > 110%: {{ $value }}"
+          description: 'Check why LA is to high on instance: "{{ $labels.instance }}"'
+          grafana: "{{ grafana_monit_dashboard }}"
+          access: "{{ wiki_monitoring_access }}"
+          priority: "P3"
+
+      - alert: "LA > 110% P3"
+        expr: node_load1{host_priority="P3"} > (instance:node_cpus:count + 1)
+        for: 7m
+        annotations:
+          summary: "LA > 110%: {{ $value }}"
+          description: 'Check why LA is to high on instance: "{{ $labels.instance }}"'
+          grafana: "{{ grafana_monit_dashboard }}"
+          access: "{{ wiki_monitoring_access }}"
+          priority: "P3"
+
+      - alert: "LA > 110% P2"
+        expr: node_load1{host_priority="P2"} > (instance:node_cpus:count + 1)
+        for: 5m
+        annotations:
+          summary: "LA > 110%: {{ $value }}"
+          description: 'Check why LA is to high on instance: "{{ $labels.instance }}"'
+          grafana: "{{ grafana_monit_dashboard }}"
+          access: "{{ wiki_monitoring_access }}"
+          priority: "P3"
+
+      - alert: "LA > 110% P1"
+        expr: node_load1{host_priority="P1"} > (instance:node_cpus:count + 1)
+        for: 2m
+        annotations:
+          summary: "LA > 110%: {{ $value }}"
+          description: 'Check why LA is to high on instance: "{{ $labels.instance }}"'
+          grafana: "{{ grafana_monit_dashboard }}"
+          access: "{{ wiki_monitoring_access }}"
+          priority: "P3"
+
+      - alert: "LA > 110%"
+        expr: node_load1{host_priority!~"P[1-5]"} > (instance:node_cpus:count + 1)
+        for: 7m
+        annotations:
+          summary: "LA > 110%: {{ $value }}"
+          description: 'Check why LA is to high on instance: "{{ $labels.instance }}"'
+          grafana: "{{ grafana_monit_dashboard }}"
+          access: "{{ wiki_monitoring_access }}"
+          priority: "P3"
+

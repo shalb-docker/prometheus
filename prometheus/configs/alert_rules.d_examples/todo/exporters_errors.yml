@@ -1,0 +1,143 @@
+groups:
+  - name: exporters alerts
+    rules:
+      - alert: "exporter have new errors P1-3"
+        expr: delta(collector_errors_total{host_priority=~"P[1-3]"}[1m]) > 0
+        for: 15m
+        annotations:
+          summary: "Exporter: {{ $labels.instance }} have new errors"
+          description: "Go to monitoring instance and check log for Exporter: {{ $labels.instance }}"
+          grafana: "https://grafana.monitoring.shalb.com/d/bVHuLEamz/all-projects-fails?orgId=1&from=now-1h&to=now"
+          access: "https://confluence.shalb.com/display/SHALBT/Monitoring"
+          priority: "P2"
+
+      - alert: "exporter have new errors P4-5"
+        expr: delta(collector_errors_total{host_priority=~"P[4-5]"}[1m]) > 0
+        for: 15m
+        annotations:
+          summary: "Exporter: {{ $labels.instance }} have new errors"
+          description: "Go to monitoring instance and check log for Exporter: {{ $labels.instance }}"
+          grafana: "https://grafana.monitoring.shalb.com/d/bVHuLEamz/all-projects-fails?orgId=1&from=now-1h&to=now"
+          access: "https://confluence.shalb.com/display/SHALBT/Monitoring"
+          priority: "P3"
+
+      - alert: "mysqld exporter have new errors (scrape) P1-3"
+        expr: mysql_exporter_last_scrape_error{host_priority=~"P[1-3]"} == 1
+        for: 15m
+        annotations:
+          summary: "mysqld_exporter have new errors (scrape)"
+          description: "Go to instance: '{{ $labels.instance }}', restart exporter: 'mysqld_exporter', check logs"
+          grafana: "https://grafana.monitoring.shalb.com/d/bVHuLEamz/all-projects-fails?orgId=1&from=now-1h&to=now"
+          access: "https://confluence.shalb.com/display/SHALBT/Monitoring"
+          priority: "P3"
+
+      - alert: "mysqld exporter have new errors (scrape) P4-5"
+        expr: mysql_exporter_last_scrape_error{host_priority=~"P[4-5]"} == 1
+        for: 15m
+        annotations:
+          summary: "mysqld_exporter have new errors (scrape)"
+          description: "Go to instance: '{{ $labels.instance }}', restart exporter: 'mysqld_exporter', check logs"
+          grafana: "https://grafana.monitoring.shalb.com/d/bVHuLEamz/all-projects-fails?orgId=1&from=now-1h&to=now"
+          access: "https://confluence.shalb.com/display/SHALBT/Monitoring"
+          priority: "P3"
+
+      - alert: "mysqld exporter have new errors P1-3"
+        expr: mysql_up{host_priority=~"P[1-3]"} != 1
+        for: 15m
+        annotations:
+          summary: "Exporter: {{ $labels.instance }} have new errors"
+          description: "Go to monitoring instance and check log for Exporter: {{ $labels.instance }}"
+          grafana: "https://grafana.monitoring.shalb.com/d/bVHuLEamz/all-projects-fails?orgId=1&from=now-1h&to=now"
+          access: "https://confluence.shalb.com/display/SHALBT/Monitoring"
+          priority: "P2"
+
+      - alert: "mysqld exporter have new errors P4-5"
+        expr: mysql_up{host_priority=~"P[4-5]"} != 1
+        for: 15m
+        annotations:
+          summary: "Exporter: {{ $labels.instance }} have new errors"
+          description: "Go to monitoring instance and check log for Exporter: {{ $labels.instance }}"
+          grafana: "https://grafana.monitoring.shalb.com/d/bVHuLEamz/all-projects-fails?orgId=1&from=now-1h&to=now"
+          access: "https://confluence.shalb.com/display/SHALBT/Monitoring"
+          priority: "P3"
+
+      - alert: "haproxy exporter have new errors P1-3"
+        expr: haproxy_up{host_priority=~"P[1-3]"} != 1
+        for: 15m
+        annotations:
+          summary: "Exporter: {{ $labels.instance }} have new errors"
+          description: "Go to monitoring instance and check log for Exporter: {{ $labels.instance }}"
+          grafana: "https://grafana.monitoring.shalb.com/d/bVHuLEamz/all-projects-fails?orgId=1&from=now-1h&to=now"
+          access: "https://confluence.shalb.com/display/SHALBT/Monitoring"
+          priority: "P2"
+
+      - alert: "haproxy exporter have new errors P4-5"
+        expr: haproxy_up{host_priority=~"P[4-5]"} != 1
+        for: 15m
+        annotations:
+          summary: "Exporter: {{ $labels.instance }} have new errors"
+          description: "Go to monitoring instance and check log for Exporter: {{ $labels.instance }}"
+          grafana: "https://grafana.monitoring.shalb.com/d/bVHuLEamz/all-projects-fails?orgId=1&from=now-1h&to=now"
+          access: "https://confluence.shalb.com/display/SHALBT/Monitoring"
+          priority: "P3"
+
+      - alert: "php_fpm exporter have new errors P1-3"
+        expr: phpfpm_up{host_priority=~"P[1-3]"} != 1
+        for: 15m
+        annotations:
+          summary: "Exporter: {{ $labels.instance }} have new errors"
+          description: "Go to monitoring instance and check log for Exporter: {{ $labels.instance }}"
+          grafana: "https://grafana.monitoring.shalb.com/d/bVHuLEamz/all-projects-fails?orgId=1&from=now-1h&to=now"
+          access: "https://confluence.shalb.com/display/SHALBT/Monitoring"
+          priority: "P2"
+
+      - alert: "php_fpm exporter have new errors P4-5"
+        expr: phpfpm_up{host_priority=~"P[4-5]"} != 1
+        for: 15m
+        annotations:
+          summary: "Exporter: {{ $labels.instance }} have new errors"
+          description: "Go to monitoring instance and check log for Exporter: {{ $labels.instance }}"
+          grafana: "https://grafana.monitoring.shalb.com/d/bVHuLEamz/all-projects-fails?orgId=1&from=now-1h&to=now"
+          access: "https://confluence.shalb.com/display/SHALBT/Monitoring"
+          priority: "P3"
+
+      - alert: "memcached exporter have new errors P1-3"
+        expr: memcached_up{host_priority=~"P[1-3]"} != 1
+        for: 15m
+        annotations:
+          summary: "Exporter: {{ $labels.instance }} have new errors"
+          description: "Go to monitoring instance and check log for Exporter: {{ $labels.instance }}"
+          grafana: "https://grafana.monitoring.shalb.com/d/bVHuLEamz/all-projects-fails?orgId=1&from=now-1h&to=now"
+          access: "https://confluence.shalb.com/display/SHALBT/Monitoring"
+          priority: "P2"
+
+      - alert: "memcached exporter have new errors P4-5"
+        expr: memcached_up{host_priority=~"P[4-5]"} != 1
+        for: 15m
+        annotations:
+          summary: "Exporter: {{ $labels.instance }} have new errors"
+          description: "Go to monitoring instance and check log for Exporter: {{ $labels.instance }}"
+          grafana: "https://grafana.monitoring.shalb.com/d/bVHuLEamz/all-projects-fails?orgId=1&from=now-1h&to=now"
+          access: "https://confluence.shalb.com/display/SHALBT/Monitoring"
+          priority: "P3"
+
+      - alert: "nginx exporter have new errors P1-3"
+        expr: nginx_up{host_priority=~"P[1-3]"} != 1
+        for: 15m
+        annotations:
+          summary: "Exporter: {{ $labels.instance }} have new errors"
+          description: "Go to monitoring instance and check log for Exporter: {{ $labels.instance }}"
+          grafana: "https://grafana.monitoring.shalb.com/d/bVHuLEamz/all-projects-fails?orgId=1&from=now-1h&to=now"
+          access: "https://confluence.shalb.com/display/SHALBT/Monitoring"
+          priority: "P2"
+
+      - alert: "nginx exporter have new errors P4-5"
+        expr: nginx_up{host_priority=~"P[4-5]"} != 1
+        for: 15m
+        annotations:
+          summary: "Exporter: {{ $labels.instance }} have new errors"
+          description: "Go to monitoring instance and check log for Exporter: {{ $labels.instance }}"
+          grafana: "https://grafana.monitoring.shalb.com/d/bVHuLEamz/all-projects-fails?orgId=1&from=now-1h&to=now"
+          access: "https://confluence.shalb.com/display/SHALBT/Monitoring"
+          priority: "P3"
+

@@ -1,0 +1,23 @@
+groups:
+  - name: mail
+    rules:
+      - alert: "mail queue > 100" 
+        expr: node_mail_queue{mail_list!="true"} > 100
+        for: 10m
+        annotations:
+          summary: "mail queue > 100"
+          description: "Check why mail queue so big on host: {{ $labels.instance }}, check it via /usr/bin/mailq_custom.sh or /usr/bin/mailq"
+          grafana: "{{ grafana_all_alerts_dashboard }}"
+          access: "{{ wiki_monitoring_access }}"
+          priority: "P3"
+
+      - alert: "mail queue > 4000" 
+        expr: node_mail_queue{mail_list="true"} > 4000
+        for: 1d
+        annotations:
+          summary: "mail queue > 4000"
+          description: "Check why mail queue so big on host: {{ $labels.instance }}, check it via /usr/bin/mailq_custom.sh or /usr/bin/mailq"
+          grafana: "{{ grafana_all_alerts_dashboard }}"
+          access: "{{ wiki_monitoring_access }}"
+          priority: "P3"
+

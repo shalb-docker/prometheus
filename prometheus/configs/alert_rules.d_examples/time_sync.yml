@@ -1,0 +1,63 @@
+groups:
+  - name: time sync
+    rules:
+      - alert: "no time syncronization P5"
+        expr: node_timex_sync_status{host_priority="P5"} == 0
+        for: 30m
+        annotations:
+          summary: "no time syncronization"
+          description: "Go to instance and check if any time sync soft working properly by command 'ntpq -pn' or timedatectl status"
+          grafana: "{{ grafana_all_alerts_dashboard }}"
+          access: "{{ wiki_monitoring_access }}"
+          priority: "P3"
+
+      - alert: "no time syncronization P4"
+        expr: node_timex_sync_status{host_priority="P4"} == 0
+        for: 15m
+        annotations:
+          summary: "no time syncronization"
+          description: "Go to instance and check if any time sync soft working properly by command 'ntpq -pn' or timedatectl status"
+          grafana: "{{ grafana_all_alerts_dashboard }}"
+          access: "{{ wiki_monitoring_access }}"
+          priority: "P3"
+
+      - alert: "no time syncronization P3"
+        expr: node_timex_sync_status{host_priority="P3"} == 0
+        for: 10m
+        annotations:
+          summary: "no time syncronization"
+          description: "Go to instance and check if any time sync soft working properly by command 'ntpq -pn' or timedatectl status"
+          grafana: "{{ grafana_all_alerts_dashboard }}"
+          access: "{{ wiki_monitoring_access }}"
+          priority: "P3"
+
+      - alert: "no time syncronization P2"
+        expr: node_timex_sync_status{host_priority="P2"} == 0
+        for: 10m
+        annotations:
+          summary: "no time syncronization"
+          description: "Go to instance and check if any time sync soft working properly by command 'ntpq -pn' or timedatectl status"
+          grafana: "{{ grafana_all_alerts_dashboard }}"
+          access: "{{ wiki_monitoring_access }}"
+          priority: "P3"
+
+      - alert: "no time syncronization P1"
+        expr: node_timex_sync_status{host_priority="P1"} == 0
+        for: 10m
+        annotations:
+          summary: "no time syncronization"
+          description: "Go to instance and check if any time sync soft working properly by command 'ntpq -pn' or timedatectl status"
+          grafana: "{{ grafana_all_alerts_dashboard }}"
+          access: "{{ wiki_monitoring_access }}"
+          priority: "P3"
+
+      - alert: "no time syncronization"
+        expr: node_timex_sync_status{host_priority!~"P[1-5]"} == 0
+        for: 10m
+        annotations:
+          summary: "no time syncronization"
+          description: "Go to instance and check if any time sync soft working properly by command 'ntpq -pn' or timedatectl status"
+          grafana: "{{ grafana_all_alerts_dashboard }}"
+          access: "{{ wiki_monitoring_access }}"
+          priority: "P3"
+

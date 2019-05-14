@@ -1,0 +1,31 @@
+source ./secrets
+
+OPSGENIE_API_KEY="MY_API_KEY"
+OPSGENIE_TEAM="MY_TEAM"
+# if you have example.com domain - you should create A-records for prometheus.example.com, alertmanager.example.com, grafana.example.com, open 80 and 443 ports
+REMOTE_HOST="my_domain.com"
+
+cat ./alertmanager/config.yml.example | \
+sed -e "s@{{ OPSGENIE_API_KEY }}@$OPSGENIE_API_KEY@g" | \
+sed -e "s@{{ OPSGENIE_TEAM }}@$OPSGENIE_TEAM@g" \
+> ./alertmanager/config.yml
+
+cat ./docker-compose.yml.example | \
+sed -e "s@{{ REMOTE_HOST }}@$REMOTE_HOST@g" \
+> ./docker-compose.yml
+
+cat ./nginx/conf.d/default.conf.example | \
+sed -e "s@{{ REMOTE_HOST }}@$REMOTE_HOST@g" \
+> nginx/conf.d/default.conf
+
+cat ./postfix-relay/main.cf.example | \
+sed -e "s@{{ REMOTE_HOST }}@$REMOTE_HOST@g" \
+> postfix-relay/main.cf
+
+echo "GF_SECURITY_ADMIN_PASSWORD=$GRAFANA_ADMIN_PASSWORD" > ./grafana/env_secrets
+htpasswd -b -c ./nginx/conf.d/htpasswd admin $GRAFANA_ADMIN_PASSWORD
+
+cat ./grafana/env.example | \
+sed -e "s@{{ REMOTE_HOST }}@$REMOTE_HOST@g" \
+> ./grafana/env
+

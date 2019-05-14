@@ -1,0 +1,20 @@
+prometheus/storage/*
+alertmanager/storage/*
+grafana/storage/*
+tmp/
+*.pyc
+*.swp
+
+# secret data:
+nginx/conf.d/htpasswd
+nginx/ssl/*
+*/env_secrets
+secrets
+
+# uncommennt if needed:
+#alertmanager/config.yml
+#docker-compose.yml
+#nginx/conf.d/default.conf
+#postfix-relay/main.cf
+#add_prometheus_alerts.sh
+#add_variables.sh

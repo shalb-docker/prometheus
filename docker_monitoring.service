@@ -1,0 +1,15 @@
+[Unit]
+Description=Monitoring stack with docker-compose
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/bin/bash -c 'cd /data/monitoring/prometheus && docker-compose up'
+ExecStop=/bin/bash -c 'cd /data/monitoring/prometheus && docker-compose down'
+Restart=always
+RestartSec=60
+StartLimitInterval=0
+
+[Install]
+WantedBy=multi-user.target
+

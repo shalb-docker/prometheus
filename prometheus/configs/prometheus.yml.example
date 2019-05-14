@@ -1,0 +1,107 @@
+# my global config
+global:
+  scrape_interval:     10s # Set the scrape interval to every 15 seconds. Default is every 1 minute.
+  evaluation_interval: 10s # Evaluate rules every 15 seconds. The default is every 1 minute.
+  # scrape_timeout is set to the global default (10s).
+
+# Alertmanager configuration
+alerting:
+  alertmanagers:
+  - static_configs:
+    - targets:
+      - alertmanager:9093
+
+# Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
+rule_files:
+# - "/etc/prometheus/alert_rules.d/prometheus.yml"
+# - "/etc/prometheus/alert_rules.d/cron.yml"
+# - "/etc/prometheus/alert_rules.d/disk.yml"
+# - "/etc/prometheus/alert_rules.d/http.yml"
+# - "/etc/prometheus/alert_rules.d/mail.yml"
+# - "/etc/prometheus/alert_rules.d/memory.yml"
+# - "/etc/prometheus/alert_rules.d/monit.yml"
+  - "/etc/prometheus/alert_rules.d/node_exporter.yml"
+# - "/etc/prometheus/alert_rules.d/nproc.yml"
+# - "/etc/prometheus/alert_rules.d/time_sync.yml"
+# - "/etc/prometheus/alert_rules.d/la.yml"
+# - "/etc/prometheus/alert_rules.d/redis_exporter.yml"
+# - "/etc/prometheus/alert_rules.d/elasticsearch.yml"
+# - "/etc/prometheus/alert_rules.d/monit_collector.yml"
+# - "/etc/prometheus/alert_rules.d/processes.yml"
+# - "/etc/prometheus/alert_rules.d/monit_program.yml"
+# - "/etc/prometheus/alert_rules.d/remote_host.yml"
+# - "/etc/prometheus/alert_rules.d/postgres_exporter.yml"
+
+# A scrape configuration containing exactly one endpoint to scrape:
+# Here it's Prometheus itself.
+scrape_configs:
+  # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
+  - job_name: 'prometheus'
+    # metrics_path defaults to '/metrics'
+    # scheme defaults to 'http'.
+    static_configs:
+      - targets: ['prometheus:9090']
+
+
+  - job_name: 'docker infra'
+    static_configs:
+      - targets: ['prometheus.example.com:9323']
+        labels:
+          host_priority: 'P5'
+
+
+# node_exporter with limited collectors, "hostname" and "host_priority" labels
+  - job_name: 'node_exporter prod'
+    params:
+      collect[]:
+      - stat
+      - diskstats
+      - cpu
+      - filesystem
+      - loadavg
+      - meminfo
+      - netstat
+      - textfile
+      - timex
+      - vmstat
+    static_configs:
+      - targets:
+        - 'host-1.example.com:9100'
+        - 'host-2.example.com:9100'
+        labels:
+          host_priority: 'P1'
+    relabel_configs:
+    - source_labels: [__address__]
+      regex: '(.*):[0-9]+'
+      target_label: hostname
+      replacement: '$1'
+
+
+# mysqld_exporter with limited collectors and metrics, "hostname" and "host_priority" labels
+  - job_name: 'mysqld_exporter prod'
+    params:
+      collect[]:
+      - global_status
+      - global_variables
+    metric_relabel_configs:
+      - source_labels: [ __name__ ]
+        regex: 'mysql_up|mysql_exporter_last_scrape_error|mysql_global_variables_max_connections|mysql_global_status_threads_connected'
+        action: keep
+    static_configs:
+      - targets: ['host-1.example.com:9104']
+        labels:
+          host_priority: 'P3'
+
+# postgres exporter with custom queries and custom scrape interval
+  - job_name: 'postgres_exporter_custom_metrics'
+    scrape_interval: 5m
+    static_configs:
+      - targets:
+        - 'postgres_exporter_myenv_myinstance_mydb:9187'
+        labels:
+          host_priority: 'P5'
+    metric_relabel_configs:
+      - source_labels: [ __name__ ]
+        regex: 'count_on_tables_count'
+        action: keep
+

@@ -1,0 +1,150 @@
+groups:
+  - name: disk usage alerts
+    rules:
+      - alert: "Mount point(only root) available space < 2 Gib P1-3"
+        expr: node_filesystem_avail_bytes{host_priority=~"P[1-3]",mountpoint="/",fstype=~"xfs|ext4"} / 1024 / 1024 / 1024 < 2
+        annotations:
+          summary: "Mount point: {{ $labels.mountpoint }} available space < 2 Gib"
+          description: "Go to instance and delete some unused data, notify customer about problems with free space, see https://confluence.shalb.com/display/SHALBT/monitoring+alerts+fixing#monitoringalertsfixing-freediskspacetolow"
+          grafana: "{{ grafana_monit_dashboard }}"
+          access: "{{ wiki_monitoring_access }}"
+          priority: "P3"
+
+      - alert: "Mount point(only root) available space < 2 Gib P4-5"
+        expr: node_filesystem_avail_bytes{host_priority=~"P[4-5]",mountpoint="/",fstype=~"xfs|ext4"} / 1024 / 1024 / 1024 < 2
+        annotations:
+          summary: "Mount point: {{ $labels.mountpoint }} available space < 2 Gib"
+          description: "Go to instance and delete some unused data, notify customer about problems with free space, see https://confluence.shalb.com/display/SHALBT/monitoring+alerts+fixing#monitoringalertsfixing-freediskspacetolow"
+          grafana: "{{ grafana_monit_dashboard }}"
+          access: "{{ wiki_monitoring_access }}"
+          priority: "P3"
+
+
+      - alert: "Mount point(only root) available space < 0.3 Gib P1-3"
+        expr: node_filesystem_avail_bytes{host_priority=~"P[1-3]",mountpoint="/",fstype=~"xfs|ext4"} / 1024 / 1024 / 1024 < 0.3
+        annotations:
+          summary: "Mount point: {{ $labels.mountpoint }} available space < 0.3 Gib"
+          description: "Go to instance and delete some unused data, notify customer about problems with free space, see https://confluence.shalb.com/display/SHALBT/monitoring+alerts+fixing#monitoringalertsfixing-freediskspacetolow"
+          grafana: "{{ grafana_monit_dashboard }}"
+          access: "{{ wiki_monitoring_access }}"
+          priority: "P1"
+
+      - alert: "Mount point(only root) available space < 0.3 Gib P4-5"
+        expr: node_filesystem_avail_bytes{host_priority=~"P[4-5]",mountpoint="/",fstype=~"xfs|ext4"} / 1024 / 1024 / 1024 < 0.3
+        annotations:
+          summary: "Mount point: {{ $labels.mountpoint }} available space < 0.3 Gib"
+          description: "Go to instance and delete some unused data, notify customer about problems with free space, see https://confluence.shalb.com/display/SHALBT/monitoring+alerts+fixing#monitoringalertsfixing-freediskspacetolow"
+          grafana: "{{ grafana_monit_dashboard }}"
+          access: "{{ wiki_monitoring_access }}"
+          priority: "P3"
+
+
+      - alert: "Mount point(only root) available space < 2 Gib"
+        expr: node_filesystem_avail_bytes{host_priority!~"P[1-5]",mountpoint="/",fstype=~"xfs|ext4"} / 1024 / 1024 / 1024 < 2
+        annotations:
+          summary: "Mount point: {{ $labels.mountpoint }} available space < 2 Gib"
+          description: "Go to instance and delete some unused data, notify customer about problems with free space, see https://confluence.shalb.com/display/SHALBT/monitoring+alerts+fixing#monitoringalertsfixing-freediskspacetolow"
+          grafana: "{{ grafana_monit_dashboard }}"
+          access: "{{ wiki_monitoring_access }}"
+          priority: "P3"
+
+
+  - name: disk usage inodes alerts
+    rules:
+      - alert: "Mount point(only root) available inodes < 90 P1-P3"
+        expr: 100 - 100 * ( node_filesystem_files_free{host_priority=~"P[1-3]",mountpoint="/",fstype=~"xfs|ext4"} / node_filesystem_files ) > 90
+        annotations:
+          summary: "Mount point: {{ $labels.mountpoint }} available inodes < 90"
+          description: "Go to instance and delete some unused data, notify customer about problems with free space"
+          grafana: "{{ grafana_monit_dashboard }}"
+          access: "{{ wiki_monitoring_access }}"
+          priority: "P3"
+
+      - alert: "Mount point(only root) available inodes < 90 P4-P5"
+        expr: 100 - 100 * ( node_filesystem_files_free{host_priority=~"P[4-5]",mountpoint="/",fstype=~"xfs|ext4"} / node_filesystem_files ) > 90
+        annotations:
+          summary: "Mount point: {{ $labels.mountpoint }} available inodes < 90"
+          description: "Go to instance and delete some unused data, notify customer about problems with free space"
+          grafana: "{{ grafana_monit_dashboard }}"
+          access: "{{ wiki_monitoring_access }}"
+          priority: "P3"
+
+
+      - alert: "Mount point(only root) available inodes < 99 P1-P3"
+        expr: 100 - 100 * ( node_filesystem_files_free{host_priority=~"P[1-3]",mountpoint="/",fstype=~"xfs|ext4"} / node_filesystem_files ) > 99
+        annotations:
+          summary: "Mount point: {{ $labels.mountpoint }} available inodes < 99"
+          description: "Go to instance and delete some unused data, notify customer about problems with free space"
+          grafana: "{{ grafana_monit_dashboard }}"
+          access: "{{ wiki_monitoring_access }}"
+          priority: "P2"
+
+      - alert: "Mount point(only root) available inodes < 99 P4-P5"
+        expr: 100 - 100 * ( node_filesystem_files_free{host_priority=~"P[4-5]",mountpoint="/",fstype=~"xfs|ext4"} / node_filesystem_files ) > 99
+        annotations:
+          summary: "Mount point: {{ $labels.mountpoint }} available inodes < 99"
+          description: "Go to instance and delete some unused data, notify customer about problems with free space"
+          grafana: "{{ grafana_monit_dashboard }}"
+          access: "{{ wiki_monitoring_access }}"
+          priority: "P2"
+
+
+      - alert: "Mount point(only root) available inodes < 90"
+        expr: 100 - 100 * ( node_filesystem_files_free{host_priority!~"P[1-5]",mountpoint="/",fstype=~"xfs|ext4"} / node_filesystem_files ) > 90
+        annotations:
+          summary: "Mount point: {{ $labels.mountpoint }} available inodes < 90"
+          description: "Go to instance and delete some unused data, notify customer about problems with free space"
+          grafana: "{{ grafana_monit_dashboard }}"
+          access: "{{ wiki_monitoring_access }}"
+          priority: "P3"
+
+
+  - name: disk readonly alerts
+    rules:
+      - alert: "Mount point(only root) in readonly mode P1-P3"
+        expr: node_filesystem_readonly{host_priority=~"P[1-3]",mountpoint="/",fstype=~"xfs|ext4"} != 0
+        annotations:
+          summary: "Mount point: {{ $labels.mountpoint }} in read only mode"
+          description: "Go to instance and check why mount in read only mode"
+          grafana: "{{ grafana_monit_dashboard }}"
+          access: "{{ wiki_monitoring_access }}"
+          priority: "P1"
+
+      - alert: "Mount point(only root) in readonly mode P4-P5"
+        expr: node_filesystem_readonly{host_priority=~"P[4-5]",mountpoint="/",fstype=~"xfs|ext4"} != 0
+        annotations:
+          summary: "Mount point: {{ $labels.mountpoint }} in read only mode"
+          description: "Go to instance and check why mount in read only mode"
+          grafana: "{{ grafana_monit_dashboard }}"
+          access: "{{ wiki_monitoring_access }}"
+          priority: "P3"
+
+      - alert: "Mount point(only root) in readonly mode"
+        expr: node_filesystem_readonly{host_priority!~"P[1-5]",mountpoint="/",fstype=~"xfs|ext4"} != 0
+        annotations:
+          summary: "Mount point: {{ $labels.mountpoint }} in read only mode"
+          description: "Go to instance and check why mount in read only mode"
+          grafana: "{{ grafana_monit_dashboard }}"
+          access: "{{ wiki_monitoring_access }}"
+          priority: "P3"
+
+
+  - name: "file system not mounted (monit)"
+    rules:
+      - alert: "file system not mounted P1-3"
+        expr: node_monit{host_priority=~"P[1-3]", type="filesystem", key="status"} > 0
+        annotations:
+          summary: "Mount point: {{ $labels.name }} not mounted"
+          description: "Go to instance and check why mount in read only mode"
+          grafana: "{{ grafana_monit_dashboard }}"
+          access: "{{ wiki_monitoring_access }}"
+          priority: "P3"
+
+      - alert: "file system not mounted P4-5"
+        expr: node_monit{host_priority=~"P[4-5]", type="filesystem", key="status"} > 0
+        annotations:
+          summary: "Mount point: {{ $labels.name }} not mounted"
+          description: "Go to instance and check why mount in read only mode"
+          grafana: "{{ grafana_monit_dashboard }}"
+          access: "{{ wiki_monitoring_access }}"
+          priority: "P3"

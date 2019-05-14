@@ -1,0 +1,64 @@
+version: '3'
+
+services:
+  prometheus:
+    image: prom/prometheus:v2.4.2
+    volumes:
+      - ./prometheus/configs:/etc/prometheus/
+      - ./prometheus/storage:/prometheus
+#   ports:
+#     - "127.0.0.1:9090:9090"
+    command: ["--log.level=debug",
+              "--web.external-url=https://prometheus.{{ REMOTE_HOST }}/",
+              "--config.file=/etc/prometheus/prometheus.yml",
+              "--storage.tsdb.path=/prometheus",
+              "--web.console.libraries=/usr/share/prometheus/console_libraries",
+              "--web.console.templates=/usr/share/prometheus/consoles",
+              "--storage.tsdb.retention=30d"]
+
+  alertmanager:
+    image: prom/alertmanager:v0.15.2
+    volumes:
+      - ./alertmanager/config.yml:/etc/alertmanager/config.yml
+      - ./alertmanager/storage:/alertmanager
+#   ports:
+#     - "127.0.0.1:9093:9093"
+    command: ["--log.level=debug",
+              "--web.external-url=https://alertmanager.{{ REMOTE_HOST }}/",
+              "--config.file=/etc/alertmanager/config.yml"]
+
+  grafana:
+    image: grafana/grafana:5.3.0
+    volumes:
+      - ./grafana/storage:/var/lib/grafana
+#   ports:
+#     - "127.0.0.1:3000:3000"
+    env_file:
+      - ./grafana/env
+      - ./grafana/env_secrets
+
+  nginx:
+    image: artiloop/nginx-le-ssl
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d/configs
+      - ./nginx/ssl:/etc/nginx/ssl
+    environment:
+        DOMAINS_LIST: "alertmanager.{{ REMOTE_HOST }},prometheus.{{ REMOTE_HOST }},grafana.{{ REMOTE_HOST }}"
+    depends_on:
+      - prometheus
+      - alertmanager
+      - grafana
+    ports:
+      - "80:80"
+      - "443:443"
+
+  postfix-relay:
+    image: shalb/postfix-relay:0.0.1
+    volumes:
+      - ./postfix-relay/main.cf:/etc/postfix/main.cf
+   #  - ./postfix-relay/var/spool/postfix:/var/spool/postfix
+   #  - ./postfix-relay/var/spool/mail:/var/spool/mail
+    restart: always
+    ports:
+      - "127.0.0.1:25:25"
+

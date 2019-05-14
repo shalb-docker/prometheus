@@ -1,0 +1,40 @@
+# do not forget to quote '&' character for sed, example: '\&'
+grafana_all_alerts_dashboard='https://grafana.MY_DOMAIN/d/bVHuLEamz/all-fails'
+grafana_monit_dashboard='https://grafana.MY_DOMAIN/d/RGx4RH-ik/monit-exporter?orgId=1\&var-node={{ $labels.instance }}'
+grafana_mysql_dashboard='https://grafana.MY_DOMAIN/d/RGx4RH-ik/monit-exporter?orgId=1\&var-node={{ $labels.instance }}'
+wiki_monitoring_access='https://confluence.MY_DOMAIN/display/ALST/Monitoring'
+
+src="prometheus/configs/alert_rules.d_examples/"
+dst="prometheus/configs/alert_rules.d/"
+
+configs="
+prometheus.yml
+cron.yml
+disk.yml
+http.yml
+mail.yml
+memory.yml
+monit.yml
+node_exporter.yml
+nproc.yml
+time_sync.yml
+la.yml
+redis_exporter.yml
+elasticsearch.yml
+monit_collector.yml
+processes.yml
+monit_program.yml
+remote_host.yml
+postgres_exporter.yml
+"
+
+for conf in $configs
+    do
+    cat ${src}${conf} | \
+    sed -e "s@{{ grafana_all_alerts_dashboard }}@$grafana_all_alerts_dashboard@g" | \
+    sed -e "s@{{ grafana_monit_dashboard }}@$grafana_monit_dashboard@g" | \
+    sed -e "s@{{ grafana_mysql_dashboard }}@$grafana_mysql_dashboard@g" | \
+    sed -e "s@{{ wiki_monitoring_access }}@$wiki_monitoring_access@g" \
+    > ${dst}${conf}
+done
+

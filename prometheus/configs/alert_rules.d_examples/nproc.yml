@@ -1,0 +1,33 @@
+groups:
+  - name: nproc alerts
+    rules:
+      - alert: "nproc metric file not available P4-5"
+        expr: node_monit{host_priority=~"P[4-5]", name="nproc_working_file", key="status"} > 0
+        for: 11m
+        annotations:
+          summary: "nproc metric file not available"
+          description: 'Go to instance: "{{ $labels.instance }}" and check why cron job not working: "grep nproc.prom /etc/crontab"'
+          grafana: "{{ grafana_monit_dashboard }}"
+          access: "{{ wiki_monitoring_access }}"
+          priority: "P3"
+
+      - alert: "nproc metric file not available P1-3"
+        expr: node_monit{host_priority=~"P[1-3]", name="nproc_working_file", key="status"} > 0
+        for: 2m
+        annotations:
+          summary: "nproc metric file not available"
+          description: 'Go to instance: "{{ $labels.instance }}" and check why cron job not working: "grep nproc.prom /etc/crontab"'
+          grafana: "{{ grafana_monit_dashboard }}"
+          access: "{{ wiki_monitoring_access }}"
+          priority: "P3"
+
+      - alert: "nproc metric file not available"
+        expr: node_monit{host_priority!~"P[1-5]", name="nproc_working_file", key="status"} > 0
+        for: 2m
+        annotations:
+          summary: "nproc metric file not available"
+          description: 'Go to instance: "{{ $labels.instance }}" and check why cron job not working: "grep nproc.prom /etc/crontab"'
+          grafana: "{{ grafana_monit_dashboard }}"
+          access: "{{ wiki_monitoring_access }}"
+          priority: "P3"
+
