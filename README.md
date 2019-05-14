@@ -37,8 +37,7 @@ systemctl restart docker.service
 
 ~~~~
 mkdir -p /data/monitoring
-git clone https://gitlab.shalb.com/root/configs_samples.git
-ln -s /data/monitoring/configs_samples/prometheus /data/monitoring/prometheus
+git clone https://github.com/shalb-docker/prometheus.git /data/monitoring/prometheus
 chmod 750 /data/monitoring/prometheus/
 ~~~~
 
