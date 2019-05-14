@@ -114,7 +114,7 @@ journalctl -f -u docker_monitoring.service
 ~~~~
 mkdir -p tmp/
 cp grafana/dashboards/* tmp/
-sed -i 's/MY_DATA_SOURCE/YOUR_PROMETHEUS_DATA_SOURCE_HERE/g' tmp/monit_exporter.json tmp/node_exporter.json
+sed -i 's/MY_DATA_SOURCE/YOUR_PROMETHEUS_DATA_SOURCE_HERE/g' tmp/*.json
 ~~~~
 
 # Info
