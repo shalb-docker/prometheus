@@ -36,6 +36,7 @@ for conf in $configs
     sed -e "s@{{ grafana_all_alerts_dashboard }}@$grafana_all_alerts_dashboard@g" | \
     sed -e "s@{{ grafana_monit_dashboard }}@$grafana_monit_dashboard@g" | \
     sed -e "s@{{ grafana_mysql_dashboard }}@$grafana_mysql_dashboard@g" | \
+    sed -e "s@{{ grafana_proxysql_dashboard }}@$grafana_proxysql_dashboard@g" | \
     sed -e "s@{{ wiki_monitoring_access }}@$wiki_monitoring_access@g" \
     > ${dst}${conf}
 done
