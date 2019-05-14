@@ -51,6 +51,9 @@ editor ./add_variables.sh
 cat secrets.example > secrets
 editor secrets
 bash ./add_variables.sh
+mkdir prometheus/storage/
+mkdir grafana/storage/
+mkdir alertmanager/storage/
 chmod -R 777 */storage/
 ~~~~
 
