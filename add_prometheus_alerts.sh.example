@@ -2,7 +2,8 @@
 grafana_all_alerts_dashboard='https://grafana.MY_DOMAIN/d/bVHuLEamz/all-fails'
 grafana_monit_dashboard='https://grafana.MY_DOMAIN/d/RGx4RH-ik/monit-exporter?orgId=1\&var-node={{ $labels.instance }}'
 grafana_mysql_dashboard='https://grafana.MY_DOMAIN/d/RGx4RH-ik/monit-exporter?orgId=1\&var-node={{ $labels.instance }}'
-wiki_monitoring_access='https://confluence.MY_DOMAIN/display/ALST/Monitoring'
+grafana_proxysql_dashboard='https://grafana.MY_DOMAIN/d/RGx4RH-ik/proxysql-overview?orgId=1\&var-proxysql={{ $labels.instance }}\&var-hostgroup={{ $labels.hostgroup }}'
+wiki_monitoring_access='https://confluence.MY_DOMAIN/display/MY_PROJECT/Monitoring'
 
 src="prometheus/configs/alert_rules.d_examples/"
 dst="prometheus/configs/alert_rules.d/"
@@ -26,6 +27,7 @@ processes.yml
 monit_program.yml
 remote_host.yml
 postgres_exporter.yml
+proxysql_exporter.yml
 "
 
 for conf in $configs
