@@ -99,7 +99,7 @@ groups:
     rules:
       - alert: "proxysql_exporter endpoint down P1-3"
         expr: proxysql_connection_pool_status{host_priority=~"P[1-3]"} != 1
-        for: 5m
+        for: 6m
         annotations:
           summary: "proxysql endpoint down"
           description: 'Go to instance: "{{ $labels.instance }}" and check connection to endpoint: "{{ $labels.endpoint }}"'
@@ -109,7 +109,7 @@ groups:
 
       - alert: "proxysql_exporter endpoint down P4-5"
         expr: proxysql_connection_pool_status{host_priority=~"P[4-5]"} != 1
-        for: 15m
+        for: 20m
         annotations:
           summary: "proxysql endpoint down"
           description: 'Go to instance: "{{ $labels.instance }}" and check connection to endpoint: "{{ $labels.endpoint }}"'
