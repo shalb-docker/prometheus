@@ -1,3 +1,37 @@
+   * [Setup](#setup)
+      * [Requirements](#requirements)
+         * [Infrastructure](#infrastructure)
+            * [DNS A-records:](#dns-a-records)
+            * [Instance performance](#instance-performance)
+            * [Instance network](#instance-network)
+               * [Monitoring server](#monitoring-server)
+               * [Monitoring clients](#monitoring-clients)
+      * [install](#install)
+         * [install docker](#install-docker)
+         * [enable docker monitoring and add default log rotation](#enable-docker-monitoring-and-add-default-log-rotation)
+         * [clone repo](#clone-repo)
+         * [replace variables by needed values in add_variables.sh and run it](#replace-variables-by-needed-values-in-add_variablessh-and-run-it)
+         * [add alerts to prometheus config (assign apropriate dashbords links to variables)](#add-alerts-to-prometheus-config-assign-apropriate-dashbords-links-to-variables)
+         * [add hosts to prometheus config and enable needed alert configs](#add-hosts-to-prometheus-config-and-enable-needed-alert-configs)
+         * [configure firewall to get node_exporter from host system](#configure-firewall-to-get-node_exporter-from-host-system)
+         * [run stack (swarm or docker-compose)](#run-stack-swarm-or-docker-compose)
+            * [run stack by swarm](#run-stack-by-swarm)
+            * [run stack by docker-compose](#run-stack-by-docker-compose)
+   * [Add dashboards](#add-dashboards)
+      * [change data source then import to grafana](#change-data-source-then-import-to-grafana)
+   * [Info](#info)
+      * [Our public repo with usefull code](#our-public-repo-with-usefull-code)
+   * [Useful commands](#useful-commands)
+      * [Dashboards manipulations](#dashboards-manipulations)
+         * [update data source to standard value (ready to customize)](#update-data-source-to-standard-value-ready-to-customize)
+      * [Services management](#services-management)
+         * [down all containers (swarm)](#down-all-containers-swarm)
+         * [check running services](#check-running-services)
+         * [restart prometheus (swarm)](#restart-prometheus-swarm)
+         * [check prometheus logs (swarm)](#check-prometheus-logs-swarm)
+         * [reload prometheus](#reload-prometheus)
+   * [Get binary exporters from docker containers images if no in repository](#get-binary-exporters-from-docker-containers-images-if-no-in-repository)
+
 # Setup
 
 ## Requirements
@@ -258,5 +292,3 @@ docker cp ${container_id}:/ ./
 
 # find needed binary in ./, copy it to playbook or to needed host
 ~~~~
-
-
