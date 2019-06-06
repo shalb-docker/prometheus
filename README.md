@@ -78,7 +78,7 @@ Next ports and protocols should be allowed:
 
 ~~~~
 INPUT
-9100-9999 - from "Monitoring server"
+9100-9999 TCP - from "Monitoring server"
 ~~~~
 
 ## install
