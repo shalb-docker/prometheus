@@ -1,14 +1,53 @@
 # Setup
 
-## install
+## Requirements
 
-### create DNS A-records:
+### Infrastructure
 
-~~~
+#### DNS A-records:
+
+~~~~
 prometheus.my_domain.com
 alertmanager.my_domain.com
 grafana.my_domain.com
-~~~
+~~~~
+
+#### Instance performance
+
+Minimal:
+
+~~~~
+CPU: 1 core
+RAM: 1 Gib
+Disk: 40 Gib - regular persistent disk mounted to "/data" without destroy in case of instance delete
+Network: static IP address accessible from Internet
+~~~~
+
+#### Instance network
+
+##### Monitoring server
+
+Next ports and protocols should be allowed:
+
+~~~~
+INPUT:
+80,443 TCP - from Internet
+
+OUTPUT:
+All TCP/UDP
+All ICMP
+~~~~
+
+##### Monitoring clients
+
+Next ports and protocols should be allowed:
+
+~~~~
+INPUT
+9100-9999 - from "Monitoring server"
+~~~~
+
+## install
 
 ### install docker
 
