@@ -1,5 +1,0 @@
-# description: alert if cron test job not working
-CHECK FILE cron_working_file-P3-team_noalert WITH PATH /tmp/monit_cron_test
-  IF TIMESTAMP > 80 seconds THEN alert
-  IF NOT EXIST FOR 8 CYCLES THEN alert
-

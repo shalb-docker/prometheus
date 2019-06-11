@@ -33,20 +33,3 @@
 - include: network_interfaces.yml
   tags: [monit_role_network_interfaces_config,monit_role]
 
-# add atop related staff
-#- include: atop.yml
-#  tags: monit_role_atop
-
-# services configs 
-#- include: services.yml
-#  tags: [monit_role_services_config,monit_role]
-#  when: services
-
-# config for remote hosts monitoring
-#- include: remote_hosts_to_check.yml
-#  tags: [monit_role_remote_hosts_to_check_config,monit_role]
-#  when: remote_hosts_to_check
-
-# start monit
-#- include: start.yml
-#  tags: [monit_role_basic,monit_role_start_monit,monit_role]

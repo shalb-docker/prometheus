@@ -1,5 +1,0 @@
----
-- name: Check if atop binary exist
-  file:
-    path: "/usr/bin/atop"
-    state: file

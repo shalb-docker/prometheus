@@ -1,5 +1,0 @@
-# {{ ansible_managed }}
-
-CHECK PROGRAM file_systems_local PATH "/bin/echo monit_test_write > /monit_test_write" TIMEOUT 5 SECONDS
-  if status != 0 then alert
-
