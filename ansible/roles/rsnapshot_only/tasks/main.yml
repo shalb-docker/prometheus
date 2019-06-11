@@ -2,33 +2,33 @@
 # install rsnapshot
 - include: install_RedHat.yml
   when: ansible_os_family == 'RedHat'
-  tags: [rsnapshot_only_install,rsnapshot_only]
+  tags: [rsnapshot_only_role_install,rsnapshot_only_role]
 
 - include: install_Debian.yml
   when: ansible_os_family == 'Debian'
-  tags: [rsnapshot_only_install,rsnapshot_only]
+  tags: [rsnapshot_only_role_install,rsnapshot_only_role]
 
 - include: install_Gentoo.yml
   when: ansible_os_family == 'Gentoo'
-  tags: [rsnapshot_only_install,rsnapshot_only]
+  tags: [rsnapshot_only_role_install,rsnapshot_only_role]
 
 # add config
 - include: configuration.yml
-  tags: [rsnapshot_only_config,rsnapshot_only]
+  tags: [rsnapshot_only_role_config,rsnapshot_only_role]
 
 # add monitoring script and config
 - include: monitoring.yml
-  tags: [rsnapshot_only_monitoring,rsnapshot_only]
+  tags: [rsnapshot_only_role_monitoring,rsnapshot_only_role]
 
 # add backuup scripts
 - include: scripts.yml
-  tags: [rsnapshot_only_scripts,rsnapshot_only]
+  tags: [rsnapshot_only_role_scripts,rsnapshot_only_role]
 
 # add cron jobs
 - include: cron.yml
-  tags: [rsnapshot_only_cron,rsnapshot_only]
+  tags: [rsnapshot_only_role_cron,rsnapshot_only_role]
 
 # initial run
 - include: init.yml
-  tags: [rsnapshot_only_init,rsnapshot_only]
+  tags: [rsnapshot_only_role_init,rsnapshot_only_role]
 
