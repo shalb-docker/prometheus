@@ -106,3 +106,40 @@ scrape_configs:
         regex: 'count_on_tables_count'
         action: keep
 
+# AWS EC2 autodiscovery example
+  - job_name: 'ec2 infra'
+    ec2_sd_configs:
+      - region: us-west-2
+        access_key: 00000000000000000000
+        secret_key: 0000000000000000000000000000000000000000
+        refresh_interval: 120s
+        port: 9100
+    relabel_configs:
+      - source_labels: [__meta_ec2_tag_MAINTAINER]
+        regex: 'Shalb|Dev'
+        action: keep
+      - source_labels: [__meta_ec2_instance_id]
+        target_label: instance_id
+      - source_labels: [__meta_ec2_instance_type]
+        target_label: instance_type
+      - source_labels: [__meta_ec2_tag_Name]
+        target_label: instance
+        regex: 'infra\-(.*)'
+        replacement: '$1.infra.aws.example.com:9100'
+      - source_labels: [__meta_ec2_tag_APP_NAME]
+        target_label: app_name
+      - source_labels: [__meta_ec2_tag_AWS_ACCOUNT]
+        target_label: aws_account
+      - source_labels: [__meta_ec2_tag_MAINTAINER]
+        target_label: maintainer
+      - source_labels: [__meta_ec2_tag_RESOURCE_NAME]
+        target_label: resource_name
+      - source_labels: [__meta_ec2_tag_ROLE]
+        target_label: role
+      - source_labels: [__meta_ec2_tag_SERVER_ENV]
+        target_label: server_env
+      - source_labels: [__meta_ec2_tag_CREATOR]
+        target_label: creator
+      - source_labels: [__meta_ec2_tag_DOMAIN]
+        target_label: domain
+
