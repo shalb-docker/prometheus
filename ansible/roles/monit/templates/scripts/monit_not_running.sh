@@ -12,5 +12,6 @@ if [ "$monit_procs" != "1" ]
     then /etc/init.d/monit restart
 {% endif %}
          echo $string > $file
+	 chown {{ monit_monitoring_user }}:{{ monit_monitoring_user }} $file
 fi
 
