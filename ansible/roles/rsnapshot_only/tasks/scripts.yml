@@ -1,0 +1,15 @@
+---
+- name: Copy Mysql backup script
+  template:
+    src: mysqlbackup.sh.j2
+    dest: /usr/local/bin/mysqlbackup.sh
+    mode: 0700
+  when: "'mysql' in services_backup"
+
+- name: Copy Mongodb backup script
+  template:
+    src: mongobackup.sh.j2
+    dest: /usr/local/bin/mongobackup.sh
+    mode: 0700
+  when: "'mongodb' in services_backup"
+

@@ -1,0 +1,52 @@
+---
+# tasks file for monit
+
+# install
+- include: install.yml
+  tags: [monit_basic,monit_install,monit_role]
+
+# configure 
+- include: configure.yml
+  tags: [monit_basic,monit_configure,monit_role]
+
+# add monit stats collection
+- include: monit_stats.yml
+  tags: [monit_basic,monit_stats,monit_role]
+
+# add checks scripts
+#- include: scripts.yml
+#  tags: [monit_scripts,monit_role]
+
+# restart monit by cron job
+- include: cron.yml
+  tags: [monit_cron,monit_role]
+
+# system configs 
+- include: system_config.yml
+  tags: [monit_system_config,monit_role]
+
+# file systems configs 
+- include: mounts.yml
+  tags: [monit_file_systems_config,monit_mounts,monit_role]
+
+# network interfaces configs 
+- include: network_interfaces.yml
+  tags: [monit_network_interfaces_config,monit_role]
+
+# add atop related staff
+#- include: atop.yml
+#  tags: monit_atop
+
+# services configs 
+#- include: services.yml
+#  tags: [monit_services_config,monit_role]
+#  when: services
+
+# config for remote hosts monitoring
+#- include: remote_hosts_to_check.yml
+#  tags: [monit_remote_hosts_to_check_config,monit_role]
+#  when: remote_hosts_to_check
+
+# start monit
+#- include: start.yml
+#  tags: [monit_basic,monit_start_monit,monit_role]

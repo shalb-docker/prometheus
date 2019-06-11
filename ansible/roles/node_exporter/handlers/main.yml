@@ -1,0 +1,16 @@
+---
+- name: restart_gentoo_service
+  command: "/etc/init.d/node_exporter restart"
+
+- name: restart_systemd_service
+  shell: "systemctl daemon-reload && systemctl restart node_exporter.service"
+
+- name: restart_amazon_service
+  shell: "/etc/init.d/node_exporter restart && chkconfig --level 2345 node_exporter on"
+
+- name: restart_debian_service
+  command: "/etc/init.d/node_exporter restart"
+
+- name: monit_reload
+  shell: "/usr/bin/monit -t && /usr/bin/monit reload"
+

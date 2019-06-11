@@ -1,0 +1,38 @@
+---
+- name: Add user for monitoring soft
+  user:
+    name: monitoring
+    shell: /bin/bash
+
+- name: "Create directory for opsgenie lamp files"
+  file:
+    dest: "/opt/opsgenie_lamp"
+    state: directory
+    mode: 0750
+    owner: root
+    group: monitoring
+
+- name: "Create directory for opsgenie_lamp config"
+  file:
+    dest: "/opt/opsgenie_lamp/conf"
+    state: directory
+    mode: 0750
+    owner: root
+    group: monitoring
+
+- name: Copy opsgenie lamp binary
+  copy:
+    src: "opsgenie_lamp"
+    dest: "/opt/opsgenie_lamp/lamp"
+    mode: 0750
+    owner: root
+    group: monitoring
+
+- name: Copy opsgenie lamp config
+  template:
+    src: "opsgenie_lamp.conf"
+    dest: "/opt/opsgenie_lamp/conf/lamp.conf"
+    mode: 0640
+    owner: root
+    group: monitoring
+

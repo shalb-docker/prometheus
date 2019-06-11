@@ -1,0 +1,59 @@
+# {{ ansible_managed }}
+
+set daemon  {{ monit_service_check_interval }}
+set logfile {{ monit_logs_dir }}monit.log
+
+set pidfile {{ monit_pid_file }}
+set idfile {{ monit_home_dir }}.monit.id
+set statefile {{ monit_home_dir }}.monit.state
+
+set limits {
+  programOutput:     512 B,      # check program's output truncate limit
+  sendExpectBuffer:  256 B,      # limit for send/expect protocol test
+  fileContentBuffer: 512 B,      # limit for file content test
+  httpContentBuffer: 1 MB,       # limit for HTTP content test
+  networkTimeout:    {{ monit_timeouts }} seconds   # timeout for network I/O
+  programTimeout:    {{ monit_timeouts }} seconds # timeout for check program
+  stopTimeout:       {{ monit_timeouts }} seconds  # timeout for service stop
+  startTimeout:      {{ monit_timeouts }} seconds  # timeout for service start
+  restartTimeout:    {{ monit_timeouts }} seconds  # timeout for service restart
+}
+
+{% if monit_mail_server_host %}
+set mailserver {{ monit_mail_server_host }}
+{% endif %}
+
+{% if monit_collector_host %}
+set mmonit {{ monit_collector_protocol }}://{{ monit_collector_user }}:{{ monit_collector_password }}@{{ monit_collector_host }}:{{ monit_collector_port }}{{ monit_collector_url }}
+{% endif %}
+set mmonit http://admin:admin@127.0.0.1:8888/collector
+
+set eventqueue
+  basedir /root/monit/eventqueue  # set the base directory where events will be stored
+  slots 100                       # optionally limit the queue size
+
+set mail-format {
+  from: monit@$HOST
+  subject: $HOST | $SERVICE | [NOSR]
+  message: $EVENT Service $SERVICE
+  Date:        $DATE
+  Action:      $ACTION
+  Host:        $HOST
+  Description: $DESCRIPTION
+
+{% if monit_collector_host %}
+   see details:  {{ monit_collector_protocol }}://{{ monit_collector_host }}:{{ monit_collector_port }}/
+{% endif %}
+}
+
+{% for item in monit_alert_email %}
+set alert {{ item }} not on { instance, action }    
+{% endfor %}
+
+set httpd port 2812 and
+    use address localhost  # only accept connection from localhost
+    allow localhost        # allow localhost to connect to the server and
+    allow admin:"{{ monit_httpd_password }}"      # require user 'admin' with password
+
+include {{ monit_includes_path }}
+

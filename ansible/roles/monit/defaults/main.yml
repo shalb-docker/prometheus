@@ -1,0 +1,60 @@
+---
+# defaults file for monit
+# monitoring user for user tasks
+monit_monitoring_user: "monitoring"
+# group to add additional metrics by scripts
+monit_textfile_group: "node_exporter_textfile"
+# textfile directory for node_exporter additional metrics
+monit_textfile_directory: "/home/monitoring/node_exporter/textfile_directory/"
+# home dir for monit temporary files
+monit_home_dir: "/root/monit/"
+# logs dir for monit and check scripts
+monit_logs_dir: "/var/log/monit/"
+# pid file location
+monit_pid_file: "/run/.monit.pid"
+# dir for check scripts
+monit_scripts_dir: "/usr/local/scripts/monit/"
+# main config for monit
+monit_config_file_path: "/etc/monitrc"
+# monit binary location
+monit_exec_file_path: "/usr/bin/monit"
+# main includes glob
+monit_includes_path: "/etc/monit.d/*.conf"
+# main includes dir
+monit_includes_dir: "/etc/monit.d/"
+# check interval aka cycle
+monit_service_check_interval: 10
+# mail server, which used for alerts
+monit_mail_server_host: ""
+# destination email for alerts
+#monit_alert_email:
+#  - "noreply@notexistant.nodomain"
+monit_alert_email: ''
+# dir for check scripts temporary files
+monit_scripts_tmp: "/root/monit/scripts_tmp/"
+
+monit_httpd_password: "jfdsajkfhuHdsbnsd2332uDfdjfn309fnvx"
+#monit_httpd_password: "encrypted by vault, located in group_vars/all/all.vault.yml or further in ansible hierarchy"
+# you able to edit encrypted vault files via ansible-vault edit group_vars/all/all.vault.yml
+
+# collector address options, which used in config string:
+# {{ monit_collector_protocol }}://{{ monit_collector_user }}:{{ monit_collector_password }}@{{ monit_collector_host }}:{{ monit_collector_port }}{{ monit_collector_url }}
+# allowed protocol is http or https
+#monit_collector_protocol: "located in group_vars/all/all.yml or further in ansible hierarchy"
+#monit_collector_user:     "encrypted by vault, located in group_vars/all/all.vault.yml or further in ansible hierarchy"
+#monit_collector_password: "encrypted by vault, located in group_vars/all/all.vault.yml or further in ansible hierarchy"
+#monit_collector_host:     "located in group_vars/all/all.yml or further in ansible hierarchy"
+monit_collector_host: ""
+monit_collector_port: 8080
+monit_collector_url: "/collector"
+services: {}
+scripts: {}
+remote_hosts_to_check: {}
+mounts: {}
+network_interfaces: {}
+# curtom alerts levels - set value if need customization
+# alert if LA > alert_la
+alert_la: ""
+# alert if fs used space > monit_alert_fs
+alert_memory: 80
+monit_timeouts: 10

@@ -1,0 +1,51 @@
+#!/bin/sh
+
+# /etc/init.d/monit_collector
+#
+# Written by gelo
+#
+
+### BEGIN INIT INFO
+# Provides:          monit_collector
+# Required-Start:    $remote_fs
+# Required-Stop:     $remote_fs
+# Should-Start:      $all
+# Should-Stop:       $all
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: monit_collector
+# Description:       monit_collector
+### END INIT INFO
+
+# {{ ansible_managed }}
+
+start() {
+    su {{ monit_collector_monitoring_user }} -c "{{ monit_collector_script_name }} --daemon"
+}
+
+stop() {
+    kill -15 $(cat {{ monit_collector_pid_file }})
+}
+
+restart() {
+    stop
+    sleep 10
+    start
+}
+
+case "$1" in
+    start)
+        start
+        ;;
+    stop)
+        stop
+        ;;
+    restart)
+        restart
+        ;;
+    *)
+        echo $"Usage: $0 {start|stop|restart}"
+        exit 2
+esac
+exit $?
+

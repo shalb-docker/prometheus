@@ -1,0 +1,27 @@
+---
+- name: "Create dirs for monit scripts"
+  file:
+    dest: "{{ item }}"
+    state: directory
+    owner: root
+    group: root
+    recurse: yes
+  with_items:
+    - "{{ monit_scripts_dir }}"
+    - "{{ monit_scripts_tmp }}"
+
+- name: "Add script for generation network_interfaces.conf"
+  template:
+    src: "scripts/create_network_interfaces_checks.sh"
+    dest: "{{ monit_scripts_dir }}create_network_interfaces_checks.sh"
+    mode: 0750
+    owner: root
+    group: root
+
+- name: "Create /etc/monit.d/network_interfaces.conf"
+  command: "{{ monit_scripts_dir }}create_network_interfaces_checks.sh"
+  args:
+    creates: /etc/monit.d/network_interfaces.conf
+  notify:
+    - "check_config_and_reload"
+

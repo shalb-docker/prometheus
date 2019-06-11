@@ -1,0 +1,33 @@
+---
+- name: "Add mail queue metric to node_exporter {{ node_exporter_textfile_directory }}/mail_queue.prom"
+  cron:
+    name: "Mail queue metric to node_exporter"
+    minute: "*/5"
+    cron_file: "/etc/crontab"
+    user: "{{ node_exporter_monitoring_user }}"
+    job: '/usr/local/scripts/mailq_check.py > /dev/null 2>&1'
+
+- name: Add mail_queue check script
+  template:
+    src: "scripts/mailq_check.py"
+    dest: "/usr/local/scripts/mailq_check.py"
+    mode: 0750
+    owner: root
+    group: "{{ node_exporter_monitoring_user }}"
+
+- name: Create mail_queue file for node_exporter
+  command: '/usr/local/scripts/mailq_check.py'
+  become: yes
+  become_user: "{{ node_exporter_monitoring_user }}"
+  args:
+    creates: "{{ node_exporter_textfile_directory }}/mail_queue.prom"
+
+- name: Add mail_queue result check to monit
+  template:
+    src: "monit.d/mail_queue.conf.j2"
+    dest: "/etc/monit.d/mail_queue.conf"
+    mode: 0640
+    owner: root
+    group: root
+  notify: monit_reload
+

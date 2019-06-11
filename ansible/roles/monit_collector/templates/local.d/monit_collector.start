@@ -1,0 +1,4 @@
+#!/bin/bash
+
+su {{ monit_collector_monitoring_user }} -c "{{ monit_collector_script_name }} --daemon"
+

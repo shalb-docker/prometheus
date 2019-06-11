@@ -1,0 +1,5 @@
+---
+- name: install rsnapshot
+  yum:
+    name: rsnapshot
+    enablerepo: epel

@@ -1,0 +1,2 @@
+check file test_file_-P5-team_monitoring with path /tmp/test
+    if failed checksum then alert

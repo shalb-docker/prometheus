@@ -1,0 +1,32 @@
+---
+- name: Add monit running check script
+  template:
+    src: "scripts/monit_not_running.sh"
+    dest: "/usr/local/bin/monit_not_running.sh"
+    mode: 0750
+    owner: root
+    group: "{{ monit_monitoring_user }}"
+
+- name: Add monit running check script to crontab
+  cron:
+    name: "if monit running check script"
+    cron_file: "/etc/crontab"
+    user: root
+    job: "/usr/local/bin/monit_not_running.sh > /dev/null 2>&1"
+
+- name: Add job for monit cron check
+  cron:
+    name: "job for monit cron check"
+    cron_file: "/etc/crontab"
+    user: "{{ monit_monitoring_user }}"
+    job: "date > /tmp/monit_cron_test"
+
+- name: Add monit running check script
+  template:
+    src: "monit.d/cron_working.conf.j2"
+    dest: "/etc/monit.d/cron_working.conf"
+    mode: 0640
+    owner: root
+    group: root
+  notify: check_config_and_reload
+

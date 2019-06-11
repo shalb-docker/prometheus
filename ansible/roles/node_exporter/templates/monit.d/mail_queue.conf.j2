@@ -1,0 +1,4 @@
+# description: if file {{ node_exporter_textfile_directory }}/mail_queue.prom not exist - then cron job did not create it
+CHECK FILE mail_queue_working_file-P3-team_noalert WITH PATH {{ node_exporter_textfile_directory }}/mail_queue.prom
+  IF NOT EXIST FOR 35 CYCLES THEN alert
+

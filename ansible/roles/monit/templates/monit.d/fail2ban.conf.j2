@@ -1,0 +1,9 @@
+# {{ ansible_managed }}
+
+CHECK PROCESS {{ services['fail2ban']['name'] }} MATCHING "{{ services['fail2ban']['regexp'] }}"
+  IF NOT EXIST FOR 1 CYCLES THEN {{ services['fail2ban']['action'] }}
+{% if services['fail2ban']['action'] != "alert" %}
+  REPEAT EVERY {{ services['fail2ban']['repeat_interval'] }} CYCLES
+{% endif %}
+  group fail2ban
+

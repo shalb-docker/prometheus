@@ -1,0 +1,94 @@
+# {{ ansible_managed }}
+
+# Logs
+# run 'atop -r /var/log/monit/logname' for check
+# use 't' and 'T' for forward and backward navigation
+#CHECK SYSTEM $HOST
+CHECK SYSTEM {{ inventory_hostname }}
+  IF LOADAVG (1min) > {{ la_alert_value }} THEN EXEC "/usr/bin/flock -xw 1 /tmp/monit_atop.lock -c '/usr/local/scripts/monit/atop.sh loadavg 3 20'"
+# IF LOADAVG (1min) > {{ number_of_cores['stdout'] }} THEN EXEC "/usr/bin/flock -xw 1 /tmp/monit_atop.lock -c '/usr/local/scripts/monit/atop.sh loadavg 3 20'"
+  IF MEMORY USAGE > 90% THEN EXEC "/usr/bin/flock -xw 1 /tmp/monit_atop.lock -c '/usr/local/scripts/monit/atop.sh memory 3 20'"
+{% if services.get('mysql') %}
+  IF LOADAVG (1min) > {{ number_of_cores['stdout'] }} THEN EXEC "/usr/bin/flock -xw 1 /tmp/monit_mysql.lock -c '/usr/local/scripts/monit/get_mysql_processlist.sh loadavg'"
+  IF MEMORY USAGE > 90% THEN EXEC "/usr/bin/flock -xw 1 /tmp/monit_mysql.lock -c '/usr/local/scripts/monit/get_mysql_processlist.sh memory'"
+{% endif %}
+{% if services.get('apache') %}
+  IF LOADAVG (1min) > {{ number_of_cores['stdout'] }} THEN EXEC "/usr/bin/flock -xw 1 /tmp/monit_get_apache_status.lock -c '/usr/local/scripts/monit/get_apache_status.sh loadavg'"
+  IF MEMORY USAGE > 90% THEN EXEC "/usr/bin/flock -xw 1 /tmp/monit_get_apache_status.lock -c '/usr/local/scripts/monit/get_apache_status.sh memory'"
+{% endif %}
+#{% for item in monit_alert_email %}
+#  NOALERT {{ item }}
+#{% endfor %}
+
+
+# example command for fast slow requests file parsing:
+# /usr/local/scripts/monit/get_apache_status.py --print_slow_requests --max_request_time=10 --html_file="/var/log/monit/monit_apache_status_have_slow_requests_2017_09_14_18_36.html"
+CHECK PROGRAM apache_have_slow_requests PATH "/usr/local/scripts/monit/get_apache_status.py --have_slow_requests --max_request_time=10"
+  IF STATUS != 0 FOR 1 CYCLES THEN EXEC "/usr/bin/flock -xw 1 /tmp/monit_atop.lock -c '/usr/local/scripts/monit/atop.sh have_slow_requests 1 10'"
+  IF STATUS != 0 FOR 1 CYCLES THEN EXEC "/usr/bin/flock -xw 1 /tmp/monit_get_apache_status.lock -c '/usr/local/scripts/monit/get_apache_status.sh have_slow_requests'"
+  IF STATUS != 0 FOR 1 CYCLES THEN EXEC "/usr/bin/flock -xw 1 /tmp/monit_mysql.lock -c '/usr/local/scripts/monit/get_mysql_processlist.sh have_slow_requests'"
+{% for item in monit_alert_email %}
+  NOALERT {{ item }}
+{% endfor %}
+  depends on apache
+  group apache
+
+
+# Logs
+# run 'atop -r /var/log/monit/logname' for check
+# use 't' and 'T' for forward and backward navigation
+CHECK PROGRAM available_mysql_connections PATH "/usr/local/scripts/monit/available_mysql_connections.sh 50"
+  IF STATUS != 0 FOR 1 CYCLES THEN EXEC "/usr/bin/flock -xw 1 /tmp/monit_atop.lock -c '/usr/local/scripts/monit/atop.sh available_mysql_connections 3 20'"
+  IF STATUS != 0 FOR 1 CYCLES THEN EXEC "/usr/bin/flock -xw 1 /tmp/monit_mysql.lock -c '/usr/local/scripts/monit/get_mysql_processlist.sh available_mysql_connections'"
+{% for item in monit_alert_email %}
+  NOALERT {{ item }}
+{% endfor %}
+  depends on mysql
+  group mysql
+
+
+# Logs
+# run 'atop -r /var/log/monit/logname' for check
+# use 't' and 'T' for forward and backward navigation
+CHECK PROGRAM available_fpm_childrens PATH "/usr/local/scripts/monit/available_fpm_childrens.sh 20 {{ services['php-fpm']['config_file'] }}"
+  IF STATUS != 0 FOR 1 CYCLES THEN EXEC "/usr/bin/flock -xw 1 /tmp/monit_atop.lock -c '/usr/local/scripts/monit/atop.sh available_fpm_childrens 3 20'"
+  IF STATUS != 0 FOR 1 CYCLES THEN EXEC "/usr/bin/flock -xw 1 /tmp/monit_mysql.lock -c '/usr/local/scripts/monit/get_mysql_processlist.sh available_fpm_childrens'"
+{% for item in monit_alert_email %}
+  NOALERT {{ item }}
+{% endfor %}
+  depends on php-fpm
+  group php-fpm
+
+CHECK PROGRAM fpm_slow WITH PATH "/usr/bin/flock -xw 1 /tmp/monit_fpm_slow.lock -c '/usr/local/scripts/monit/fpm_slow.sh {{ services['php-fpm']['slow_log'] }} {{ services['php-fpm']['name'] }}'"
+  IF STATUS != 0 FOR 1 CYCLES THEN EXEC "/usr/bin/flock -xw 1 /tmp/monit_mysql.lock -c '/usr/local/scripts/monit/get_mysql_processlist.sh fpm_slow 10 2'"
+  IF STATUS != 0 FOR 1 CYCLES THEN EXEC "/usr/bin/flock -xw 1 /tmp/monit_atop.lock -c '/usr/local/scripts/monit/atop.sh fpm_slow 1 10'"
+{% for item in monit_alert_email %}
+  NOALERT {{ item }}
+{% endfor %}
+  depends on php-fpm
+  group php-fpm
+
+# Logs
+# run 'atop -r /var/log/monit/logname' for check
+# use 't' and 'T' for forward and backward navigation
+CHECK PROGRAM available_fpm2_childrens PATH "/usr/local/scripts/monit/available_fpm_childrens.sh 20 {{ services['php-fpm2']['config_file'] }}"
+  IF STATUS != 0 FOR 1 CYCLES THEN EXEC "/usr/bin/flock -xw 1 /tmp/monit_atop.lock -c '/usr/local/scripts/monit/atop.sh available_fpm2_childrens 3 20'"
+  IF STATUS != 0 FOR 1 CYCLES THEN EXEC "/usr/bin/flock -xw 1 /tmp/monit_mysql.lock -c '/usr/local/scripts/monit/get_mysql_processlist.sh available_fpm2_childrens'"
+{% for item in monit_alert_email %}
+  NOALERT {{ item }}
+{% endfor %}
+  depends on php-fpm2
+  group php-fpm2
+
+CHECK PROGRAM fpm2_slow WITH PATH "/usr/bin/flock -xw 1 /tmp/monit_fpm2_slow.lock -c '/usr/local/scripts/monit/fpm_slow.sh {{ services['php-fpm2']['slow_log'] }} {{ services['php-fpm2']['name'] }}'"
+  IF STATUS != 0 FOR 1 CYCLES THEN EXEC "/usr/bin/flock -xw 1 /tmp/monit_mysql.lock -c '/usr/local/scripts/monit/get_mysql_processlist.sh fpm2_slow 10 2'"
+  IF STATUS != 0 FOR 1 CYCLES THEN EXEC "/usr/bin/flock -xw 1 /tmp/monit_atop.lock -c '/usr/local/scripts/monit/atop.sh fpm2_slow 1 10'"
+{% for item in monit_alert_email %}
+  NOALERT {{ item }}
+{% endfor %}
+  depends on php-fpm2
+  group php-fpm2
+
+CHECK PROGRAM log_la PATH "/usr/local/scripts/monit/log_la.sh"
+  IF STATUS != 0 FOR 1 CYCLES THEN alert
+

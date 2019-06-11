@@ -1,0 +1,27 @@
+#!/bin/bash
+
+LOG="/var/log/mysqlbackup.log"
+dumpopts='--opt --single-transaction --skip-lock-tables --routines'
+list=$(/usr/bin/mysqlshow --defaults-file=/root/.my.cnf | egrep -v '(performance_schema|information_schema|Databases|assistant_old|\-\-)'| tr -d "\|")
+
+echo "Info: databasess to dump list:" > $LOG
+echo $list >> $LOG
+
+for db in $list
+    do
+    mysql --defaults-file=/root/.my.cnf -e "SET GLOBAL SQL_BIG_SELECTS = 1;"
+#   current_max_allowed_packet=$(mysql --defaults-file=/root/.my.cnf -e "SHOW GLOBAL VARIABLES LIKE 'max_allowed_packet'\G" | grep 'Value:' | awk '{print $2}')
+#   if [ "$current_max_allowed_packet" == "" ]
+#       then echo "Code has no current_max_allowed_packet, fix it please" && exit 1
+#   fi
+    mysql --defaults-file=/root/.my.cnf -e "SET GLOBAL max_allowed_packet = 10000000;"
+    echo "dump started, db: ${db}" >> $LOG
+    ionice -c3 nice -n19 /usr/bin/mysqldump --defaults-file=/root/.my.cnf ${dumpopts} ${db} 2>>${LOG} | gzip > ${db}.sql.gz || echo "Error: mysqldump exit code: $?" >> $LOG
+    mysql --defaults-file=/root/.my.cnf -e "SET GLOBAL SQL_BIG_SELECTS = 0;"
+#   mysql --defaults-file=/root/.my.cnf -e "SET GLOBAL max_allowed_packet = ${current_max_allowed_packet};"
+done
+
+if [ "$list" == "" ]; then
+    echo "Error: no databases to dump" >> $LOG
+fi
+

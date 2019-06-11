@@ -1,0 +1,9 @@
+---
+node_exporter_monitoring_user: "monitoring"
+node_exporter_listen_address: "0.0.0.0"
+node_exporter_listen_port: 9100
+node_exporter_textfile_directory: "/home/monitoring/node_exporter/textfile_directory/"
+node_exporter_textfile_group: "node_exporter_textfile"
+node_exporter_version: "0.16"
+node_exporter_mailq: false
+node_exporter_disk: false

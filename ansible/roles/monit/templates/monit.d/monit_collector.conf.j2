@@ -1,0 +1,12 @@
+# {{ ansible_managed }}
+
+CHECK PROCESS {{ services['monit_collector']['name'] }} MATCHING "{{ services['monit_collector']['regexp'] }}"
+  IF NOT EXIST FOR 1 CYCLES THEN {{ services['monit_collector']['action'] }}
+{% if services['monit_collector']['action'] != "alert" %}
+  REPEAT EVERY {{ services['monit_collector']['repeat_interval'] }} CYCLES
+{% endif %}
+{% if services['monit_collector'].get('port') %}
+  IF FAILED PORT {{ services['monit_collector']['port'] }} FOR 1 CYCLES THEN alert
+{% endif %}
+  group {{ services['monit_collector']['name'] }}
+

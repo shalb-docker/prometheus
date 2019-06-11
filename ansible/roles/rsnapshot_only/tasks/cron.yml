@@ -1,0 +1,31 @@
+---
+- name: Add daily cron job for rsnapshot
+  cron:
+    name: "Daily cron job for rsnapshot backup"
+    cron_file: /etc/crontab
+    user: root
+    minute: 0
+    hour: 2
+    day: "2-6,8-13,15-20,22-27,29-31"
+    job: "/usr/bin/flock -xw 43200 /tmp/rsnapshot.lock /usr/bin/rsnapshot -c /etc/rsnapshot.conf daily  > /var/log/rsnapshot_daily 2>&1"
+
+- name: Add weekly cron job for rsnapshot
+  cron:
+    name: "Weekly cron job for rsnapshot backup"
+    cron_file: /etc/crontab
+    user: root
+    minute: 0
+    hour: 2
+    day: "1,7,14,21"
+    job: "/usr/bin/flock -xw 43200 /tmp/rsnapshot.lock /usr/bin/rsnapshot -c /etc/rsnapshot.conf daily  > /var/log/rsnapshot_daily 2>&1 && /usr/bin/flock -xw 43200 /tmp/rsnapshot.lock /usr/bin/rsnapshot -c /etc/rsnapshot.conf weekly > /var/log/rsnapshot_weekly 2>&1"
+
+- name: Add monthly cron job for rsnapshot
+  cron:
+    name: "Monthly cron job for rsnapshot backup"
+    cron_file: /etc/crontab
+    user: root
+    minute: 0
+    hour: 2
+    day: 28
+    job: "/usr/bin/flock -xw 43200 /tmp/rsnapshot.lock /usr/bin/rsnapshot -c /etc/rsnapshot.conf daily  > /var/log/rsnapshot_daily 2>&1 && /usr/bin/flock -xw 43200 /tmp/rsnapshot.lock /usr/bin/rsnapshot -c /etc/rsnapshot.conf weekly > /var/log/rsnapshot_weekly 2>&1 && /usr/bin/flock -xw 43200 /tmp/rsnapshot.lock /usr/bin/rsnapshot -c /etc/rsnapshot.conf monthly > /var/log/rsnapshot_monthly 2>&1"
+

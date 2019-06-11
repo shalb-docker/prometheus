@@ -1,0 +1,9 @@
+# {{ ansible_managed }}
+
+CHECK PROCESS {{ services['filebeat']['name'] }} MATCHING "{{ services['filebeat']['regexp'] }}"
+  IF NOT EXIST FOR 1 CYCLES THEN {{ services['filebeat']['action'] }}
+{% if services['filebeat']['action'] != "alert" %}
+  REPEAT EVERY {{ services['filebeat']['repeat_interval'] }} CYCLES
+{% endif %}
+  group {{ services['filebeat']['name'] }}
+

@@ -1,0 +1,128 @@
+---
+- name: Add user for monitoring soft
+  user:
+    name: "{{ monit_monitoring_user }}"
+    shell: /bin/bash
+
+- name: Add group for node_exporter textfile directory
+  group:
+    name: "{{ monit_textfile_group }}"
+
+- name: "Create directory for node exporter files"
+  file:
+    dest: "{{ monit_textfile_directory }}"
+    state: directory
+    mode: 0770
+    owner: "{{ monit_monitoring_user }}"
+    group: "{{ monit_textfile_group }}"
+
+- name: Copy monit binary to dst host
+  copy:
+    src: monit
+    dest: "{{ monit_exec_file_path }}"
+    mode: 0755
+    owner: root
+    group: root
+
+- name: Create log directory 
+  file: 
+     path: "{{ monit_logs_dir }}"
+     state: directory
+     mode: 0750   
+
+- name: Create monit home directory 
+  file: 
+     path: "{{ monit_home_dir }}" 
+     state: directory
+     mode: 0750   
+
+- name: Create monit includes directory 
+  file: 
+     path: "{{ monit_includes_dir }}" 
+     state: directory
+     mode: 0750   
+
+- name: "Create dir for systemd script"
+  file:
+    dest: "/etc/systemd/system"
+    state: directory
+    owner: root
+    group: root
+    mode: 0700
+  when: ansible_service_mgr == "systemd"
+  notify: systemd_reload
+
+- name: Copy monit init script to dst host
+  template:
+    src: "init.d/{{ ansible_distribution }}_{{ ansible_distribution_major_version }}_monit.sh"
+    dest: "/etc/init.d/monit"
+    mode: 0755
+    owner: root
+    group: root
+  when: ansible_service_mgr != "systemd" and
+        ansible_distribution != "Gentoo"
+
+- name: Copy monit systemd script to dst host
+  template:
+    src: "systemd/{{ ansible_distribution }}_{{ ansible_distribution_major_version }}_monit.service"
+    dest: "/etc/systemd/system/monit.service"
+    mode: 0600
+    owner: root
+    group: root
+  when: ansible_service_mgr == "systemd" and
+        ansible_distribution != "Gentoo"
+  notify: systemd_reload
+
+- name: Copy monit local.d script to dst host for Gentoo
+  template:
+    src: "local.d/monit.stop"
+    dest: "/etc/local.d/monit.stop"
+    mode: 0755
+    owner: root
+    group: root
+  when: ansible_service_mgr != "systemd" and
+        ansible_distribution == "Gentoo"
+
+- name: Copy monit local.d script to dst host for Gentoo
+  template:
+    src: "local.d/monit.start"
+    dest: "/etc/local.d/monit.start"
+    mode: 0755
+    owner: root
+    group: root
+  when: ansible_service_mgr != "systemd" and
+        ansible_distribution == "Gentoo"
+
+- name: Copy monit init script to dst host for Gentoo
+  template:
+    src: "init.d/{{ ansible_distribution }}_x_monit.sh"
+    dest: "/etc/init.d/monit"
+    mode: 0755
+    owner: root
+    group: root
+  when: ansible_service_mgr != "systemd" and
+        ansible_distribution == "Gentoo"
+
+- name: Copy monit systemd script to dst host for Gentoo
+  template:
+    src: "systemd/{{ ansible_distribution }}_x_monit.service"
+    dest: "/etc/systemd/system/monit.service"
+    mode: 0600
+    owner: root
+    group: root
+  when: ansible_service_mgr == "systemd" and
+        ansible_distribution == "Gentoo"
+  notify: systemd_reload
+
+- name: enable autostart for monit
+  service:
+    name: monit
+    enabled: yes
+  when: ansible_service_mgr != "systemd" and
+        ansible_distribution != "Amazon" and
+        ansible_distribution != "Gentoo"
+
+- name: enable autostart for monit if Amazon
+  command: "chkconfig --level 2345 monit on"
+  when: ansible_distribution == "Amazon"
+

@@ -1,0 +1,31 @@
+---
+- name: "Create dirs for monit scripts"
+  file:
+    dest: "{{ item }}"
+    state: directory
+    owner: root
+    group: root
+    recurse: yes
+  with_items:
+    - "{{ monit_scripts_dir }}"
+    - "{{ monit_scripts_tmp }}"
+
+- name: "Make scripts for monit checks in {{ monit_scripts_dir }}"
+  template:
+    src: "scripts/{{ item }}"
+    dest: "{{ monit_scripts_dir }}{{ item }}"
+    mode: 0750
+    owner: root
+    group: root
+  with_items:
+    - 'mysql_available_connections.sh'
+    - 'mysql_seconds_behind_master.sh'
+#   - 'ps.sh'
+#   - 'log_la.sh'
+#   - 'get_mysql_processlist.sh'
+#   - 'atop.sh'
+#   - 'available_fpm_childrens.sh'
+#   - 'get_apache_status.sh'
+#   - 'fpm_slow.sh'
+#   - 'get_apache_status.py'
+

@@ -1,0 +1,15 @@
+# {{ ansible_managed }}
+
+CHECK PROCESS {{ services['php-fpm2']['name'] }} MATCHING "{{ services['php-fpm2']['regexp'] }}"
+  IF NOT EXIST FOR 1 CYCLES THEN {{ services['php-fpm2']['action'] }}
+{% if services['php-fpm2']['action'] != "alert" %}
+  REPEAT EVERY {{ services['php-fpm2']['repeat_interval'] }} CYCLES
+{% endif %}
+{% if services['php-fpm2'].get('port') %}
+  IF FAILED PORT {{ services['php-fpm2']['port'] }} FOR 1 CYCLES THEN alert
+{% endif %}
+{% if services['php-fpm2'].get('socket') %}
+  IF FAILED UNIXSOCKET {{ services['php-fpm2']['socket'] }} FOR 1 CYCLES THEN alert
+{% endif %}
+  group php-fpm2
+

@@ -1,0 +1,10 @@
+# {{ ansible_managed }}
+
+CHECK PROCESS {{ services['nrpe']['name'] }} MATCHING "{{ services['nrpe']['regexp'] }}"
+  IF NOT EXIST FOR 1 CYCLES THEN {{ services['nrpe']['action'] }}
+{% if services['nrpe']['action'] != "alert" %}
+  REPEAT EVERY {{ services['nrpe']['repeat_interval'] }} CYCLES
+{% endif %}
+  IF FAILED PORT {{ services['nrpe']['port'] }} FOR 1 CYCLES THEN alert
+  group {{ services['nrpe']['name'] }}
+

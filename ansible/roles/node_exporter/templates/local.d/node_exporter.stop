@@ -1,0 +1,4 @@
+#!/bin/bash
+
+start-stop-daemon --user {{ node_exporter_monitoring_user }} --pidfile /run/node_exporter.pid --stop
+

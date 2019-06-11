@@ -1,0 +1,11 @@
+---
+- name: "Make config for remote hosts checks in {{ monit_includes_dir }}"
+  template:
+    src: "monit.d/remote_hosts.conf.j2"
+    dest: "{{ monit_includes_dir }}remote_hosts.conf"
+    owner: root
+    mode: 0600
+   #force: no
+  with_dict: "{{ remote_hosts_to_check|default({}) }}"
+  notify: check_config_and_reload
+

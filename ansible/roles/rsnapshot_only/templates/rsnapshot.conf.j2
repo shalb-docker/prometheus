@@ -1,0 +1,46 @@
+# {{ ansible_managed }}
+
+config_version	1.2
+snapshot_root	{{ rsnapshot_root }}
+cmd_cp	/bin/cp
+cmd_rm	/bin/rm
+cmd_ssh	/usr/bin/ssh
+cmd_rsync	/usr/bin/rsync
+cmd_logger	/usr/bin/logger
+cmd_du	/usr/bin/du
+
+#interval	hourly	2
+interval	daily	{{ rsnapshot_daily_iterations }}
+interval	weekly	{{ rsnapshot_weekly_interations }}
+interval	monthly	{{ rsnapshot_monthly_interations }}
+
+verbose	2
+loglevel	3
+logfile	{{ rsnapshot_log_file }}
+lockfile	/var/run/rsnapshot.pid
+
+exclude	**\.core
+exclude	**\.log
+exclude	**\.o
+
+rsync_long_args	--rsync-path='ionice -c3 nice -n 19 rsync'
+
+backup	/etc/	localhost/etc/
+backup	/root/.ssh/	localhost/root/.ssh/
+backup	{{ crontabs_path }}	localhost{{ crontabs_path }}
+#backup	/root/.my.cnf	localhost/
+#backup_script	/usr/local/bin/mysqlbackup.sh	localhost/mysql/
+#backup_script	/usr/local/bin/mongobackup.sh	localhost/mongodb/
+#backup	root@remote.host:/etc	localhost/
+{% if 'mysql' in services_backup %}
+backup	/root/.my.cnf	localhost/root/.my.cnf
+{% if rsnapshot_mysql_backup == True %}
+backup_script	/usr/local/bin/mysqlbackup.sh	localhost/mysql/
+{% endif %}
+{% endif %}
+{% if 'mongodb' in services_backup %}
+{% if rsnapshot_mongodb_backup == True %}
+backup_script	/usr/local/bin/mongobackup.sh	localhost/mongodb/
+{% endif %}
+{% endif %}
+include_conf	{{ rsnapshot_custom_config }}

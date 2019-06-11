@@ -1,0 +1,10 @@
+# {{ ansible_managed }}
+
+CHECK PROCESS {{ services['proftpd']['name'] }} MATCHING "{{ services['proftpd']['regexp'] }}"
+  IF NOT EXIST FOR 1 CYCLES THEN {{ services['proftpd']['action'] }}
+{% if services['proftpd']['action'] != "alert" %}
+  REPEAT EVERY {{ services['proftpd']['repeat_interval'] }} CYCLES
+{% endif %}
+  IF FAILED PORT {{ services['proftpd']['port'] }} PROTOCOL FTP FOR 1 CYCLES THEN alert
+  group proftpd
+

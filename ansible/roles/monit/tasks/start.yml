@@ -1,0 +1,11 @@
+---
+- name: restart_monit
+  service:
+    name: monit
+    state: restarted
+  when: ansible_distribution != "Amazon"
+
+- name: restart_monit_amazon_linux
+  command: "/etc/init.d/monit restart"
+  when: ansible_distribution == "Amazon"
+

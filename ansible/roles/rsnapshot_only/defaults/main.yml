@@ -1,0 +1,19 @@
+---
+crontabs_path: '/var/spool/cron/'
+backup_root: '/var/backup/'
+rsnapshot_root: '/var/backup/snapshots'
+rsnapshot_config: '/etc/rsnapshot.conf'
+rsnapshot_custom_config: '/etc/rsnapshot_custom.conf'
+rsnapshot_excludes: []
+rsnapshot_local_dirs: []
+rsnapshot_daily_iterations: 6
+rsnapshot_weekly_interations: 4
+rsnapshot_monthly_interations: 3
+rsnapshot_start_hour_daily: 3
+rsnapshot_start_hour_weekly: 3
+rsnapshot_start_hour_monthly: 3
+rsnapshot_log_file: '/var/log/rsnapshot'
+rsnapshot_mysql_backup: False
+rsnapshot_mysql_backup_args: "--single-transaction --skip-lock-tables --opt --events --routines --triggers"
+rsnapshot_mongodb_backup: False
+services_backup: {}

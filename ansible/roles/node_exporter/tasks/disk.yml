@@ -1,0 +1,65 @@
+---
+# apt install -y smartmontools
+
+- name: "Add smartmon to node_exporter {{ node_exporter_textfile_directory }}"
+  cron:
+    name: "Smartmon metric to node_exporter"
+    minute: "*"
+    cron_file: "/etc/crontab"
+    user: root
+    job: '/usr/local/scripts/smartmon.sh > {{ node_exporter_textfile_directory }}/smartmon.prom 2>/dev/null'
+
+- name: Add smartmon check script
+  copy:
+    src: "scripts/smartmon.sh"
+    dest: "/usr/local/scripts/smartmon.sh"
+    mode: 0750
+    owner: root
+    group: root
+
+- name: Create smartmon file for node_exporter
+  command: '/usr/local/scripts/smartmon.sh'
+  args:
+    creates: "{{ node_exporter_textfile_directory }}/smartmon.prom"
+
+- name: Add smartmon result check to monit
+  template:
+    src: "monit.d/smartmon.conf"
+    dest: "/etc/monit.d/smartmon.conf"
+    mode: 0640
+    owner: root
+    group: root
+  notify: monit_reload
+
+
+
+- name: "Add nvme_smart to node_exporter {{ node_exporter_textfile_directory }}"
+  cron:
+    name: "nvme_smart metric to node_exporter"
+    minute: "*"
+    cron_file: "/etc/crontab"
+    user: root
+    job: '/usr/local/scripts/nvme_smart.sh > /dev/null 2>&1'
+
+- name: Add nvme_smart check script
+  template:
+    src: "scripts/nvme_smart.sh"
+    dest: "/usr/local/scripts/nvme_smart.sh"
+    mode: 0750
+    owner: root
+    group: root
+
+- name: Create nvme_smart file for node_exporter
+  command: '/usr/local/scripts/nvme_smart.sh'
+  args:
+    creates: "{{ node_exporter_textfile_directory }}/nvme_smart.prom"
+
+- name: Add nvme_smart result check to monit
+  template:
+    src: "monit.d/nvme_smart.conf"
+    dest: "/etc/monit.d/nvme_smart.conf"
+    mode: 0640
+    owner: root
+    group: root
+  notify: monit_reload
+

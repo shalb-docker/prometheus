@@ -1,0 +1,6 @@
+- hosts: node_exporter
+  roles:
+    - monit
+    - monit_collector
+    - node_exporter
+

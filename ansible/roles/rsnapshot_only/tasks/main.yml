@@ -1,0 +1,34 @@
+---
+# install rsnapshot
+- include: install_RedHat.yml
+  when: ansible_os_family == 'RedHat'
+  tags: [rsnapshot_only_install,rsnapshot_only]
+
+- include: install_Debian.yml
+  when: ansible_os_family == 'Debian'
+  tags: [rsnapshot_only_install,rsnapshot_only]
+
+- include: install_Gentoo.yml
+  when: ansible_os_family == 'Gentoo'
+  tags: [rsnapshot_only_install,rsnapshot_only]
+
+# add config
+- include: configuration.yml
+  tags: [rsnapshot_only_config,rsnapshot_only]
+
+# add monitoring script and config
+- include: monitoring.yml
+  tags: [rsnapshot_only_monitoring,rsnapshot_only]
+
+# add backuup scripts
+- include: scripts.yml
+  tags: [rsnapshot_only_scripts,rsnapshot_only]
+
+# add cron jobs
+- include: cron.yml
+  tags: [rsnapshot_only_cron,rsnapshot_only]
+
+# initial run
+- include: init.yml
+  tags: [rsnapshot_only_init,rsnapshot_only]
+

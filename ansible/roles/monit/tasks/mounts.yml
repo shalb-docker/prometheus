@@ -1,0 +1,35 @@
+---
+- name: "Create dirs for monit scripts"
+  file:
+    dest: "{{ item }}"
+    state: directory
+    owner: root
+    group: root
+    recurse: yes
+  with_items:
+    - "{{ monit_scripts_dir }}"
+    - "{{ monit_scripts_tmp }}"
+
+- name: "Add script for generation mounts.conf"
+  copy:
+    src: "scripts/create_mounts_checks.py"
+    dest: "{{ monit_scripts_dir }}create_mounts_checks.py"
+    mode: 0750
+    owner: root
+    group: root
+
+- name: "Add script to check if filesystem is writable"
+  template:
+    src: "scripts/file_system_writable.sh"
+    dest: "{{ monit_scripts_dir }}file_system_writable.sh"
+    mode: 0750
+    owner: root
+    group: root
+
+- name: "Create {{ monit_includes_dir }}mounts.conf"
+  command: "{{ monit_scripts_dir }}create_mounts_checks.py {{ monit_includes_dir }}"
+  args:
+    creates: "{{ monit_includes_dir }}mounts.conf"
+  notify:
+    - "check_config_and_reload"
+

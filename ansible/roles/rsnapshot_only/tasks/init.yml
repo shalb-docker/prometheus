@@ -1,0 +1,41 @@
+---
+- name: "Create 'scripts' dir for rsnapshot scripts"
+  file:
+    dest: "/usr/local/scripts/"
+    state: directory
+    owner: root
+    group: root
+
+- name: "Create 'rsnapshot' dir for rsnapshot scripts"
+  file:
+    dest: "/usr/local/scripts/rsnapshot/"
+    state: directory
+    owner: root
+    group: root
+
+- name: Copy rsnapshot init script
+  template:
+    src: rsnapshot_init.sh
+    dest: /usr/local/scripts/rsnapshot/rsnapshot_init.sh
+    mode: 0700
+
+- name: "Create dir for backups"
+  file:
+    dest: "{{ backup_root }}"
+    state: directory
+    owner: root
+    group: root
+    mode: 0750
+
+- name: "Create dir for rsnapshot backups"
+  file:
+    dest: "{{ rsnapshot_root }}"
+    state: directory
+    owner: root
+    group: root
+
+- name: Run rsnapshot init script
+  command: /usr/local/scripts/rsnapshot/rsnapshot_init.sh
+  args:
+    creates: "{{ rsnapshot_log_file }}"
+

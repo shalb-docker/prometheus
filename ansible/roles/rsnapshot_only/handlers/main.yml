@@ -1,0 +1,4 @@
+---
+- name: monit_check_config_and_reload
+  shell: "/usr/bin/monit -t && /usr/bin/monit reload"
+

@@ -1,0 +1,22 @@
+---
+- name: "Make configs for services in {{ monit_includes_dir }}"
+  template:
+    src: "monit.d/{{ item.key }}.conf.j2"
+    dest: "{{ monit_includes_dir }}{{ item.key }}.conf"
+    owner: root
+    mode: 0600
+   #force: no
+  with_dict: "{{ services|default({}) }}"
+  notify: check_config_and_reload
+
+#- name: "Create directory for configs examples"
+#  file:
+#    path: "{{ monit_includes_dir }}examples/"
+#    state: directory
+#    mode: 0755
+
+#- name: "Make configs examples for services in {{ monit_includes_dir }}examples/"
+#  synchronize:
+#    src: "{{ role_path }}/templates/monit.d/examples/"
+#    dest: "{{ monit_includes_dir }}examples/"
+

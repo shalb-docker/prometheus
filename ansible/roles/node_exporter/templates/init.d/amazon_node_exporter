@@ -1,0 +1,48 @@
+#!/bin/bash
+#
+# Init file for prometheus node exporter
+#
+# chkconfig: - 98 02
+# description: prometheus node exporter
+#
+# processname: prometheus
+# config: /etc/node_exporter
+# pidfile: /run/node_exporter.pid
+# Short-Description: prometheus node exporter
+
+# install:
+# curl -s https://packagecloud.io/install/repositories/willgarcia/start-stop-daemon/script.rpm.sh | bash
+# yum install start-stop-daemon
+
+# {{ ansible_managed }}
+
+start() {
+    start-stop-daemon --user {{ node_exporter_monitoring_user }} --pidfile /run/node_exporter.pid --background --make-pidfile --start --exec /usr/local/bin/node_exporter -- --collector.textfile.directory={{ node_exporter_textfile_directory }}
+}
+
+stop() {
+    start-stop-daemon --user {{ node_exporter_monitoring_user }} --pidfile /run/node_exporter.pid --stop
+}
+
+restart() {
+    stop
+    sleep 1
+    start
+}
+
+case "$1" in
+    start)
+        start
+        ;;
+    stop)
+        stop
+        ;;
+    restart)
+        restart
+        ;;
+    *)
+        echo $"Usage: $0 {start|stop|restart}"
+        exit 2
+esac
+exit $?
+

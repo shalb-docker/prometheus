@@ -1,0 +1,8 @@
+---
+# install
+- include: install.yml
+  tags: [monit_collector, monit_collector_install]
+
+# install opsgenie lamp
+- include: opsgenie_lamp.yml
+  tags: [monit_collector, monit_collector_opsgenie_lamp]

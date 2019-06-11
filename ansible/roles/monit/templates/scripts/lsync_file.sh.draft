@@ -1,0 +1,43 @@
+#!/bin/bash
+
+set -e
+
+# this server create files for test sync every ${test_interval} min
+# and remote host also must create test files, which checked by this script
+# if exit status is not 0 - then remote lsync host can't copy files to this host
+
+dst_hostname="$1"
+hostname=$(hostname)
+date=$(date)
+my_sources="$(grep source /etc/lsyncd/lsyncd.conf.lua | awk -F \" '{print $2}')"
+tst_file="monit_tst_sync_file"
+test_interval=5
+alert_time=10
+
+# write test file every ${test_interval} min for lsync test
+for s in $my_sources; do
+  sync_test_file="${s}/${tst_file}.${hostname}"
+  if [ ! -f $sync_test_file ]
+    then echo "${hostname} ${date}" > $sync_test_file
+  fi
+  # skip check if executed less than ${test_interval} min ago
+  if [ "$(find $sync_test_file -mmin +${test_interval})" != "$sync_test_file" ]
+    then continue
+    else echo "${hostname} ${date}" > $sync_test_file
+  fi
+done
+
+# check test file from remote host every 1 min
+for s in $my_sources; do
+  sync_test_file="${s}/${tst_file}.${dst_hostname}"
+  if [ ! -f $sync_test_file ]
+    then echo "$sync_test_file not exist" && exit 1
+  fi
+  # skip check if executed less than ${test_interval} min ago
+  if [ "$(find $sync_test_file -mmin +${test_interval})" != "$sync_test_file" ]
+    then continue
+    elif [ "$(find $sync_test_file -mmin +${alert_time})" == "$sync_test_file" ]
+      then echo "$sync_test_file older than ${alert_time} min" && exit 2
+  fi
+done
+

@@ -1,0 +1,13 @@
+---
+- name: check_config_and_reload
+  shell: "{{ monit_exec_file_path }} -t && {{ monit_exec_file_path }} reload"
+
+- name: reload_monit
+  shell: "{{ monit_exec_file_path }} -t && {{ monit_exec_file_path }} reload"
+
+- name: systemd_reload
+  command: "systemctl daemon-reload"
+
+- name: init.d_restart
+  command: "/etc/init.d/monit restart"
+

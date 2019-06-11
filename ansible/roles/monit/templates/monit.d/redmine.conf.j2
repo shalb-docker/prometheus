@@ -1,0 +1,9 @@
+# {{ ansible_managed }}
+
+CHECK PROCESS {{ services['redmine']['name'] }} MATCHING "{{ services['redmine']['regexp'] }}"
+  IF NOT EXIST FOR 1 CYCLES THEN {{ services['redmine']['action'] }}
+{% if services['redmine']['action'] != "alert" %}
+  REPEAT EVERY {{ services['redmine']['repeat_interval'] }} CYCLES
+{% endif %}
+  group redmine
+

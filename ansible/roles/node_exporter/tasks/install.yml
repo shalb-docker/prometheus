@@ -1,0 +1,173 @@
+---
+- name: Add user for monitoring soft
+  user:
+    name: "{{ node_exporter_monitoring_user }}"
+    shell: /bin/bash
+
+- name: Add group for node_exporter textfile directory
+  group:
+    name: "{{ node_exporter_textfile_group }}"
+
+- name: "Create directory for node exporter files"
+  file:
+    dest: "{{ node_exporter_textfile_directory }}"
+    state: directory
+    mode: 0770
+    owner: "{{ node_exporter_monitoring_user }}"
+    group: "{{ node_exporter_textfile_group }}"
+
+- name: Copy node_exporter binary to dst host for Gentoo non-systemd system
+  copy:
+    src: "node_exporter-{{ node_exporter_version }}"
+    dest: "/usr/local/bin/node_exporter"
+    mode: 0755
+    owner: root
+    group: root
+  when: ansible_service_mgr != "systemd" and
+        ansible_distribution == "Gentoo"
+  notify: restart_gentoo_service
+
+- name: Copy node_exporter binary to dst host for Amazon non-systemd system
+  copy:
+    src: "node_exporter-{{ node_exporter_version }}"
+    dest: "/usr/local/bin/node_exporter"
+    mode: 0755
+    owner: root
+    group: root
+  when: ansible_service_mgr != "systemd" and
+        ansible_distribution == "Amazon"
+  notify: restart_gentoo_service
+
+- name: Copy node_exporter binary to dst host for Debian non-systemd system
+  copy:
+    src: "node_exporter-{{ node_exporter_version }}"
+    dest: "/usr/local/bin/node_exporter"
+    mode: 0755
+    owner: root
+    group: root
+  when: ansible_service_mgr != "systemd" and
+        ansible_distribution == "Debian"
+  notify: restart_debian_service
+
+- name: Copy node_exporter binary to dst host for Ubuntu non-systemd system
+  copy:
+    src: "node_exporter-{{ node_exporter_version }}"
+    dest: "/usr/local/bin/node_exporter"
+    mode: 0755
+    owner: root
+    group: root
+  when: ansible_service_mgr != "systemd" and
+        ansible_distribution == "Ubuntu"
+  notify: restart_debian_service
+
+- name: Copy node_exporter binary to dst host for generic systemd system
+  copy:
+    src: "node_exporter-{{ node_exporter_version }}"
+    dest: "/usr/local/bin/node_exporter"
+    mode: 0755
+    owner: root
+    group: root
+  when: ansible_service_mgr == "systemd"
+  notify: restart_systemd_service
+
+- name: Copy node_exporter start script to dst host for Gentoo non-systemd system
+  template:
+    src: "local.d/node_exporter.start"
+    dest: "/etc/local.d/node_exporter.start"
+    mode: 0755
+    owner: root
+    group: root
+  when: ansible_service_mgr != "systemd" and
+        ansible_distribution == "Gentoo"
+  notify: restart_gentoo_service
+
+- name: Copy node_exporter stop script to dst host for Gentoo non-systemd system
+  template:
+    src: "local.d/node_exporter.stop"
+    dest: "/etc/local.d/node_exporter.stop"
+    mode: 0755
+    owner: root
+    group: root
+  when: ansible_service_mgr != "systemd" and
+        ansible_distribution == "Gentoo"
+  notify: restart_gentoo_service
+
+- name: Copy node_exporter init script to dst host for Gentoo non-systemd system
+  template:
+    src: "init.d/gentoo_node_exporter"
+    dest: "/etc/init.d/node_exporter"
+    mode: 0755
+    owner: root
+    group: root
+  when: ansible_service_mgr != "systemd" and
+        ansible_distribution == "Gentoo"
+  notify: restart_gentoo_service
+
+- name: Copy node_exporter systemd script to dst host for generic systemd system
+  template:
+    src: "systemd/node_exporter.service"
+    dest: "/etc/systemd/system/node_exporter.service"
+    mode: 0644
+    owner: root
+    group: root
+  when: ansible_service_mgr == "systemd"
+  notify: restart_systemd_service
+
+- name: Copy node_exporter init script to dst host for Amazon non-systemd system
+  template:
+    src: "init.d/amazon_node_exporter"
+    dest: "/etc/init.d/node_exporter"
+    mode: 0755
+    owner: root
+    group: root
+  when: ansible_service_mgr != "systemd" and
+        ansible_distribution == "Amazon"
+  notify: restart_amazon_service
+
+- name: Copy node_exporter init script to dst host for Debian non-systemd system
+  template:
+    src: "init.d/debian_node_exporter"
+    dest: "/etc/init.d/node_exporter"
+    mode: 0755
+    owner: root
+    group: root
+  when: ansible_service_mgr != "systemd" and
+        ansible_distribution == "Debian"
+  notify: restart_debian_service
+
+- name: Copy node_exporter init script to dst host for Ubuntu non-systemd system
+  template:
+    src: "init.d/debian_node_exporter"
+    dest: "/etc/init.d/node_exporter"
+    mode: 0755
+    owner: root
+    group: root
+  when: ansible_service_mgr != "systemd" and
+        ansible_distribution == "Ubuntu"
+  notify: restart_debian_service
+
+- name: Start and Enable init.d service node_exporter, if not started
+  service:
+    name: node_exporter
+    enabled: yes
+    state: restarted
+  when: ansible_service_mgr != "systemd" and
+        ansible_distribution != "Gentoo" and
+        ansible_distribution != "Amazon"
+
+- name: Start and Enable systemd service node_exporter, if not started
+  service:
+    name: node_exporter
+    enabled: yes
+    state: started
+  when: ansible_service_mgr == "systemd"
+
+- name: Copy monit config for node_exporter
+  template:
+    src: "monit.d/node_exporter.conf"
+    dest: "/etc/monit.d/node_exporter.conf"
+    mode: 0640
+    owner: root
+    group: root
+  notify: monit_reload
+

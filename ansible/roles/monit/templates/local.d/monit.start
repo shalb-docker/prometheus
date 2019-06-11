@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# {{ ansible_managed }}
+
+rm -f {{ monit_pid_file }}
+{{ monit_exec_file_path }}
+

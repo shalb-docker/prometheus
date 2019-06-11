@@ -1,0 +1,15 @@
+---
+# install
+- include: install.yml
+  tags: [node_exporter_role,node_exporter_role_install]
+
+# add mail_queue metric
+- include: mail_queue.yml
+  tags: [node_exporter_role,node_exporter_role_mail_queue]
+  when: node_exporter_mailq == true
+
+# add disk metric
+- include: disk.yml
+  tags: [node_exporter_role,node_exporter_role_disk]
+  when: node_exporter_disk == true
+

@@ -1,0 +1,9 @@
+# {{ ansible_managed }}
+
+CHECK PROCESS {{ services['cachelog']['name'] }} MATCHING "{{ services['cachelog']['regexp'] }}"
+  IF NOT EXIST FOR 1 CYCLES THEN {{ services['cachelog']['action'] }}
+{% if services['cachelog']['action'] != "alert" %}
+  REPEAT EVERY {{ services['cachelog']['repeat_interval'] }} CYCLES
+{% endif %}
+  group cachelog
+

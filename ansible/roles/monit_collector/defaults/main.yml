@@ -1,0 +1,17 @@
+---
+monit_collector_monitoring_user: "monitoring"
+monit_collector_textfile_directory: "/home/monitoring/node_exporter/textfile_directory/"
+monit_collector_textfile_group: "node_exporter_textfile"
+monit_collector_script_name: "/usr/local/bin/monit_collector.py"
+monit_collector_pid_file: "/tmp/monit_collector.pid"
+monit_collector_log_file: "/var/log/monit_collector.log"
+monit_collector_opsgenie_default_team: "test"
+# own alerting disable by default, because default team and API key not valid anyway
+monit_collector_disable_own_alerting_code: "true"
+monit_collector_opsgenie_api_key: "00000000-0000-0000-0000-000000000000"
+monit_collector_alert_provider: "opsgenie_api"
+monit_collector_alert_message: "monit | {host_name} | {service}"
+monit_collector_alert_help:  "Go to host and check alert description in monit config: grep -r {service} /etc/monit*"
+monit_collector_alert_access: "https://my-wiki.example.com/monitoring#monitoring-Access"
+monit_collector_alert_grafana: "https://grafana.example.com/ .* node={host_name}.example.com:9100 .*"
+monit_collector_alert_prometheus: "https://prometheus.example.com/ .* {host_name}/{service} .*"

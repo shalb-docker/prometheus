@@ -1,0 +1,6 @@
+---
+- name: install rsnapshot
+  portage:
+    package: "app-backup/rsnapshot"
+    state: present
+    noreplace: "yes"

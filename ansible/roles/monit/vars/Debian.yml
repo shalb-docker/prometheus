@@ -1,0 +1,4 @@
+---
+monit_config_file_path: "/etc/monit/monitrc"
+monit_exec_file_path: "/usr/bin/monit"
+monit_includes_path: "/etc/monit/conf.d/*.conf"

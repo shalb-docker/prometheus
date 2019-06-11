@@ -1,0 +1,8 @@
+#!/bin/sh
+nice_=$(which nice)
+gzip_=$(which gzip)
+tar_=$(which tar)
+mongodump_=$(which mongodump)
+
+$mongodump_
+$tar_ czf mongo.tgz dump/ && rm -rf ./dump/

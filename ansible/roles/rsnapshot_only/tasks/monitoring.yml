@@ -1,0 +1,17 @@
+- name: Add rsnapshot check script
+  copy:
+    src: rsnapshot_check.py
+    dest: /usr/local/scripts/rsnapshot_check.py
+    owner: root
+    group: root
+    mode: 0750
+
+- name: Add rsnapshot check script to monit
+  copy:
+    src: monit.d/rsnapshot.conf
+    dest: /etc/monit.d/rsnapshot.conf
+    owner: root
+    group: root
+    mode: 0640
+  notify: monit_check_config_and_reload
+

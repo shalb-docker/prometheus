@@ -1,0 +1,30 @@
+---
+#- name: Get number_of_cores
+#  command: "/usr/bin/nproc"
+#  register: number_of_cores
+#  always_run: yes
+
+#- name: Set default LA alert
+#  set_fact:
+#    alert_la: "{{ (number_of_cores.stdout|int + 2)|int }}"
+#  when: alert_la == ""
+
+- name: "Create dirs for monit daemon"
+  file:
+    dest: "{{ item }}"
+    state: directory
+    owner: root
+    recurse: yes
+  with_items:
+    - "{{ monit_includes_dir }}"
+    - "{{ monit_logs_dir }}"
+    - "{{ monit_home_dir }}"
+
+- name: "Make system checks configuration file {{ monit_includes_dir }}system.conf"
+  template:
+    src: monit.d/system.conf.j2
+    dest: "{{ monit_includes_dir }}system.conf"
+    owner: root
+    mode: 0600
+  notify: check_config_and_reload
+

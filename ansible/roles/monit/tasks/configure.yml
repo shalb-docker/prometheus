@@ -1,0 +1,11 @@
+---
+- name: Make Monit configuration file
+  template:
+    src: monitrc.j2
+    dest: "{{ monit_config_file_path }}"
+    mode: 0600
+    owner: root
+    group: root
+  notify:
+    - "check_config_and_reload"
+

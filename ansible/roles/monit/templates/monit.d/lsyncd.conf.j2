@@ -1,0 +1,9 @@
+# {{ ansible_managed }}
+
+CHECK PROCESS {{ services['lsyncd']['name'] }} MATCHING "{{ services['lsyncd']['regexp'] }}"
+  IF NOT EXIST FOR 1 CYCLES THEN {{ services['lsyncd']['action'] }}
+{% if services['lsyncd']['action'] != "alert" %}
+  REPEAT EVERY {{ services['lsyncd']['repeat_interval'] }} CYCLES
+{% endif %}
+  group lsyncd
+

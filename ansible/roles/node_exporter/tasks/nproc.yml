@@ -1,0 +1,23 @@
+---
+- name: Add number of cores metric to node_exporter
+  cron:
+    name: "add number of cores metric to node_exporter (needed for LA check)"
+    special_time: reboot
+    cron_file: "/etc/crontab"
+    user: root
+    job: 'echo "node_nproc $(nproc).0" > {{ node_exporter_textfile_directory }}/nproc.prom 2>/dev/null'
+
+- name: Create nproc file for node_exporter
+  shell: 'echo "node_nproc $(nproc).0" > {{ node_exporter_textfile_directory }}/nproc.prom 2>/dev/null'
+  args:
+    creates: "{{ node_exporter_textfile_directory }}/nproc.prom"
+
+- name: Add nproc result check to monit
+  template:
+    src: "monit.d/nproc.conf.j2"
+    dest: "/etc/monit.d/nproc.conf"
+    mode: 0640
+    owner: root
+    group: root
+  notify: monit_reload
+

@@ -1,0 +1,15 @@
+[Unit]
+Description=Monit collector
+After=network.target
+
+[Service]
+Type=simple
+ExecStart={{ monit_collector_script_name }}
+User={{ monit_collector_monitoring_user }}
+Restart=always
+RestartSec=15
+StartLimitInterval=0
+
+[Install]
+WantedBy=multi-user.target
+

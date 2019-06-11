@@ -1,0 +1,10 @@
+# {{ ansible_managed }}
+
+CHECK PROCESS {{ services['snmpd']['name'] }} MATCHING "{{ services['snmpd']['regexp'] }}"
+  IF NOT EXIST FOR 1 CYCLES THEN {{ services['snmpd']['action'] }}
+{% if services['snmpd']['action'] != "alert" %}
+  REPEAT EVERY {{ services['snmpd']['repeat_interval'] }} CYCLES
+{% endif %}
+  IF FAILED PORT {{ services['snmpd']['port'] }} TYPE udp FOR 1 CYCLES THEN alert
+  group {{ services['snmpd']['name'] }}
+

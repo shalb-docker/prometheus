@@ -1,0 +1,9 @@
+# {{ ansible_managed }}
+
+CHECK PROCESS {{ services['xinetd']['name'] }} MATCHING "{{ services['xinetd']['regexp'] }}"
+  IF NOT EXIST FOR 1 CYCLES THEN {{ services['xinetd']['action'] }}
+{% if services['xinetd']['action'] != "alert" %}
+  REPEAT EVERY {{ services['xinetd']['repeat_interval'] }} CYCLES
+{% endif %}
+  group {{ services['xinetd']['name'] }}
+

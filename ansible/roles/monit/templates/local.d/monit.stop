@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# {{ ansible_managed }}
+
+{{ monit_exec_file_path }} quit
+sleep 3
+killall -s KILL {{ monit_exec_file_path }}
