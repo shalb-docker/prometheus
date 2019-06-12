@@ -1,1 +1,17 @@
-CentOS_7_monit.service
+# {{ ansible_managed }}
+
+[Unit]
+Description=Pro-active monitoring utility for unix systems
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/monit -I
+ExecStop=/usr/bin/monit quit
+ExecReload=/usr/bin/monit reload
+Restart=always
+RestartSec=10
+StartLimitInterval=0
+
+[Install]
+WantedBy=multi-user.target

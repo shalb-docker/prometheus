@@ -10,6 +10,8 @@ ExecStart=/usr/bin/monit -I
 ExecStop=/usr/bin/monit quit
 ExecReload=/usr/bin/monit reload
 Restart=always
+RestartSec=10
+StartLimitInterval=0
 
 [Install]
 WantedBy=multi-user.target
