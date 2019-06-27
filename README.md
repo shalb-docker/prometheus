@@ -51,7 +51,6 @@ grafana.my_domain.com       A MY_IP_HERE
 
 Add next TXT records if you need to send emails via postfix-relay:
 ~~~~
-alertmanager.my_domain.com TXT "v=spf1 a -all"
 grafana.my_domain.com      TXT "v=spf1 a -all"
 ~~~~
 

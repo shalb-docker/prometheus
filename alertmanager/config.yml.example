@@ -89,7 +89,7 @@ receivers:
 #- name: example_mail
 #  email_configs:
 #    - to: test@example.com
-#      from: alertmanager@alertmanager.{{ REMOTE_HOST }}
+#      from: alertmanager@grafana.{{ REMOTE_HOST }}
 #      smarthost: postfix-relay:25
 #      require_tls: false
 #      send_resolved: true
