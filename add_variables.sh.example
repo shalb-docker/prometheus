@@ -7,7 +7,8 @@ REMOTE_HOST="my_domain.com"
 
 cat ./alertmanager/config.yml.example | \
 sed -e "s@{{ OPSGENIE_API_KEY }}@$OPSGENIE_API_KEY@g" | \
-sed -e "s@{{ OPSGENIE_TEAM }}@$OPSGENIE_TEAM@g" \
+sed -e "s@{{ OPSGENIE_TEAM }}@$OPSGENIE_TEAM@g" | \
+sed -e "s@{{ REMOTE_HOST }}@$REMOTE_HOST@g" \
 > ./alertmanager/config.yml
 
 cat ./docker-compose.yml.example | \

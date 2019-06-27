@@ -48,7 +48,7 @@
     state: directory
     owner: root
     group: root
-    mode: 0700
+    mode: 0755
   when: ansible_service_mgr == "systemd"
   notify: systemd_reload
 

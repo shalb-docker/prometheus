@@ -15,7 +15,7 @@
 
 # add checks scripts
 #- include: scripts.yml
-#  tags: [monit_scripts,monit_role]
+#  tags: [monit_role_scripts,monit_role]
 
 # restart monit by cron job
 - include: cron.yml

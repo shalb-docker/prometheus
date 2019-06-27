@@ -12,6 +12,10 @@ if [ "$monit_procs" != "1" ]
     then /etc/init.d/monit restart
 {% endif %}
          echo $string > $file
-	 chown {{ monit_monitoring_user }}:{{ monit_monitoring_user }} $file
+         chown {{ monit_monitoring_user }}:{{ monit_monitoring_user }} $file
 fi
+
+file_monit_procs="{{ monit_textfile_directory }}number_of_monit_processes.prom"
+string_monit_procs="node_number_of_monit_processes ${monit_procs}"
+echo $string_monit_procs > $file_monit_procs
 

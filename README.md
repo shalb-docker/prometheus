@@ -2,6 +2,7 @@
       * [Requirements](#requirements)
          * [Infrastructure](#infrastructure)
             * [DNS A-records:](#dns-a-records)
+            * [DNS SPF-records:](#dns-spf-records)
             * [Instance performance](#instance-performance)
             * [Instance network](#instance-network)
                * [Monitoring server](#monitoring-server)
@@ -41,9 +42,17 @@
 #### DNS A-records:
 
 ~~~~
-prometheus.my_domain.com
-alertmanager.my_domain.com
-grafana.my_domain.com
+prometheus.my_domain.com    A MY_IP_HERE
+alertmanager.my_domain.com  A MY_IP_HERE
+grafana.my_domain.com       A MY_IP_HERE
+~~~~
+
+#### DNS SPF-records:
+
+Add next TXT records if you need to send emails via postfix-relay:
+~~~~
+alertmanager.my_domain.com TXT "v=spf1 a -all"
+grafana.my_domain.com      TXT "v=spf1 a -all"
 ~~~~
 
 #### Instance performance
