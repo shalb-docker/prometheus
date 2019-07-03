@@ -94,6 +94,16 @@ receivers:
 #      require_tls: false
 #      send_resolved: true
 
+#- name: example_aws_ses_mail
+#  email_configs:
+#    - to: test@example.com
+#      from: alertmanager@grafana.aws.example.com
+#      smarthost: email-smtp.us-east-1.amazonaws.com:587
+#      auth_username: '00000000000000000000'
+#      auth_password: '00000000000000000000000000000000000000000000'
+#      require_tls: true
+#      send_resolved: true
+
 #- name: example_slack
 #  slack_configs:
 #    - api_url: https://hooks.slack.com/services/MY_ID

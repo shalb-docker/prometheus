@@ -1,0 +1,2 @@
+@reboot root /usr/local/scripts/monit/monit_config_update.sh > /dev/null 2>&1
+

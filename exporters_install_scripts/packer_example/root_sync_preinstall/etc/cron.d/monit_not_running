@@ -1,0 +1,1 @@
+* * * * * monitoring /usr/local/bin/monit_not_running.sh > /dev/null 2>&1

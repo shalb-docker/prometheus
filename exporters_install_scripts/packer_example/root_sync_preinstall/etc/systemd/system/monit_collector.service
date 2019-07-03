@@ -1,0 +1,15 @@
+[Unit]
+Description=Monit collector
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/monit_collector.py
+User=monitoring
+Restart=always
+RestartSec=15
+StartLimitInterval=0
+
+[Install]
+WantedBy=multi-user.target
+

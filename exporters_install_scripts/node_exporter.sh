@@ -1,6 +1,6 @@
 #!/bin/bash
 
-useradd -m -s /bin/bash monitoring
+id monitoring || useradd -m -s /bin/bash monitoring
 mkdir -p /opt/node_exporter/textfile_directory
 chown root:monitoring /opt/node_exporter/textfile_directory
 chmod 770 /opt/node_exporter/textfile_directory
