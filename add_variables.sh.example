@@ -23,10 +23,15 @@ cat ./postfix-relay/main.cf.example | \
 sed -e "s@{{ REMOTE_HOST }}@$REMOTE_HOST@g" \
 > postfix-relay/main.cf
 
-echo "GF_SECURITY_ADMIN_PASSWORD=$GRAFANA_ADMIN_PASSWORD" > ./grafana/env_secrets
+echo "GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_ADMIN_PASSWORD}
+GF_METRICS_BASIC_AUTH_USERNAME=${GRAFANA_METRICS_BASIC_AUTH_USERNAME}
+GF_METRICS_BASIC_AUTH_PASSWORD=${GRAFANA_METRICS_BASIC_AUTH_PASSWORD}
+" > ./grafana/env_secrets
+
 htpasswd -b -c ./nginx/conf.d/htpasswd admin $GRAFANA_ADMIN_PASSWORD
 
 cat ./grafana/env.example | \
 sed -e "s@{{ REMOTE_HOST }}@$REMOTE_HOST@g" \
 > ./grafana/env
+
 
