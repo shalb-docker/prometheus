@@ -37,18 +37,59 @@ rule_files:
 # Here it's Prometheus itself.
 scrape_configs:
   # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
-  - job_name: 'prometheus'
+# get prometheus metrics
+  - job_name: 'prometheus local'
     # metrics_path defaults to '/metrics'
     # scheme defaults to 'http'.
     static_configs:
       - targets: ['prometheus:9090']
-
-
-  - job_name: 'docker infra'
-    static_configs:
-      - targets: ['prometheus.example.com:9323']
         labels:
           host_priority: 'P5'
+
+# get grafana metrics
+  - job_name: 'grafana local'
+    static_configs:
+      - targets: ['grafana:3000']
+        labels:
+          host_priority: 'P5'
+
+# get alertmanager metrics
+  - job_name: 'alertmanager local'
+    static_configs:
+      - targets: ['alertmanager:9093']
+        labels:
+          host_priority: 'P5'
+
+# get docker localhost metrics
+# - job_name: 'docker local'
+#   static_configs:
+#     - targets: ['grafana.local.my_domain.com:9323']
+#       labels:
+#         host_priority: 'P5'
+
+# get node_exporter localhost metrics
+# - job_name: 'node_exporter local'
+#   params:
+#     collect[]:
+#     - stat
+#     - diskstats
+#     - cpu
+#     - filesystem
+#     - loadavg
+#     - meminfo
+#     - netstat
+#     - textfile
+#     - timex
+#     - vmstat
+#   static_configs:
+#     - targets: ['grafana.local.my_domain.com:9100']
+#       labels:
+#         host_priority: 'P5'
+#   relabel_configs:
+#   - source_labels: [__address__]
+#     regex: '(.*):[0-9]+'
+#     target_label: hostname
+#     replacement: '$1'
 
 
 # node_exporter with limited collectors, "hostname" and "host_priority" labels

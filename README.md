@@ -45,6 +45,9 @@
 prometheus.my_domain.com    A MY_IP_HERE
 alertmanager.my_domain.com  A MY_IP_HERE
 grafana.my_domain.com       A MY_IP_HERE
+# Add grafana.local.my_domain.com in case of aws host
+grafana.local.my_domain.com A MY_PRIVATE_IP_HERE
+
 ~~~~
 
 #### DNS SPF-records:

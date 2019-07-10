@@ -55,6 +55,10 @@ server {
     ssl_certificate         /etc/nginx/ssl/grafana.{{ REMOTE_HOST }}/fullchain.pem;
     ssl_certificate_key     /etc/nginx/ssl/grafana.{{ REMOTE_HOST }}/private.key;
 
+    location /metrics {
+        return      444;
+    }
+
     location / {
         proxy_pass        http://grafana:3000;
         proxy_redirect    off;

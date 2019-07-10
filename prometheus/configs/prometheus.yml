@@ -12,7 +12,50 @@ rule_files:
 # - "/etc/prometheus/alert_rules.d/node_exporter.yml"
 
 scrape_configs:
-  - job_name: 'prometheus'
+  - job_name: 'prometheus local'
     static_configs:
       - targets: ['prometheus:9090']
+        labels:
+          host_priority: 'P5'
+
+  - job_name: 'grafana local'
+    static_configs:
+      - targets: ['grafana:3000']
+        labels:
+          host_priority: 'P5'
+
+  - job_name: 'alertmanager local'
+    static_configs:
+      - targets: ['alertmanager:9093']
+        labels:
+          host_priority: 'P5'
+
+# - job_name: 'docker local'
+#   static_configs:
+#     - targets: ['grafana.local.my_domain.com:9323']
+#       labels:
+#         host_priority: 'P5'
+
+# - job_name: 'node_exporter local'
+#   params:
+#     collect[]:
+#     - stat
+#     - diskstats
+#     - cpu
+#     - filesystem
+#     - loadavg
+#     - meminfo
+#     - netstat
+#     - textfile
+#     - timex
+#     - vmstat
+#   static_configs:
+#     - targets: ['grafana.local.my_domain.com:9100']
+#       labels:
+#         host_priority: 'P5'
+#   relabel_configs:
+#   - source_labels: [__address__]
+#     regex: '(.*):[0-9]+'
+#     target_label: hostname
+#     replacement: '$1'
 
