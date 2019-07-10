@@ -1,6 +1,5 @@
 source ./secrets
 
-OPSGENIE_API_KEY="MY_API_KEY"
 OPSGENIE_TEAM="MY_TEAM"
 # if you have example.com domain - you should create A-records for prometheus.example.com, alertmanager.example.com, grafana.example.com, open 80 and 443 ports
 REMOTE_HOST="my_domain.com"
