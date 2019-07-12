@@ -1,0 +1,4 @@
+#!/bin/bash
+rsync -a --delete /data/ansible/ /data/git/ansible/
+rsync -a --delete --exclude=.git/ --exclude='*/storage/' --exclude='ansible/' /data/monitoring/prometheus/ /data/git/monitoring/
+

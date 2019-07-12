@@ -131,6 +131,7 @@ chmod 750 /data/monitoring/prometheus/
 apt install apache2-utils
 cd /data/monitoring/prometheus
 cp -a add_variables.sh.example add_variables.sh
+# replace ".example" files by ".custom" if needed
 editor ./add_variables.sh
 cat secrets.example > secrets
 editor secrets
@@ -139,6 +140,8 @@ mkdir prometheus/storage/
 mkdir grafana/storage/
 mkdir alertmanager/storage/
 chmod -R 777 */storage/
+# uncomment resulting files with secrets if needed in .gitignore
+editor .gitignore
 ~~~~
 
 ### add alerts to prometheus config (assign apropriate dashbords links to variables)
