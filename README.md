@@ -130,6 +130,7 @@ chmod 750 /data/monitoring/prometheus/
 ~~~~
 apt install apache2-utils
 cd /data/monitoring/prometheus
+# create add_variables.sh script if it not exist
 cp -a add_variables.sh.example add_variables.sh
 # replace ".example" files by ".custom" if needed
 editor ./add_variables.sh
@@ -147,6 +148,7 @@ editor .gitignore
 ### add alerts to prometheus config (assign apropriate dashbords links to variables)
 
 ~~~~
+# create add_prometheus_alerts.sh script if it not exist
 cp -a add_prometheus_alerts.sh.example add_prometheus_alerts.sh
 editor add_prometheus_alerts.sh
 bash add_prometheus_alerts.sh

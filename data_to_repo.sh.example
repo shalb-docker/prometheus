@@ -4,6 +4,7 @@ rsync -a --delete \
 --exclude=roles/monit_collector/files/opsgenie_lamp \
 --exclude=roles/monit/files/monit \
 --exclude=roles/*_exporter/files/*_exporter* \
+--exclude=roles/*_exporter/files/exporter-* \
 /data/ansible/ /data/git/ansible/
 
 rsync -a --delete \
