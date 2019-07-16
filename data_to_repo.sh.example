@@ -1,4 +1,14 @@
 #!/bin/bash
-rsync -a --delete /data/ansible/ /data/git/ansible/
-rsync -a --delete --exclude=.git/ --exclude='*/storage/' --exclude='ansible/' /data/monitoring/prometheus/ /data/git/monitoring/
+rsync -a --delete \
+--exclude=roles/monit_collector/files/monit_collector.py.bin \
+--exclude=roles/monit_collector/files/opsgenie_lamp \
+--exclude=roles/monit/files/monit \
+--exclude=roles/*_exporter/files/*_exporter* \
+/data/ansible/ /data/git/ansible/
+
+rsync -a --delete \
+--exclude=.git/ \
+--exclude='*/storage/' \
+--exclude='ansible/' \
+/data/monitoring/prometheus/ /data/git/monitoring/
 
