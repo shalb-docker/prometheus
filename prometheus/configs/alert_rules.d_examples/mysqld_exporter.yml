@@ -1,0 +1,294 @@
+groups:
+  - name: "mysqld_exporter down alerts"
+    rules:
+      - alert: "mysqld_exporter down P5"
+        expr: up{host_priority="P5",instance=~".*:9104"} == 0
+        for: 10m
+        annotations:
+          summary: "mysqld_exporter down"
+          description: 'Go to instance: "{{ $labels.instance }}" and check if service: "mysqld_exporter" is running'
+          grafana: "{{ grafana_all_alerts_dashboard }}"
+          access: "{{ wiki_monitoring_access }}"
+          priority: "P3"
+
+      - alert: "mysqld_exporter down P4"
+        expr: up{host_priority="P4",instance=~".*:9104"} == 0
+        for: 5m
+        annotations:
+          summary: "mysqld_exporter down"
+          description: 'Go to instance: "{{ $labels.instance }}" and check if service: "mysqld_exporter" is running'
+          grafana: "{{ grafana_all_alerts_dashboard }}"
+          access: "{{ wiki_monitoring_access }}"
+          priority: "P3"
+
+      - alert: "mysqld_exporter down P3"
+        expr: up{host_priority="P3",instance=~".*:9104"} == 0
+        for: 4m
+        annotations:
+          summary: "mysqld_exporter down"
+          description: 'Go to instance: "{{ $labels.instance }}" and check if service: "mysqld_exporter" is running'
+          grafana: "{{ grafana_all_alerts_dashboard }}"
+          access: "{{ wiki_monitoring_access }}"
+          priority: "P2"
+
+      - alert: "mysqld_exporter down P2"
+        expr: up{host_priority="P2",instance=~".*:9104"} == 0
+        for: 3m
+        annotations:
+          summary: "mysqld_exporter down"
+          description: 'Go to instance: "{{ $labels.instance }}" and check if service: "mysqld_exporter" is running'
+          grafana: "{{ grafana_all_alerts_dashboard }}"
+          access: "{{ wiki_monitoring_access }}"
+          priority: "P2"
+
+      - alert: "mysqld_exporter down P1"
+        expr: up{host_priority="P1",instance=~".*:9104"} == 0
+        for: 2m
+        annotations:
+          summary: "mysqld_exporter down"
+          description: 'Go to instance: "{{ $labels.instance }}" and check if service: "mysqld_exporter" is running'
+          grafana: "{{ grafana_all_alerts_dashboard }}"
+          access: "{{ wiki_monitoring_access }}"
+          priority: "P1"
+
+      - alert: "mysqld_exporter down"
+        expr: up{host_priority!~"P[1-5]",instance=~".*:9104"} == 0
+        for: 4m
+        annotations:
+          summary: "mysqld_exporter down"
+          description: 'Go to instance: "{{ $labels.instance }}" and check if service: "mysqld_exporter" is running'
+          grafana: "{{ grafana_all_alerts_dashboard }}"
+          access: "{{ wiki_monitoring_access }}"
+          priority: "P3"
+
+
+  - name: "parse errors - mysqld_exporter"
+    rules:
+      - alert: "mysqld_exporter have new errors P1-3"
+        expr: mysql_up{host_priority=~"P[1-3]"} != 1
+        for: 5m
+        annotations:
+          summary: "mysqld_exporter have new errors"
+          description: 'Go to instance: "{{ $labels.instance }}" and check log for mysqld_exporter'
+          grafana: "{{ grafana_all_alerts_dashboard }}"
+          access: "{{ wiki_monitoring_access }}"
+          priority: "P2"
+
+      - alert: "mysqld_exporter have new errors P4-5"
+        expr: mysql_up{host_priority=~"P[4-5]"} != 1
+        for: 15m
+        annotations:
+          summary: "mysqld_exporter have new errors"
+          description: 'Go to instance: "{{ $labels.instance }}" and check log for mysqld_exporter'
+          grafana: "{{ grafana_all_alerts_dashboard }}"
+          access: "{{ wiki_monitoring_access }}"
+          priority: "P3"
+
+      - alert: "mysqld_exporter have new errors"
+        expr: mysql_up{host_priority!~"P[1-5]"} != 1
+        for: 10m
+        annotations:
+          summary: "mysqld_exporter have new errors"
+          description: 'Go to instance: "{{ $labels.instance }}" and check log for mysqld_exporter'
+          grafana: "{{ grafana_all_alerts_dashboard }}"
+          access: "{{ wiki_monitoring_access }}"
+          priority: "P3"
+
+
+  - name: "replication alerts"
+    rules:
+      - alert: "mysql replication delay > 1500 P1-P3"
+        expr: mysql_slave_status_seconds_behind_master{host_priority=~"P[1-3]"} > 1500
+        for: 3m
+        annotations:
+          summary: 'mysql have replication delay > 1500 from master: "{{ $labels.master_host }}"'
+          description: 'Go to instance: "{{ $labels.instance }}" and check why replication delay so high'
+          grafana: "{{ grafana_mysql_dashboard }}"
+          access: "{{ wiki_monitoring_access }}"
+          priority: "P3"
+
+      - alert: "mysql replication delay > 1500 P4-P5"
+        expr: mysql_slave_status_seconds_behind_master{host_priority=~"P[4-5]"} > 1500
+        for: 15m
+        annotations:
+          summary: 'mysql have replication delay > 1500 from master: "{{ $labels.master_host }}"'
+          description: 'Go to instance: "{{ $labels.instance }}" and check why replication delay so high'
+          grafana: "{{ grafana_mysql_dashboard }}"
+          access: "{{ wiki_monitoring_access }}"
+          priority: "P5"
+
+      - alert: "mysql replication delay > 1500"
+        expr: mysql_slave_status_seconds_behind_master{host_priority!~"P[1-5]"} > 1500
+        for: 10m
+        annotations:
+          summary: 'mysql have replication delay > 1500 from master: "{{ $labels.master_host }}"'
+          description: 'Go to instance: "{{ $labels.instance }}" and check why replication delay so high'
+          grafana: "{{ grafana_mysql_dashboard }}"
+          access: "{{ wiki_monitoring_access }}"
+          priority: "P3"
+
+
+      - alert: "mysql replication delay > 10000 P1-P2"
+        expr: mysql_slave_status_seconds_behind_master{host_priority=~"P[1-2]"} > 10000
+        for: 3m
+        annotations:
+          summary: 'mysql have replication delay > 10000 from master: "{{ $labels.master_host }}"'
+          description: 'Go to instance: "{{ $labels.instance }}" and check why replication delay so high'
+          grafana: "{{ grafana_all_alerts_dashboard }}"
+          access: "{{ wiki_monitoring_access }}"
+          priority: "P2"
+
+      - alert: "mysql replication delay > 10000 P4-P5"
+        expr: mysql_slave_status_seconds_behind_master{host_priority=~"P[4-5]"} > 10000
+        for: 5m
+        annotations:
+          summary: 'mysql have replication delay > 10000 from master: "{{ $labels.master_host }}"'
+          description: 'Go to instance: "{{ $labels.instance }}" and check why replication delay so high'
+          grafana: "{{ grafana_all_alerts_dashboard }}"
+          access: "{{ wiki_monitoring_access }}"
+          priority: "P5"
+
+      - alert: "mysql replication delay > 10000"
+        expr: mysql_slave_status_seconds_behind_master{host_priority!~"P[1245]"} > 10000
+        for: 5m
+        annotations:
+          summary: 'mysql have replication delay > 10000 from master: "{{ $labels.master_host }}"'
+          description: 'Go to instance: "{{ $labels.instance }}" and check why replication delay so high'
+          grafana: "{{ grafana_all_alerts_dashboard }}"
+          access: "{{ wiki_monitoring_access }}"
+          priority: "P3"
+
+
+      - alert: "mysql have replication error P1-P2"
+        expr: mysql_slave_status_last_errno{host_priority=~"P[1-2]"} != 0
+        annotations:
+          summary: 'mysql have replication error from master: "{{ $labels.master_host }}"'
+          description: 'Go to instance: "{{ $labels.instance }}" and check error message, fix  replication'
+          grafana: "{{ grafana_all_alerts_dashboard }}"
+          access: "{{ wiki_monitoring_access }}"
+          priority: "P2"
+
+
+      - alert: "mysql have replication error P4-P5"
+        expr: mysql_slave_status_last_errno{host_priority=~"P[4-5]"} != 0
+        annotations:
+          summary: 'mysql have replication error from master: "{{ $labels.master_host }}"'
+          description: 'Go to instance: "{{ $labels.instance }}" and check error message, fix  replication'
+          grafana: "{{ grafana_all_alerts_dashboard }}"
+          access: "{{ wiki_monitoring_access }}"
+          priority: "P5"
+
+      - alert: "mysql have replication error"
+        expr: mysql_slave_status_last_errno{host_priority!~"P[1245]"} != 0
+        annotations:
+          summary: 'mysql have replication error from master: "{{ $labels.master_host }}"'
+          description: 'Go to instance: "{{ $labels.instance }}" and check error message, fix  replication'
+          grafana: "{{ grafana_all_alerts_dashboard }}"
+          access: "{{ wiki_monitoring_access }}"
+          priority: "P3"
+
+
+      - alert: "mysql repliaction slave IO thread is not running P1-P2"
+        expr: mysql_slave_status_slave_io_running{host_priority=~"P[1-2]"} != 1
+        annotations:
+          summary: 'mysql repliaction slave IO thread is not running for master: "{{ $labels.master_host }}"'
+          description: 'Go to instance: "{{ $labels.instance }}" and check repliaction slave IO thread is not running'
+          grafana: "{{ grafana_all_alerts_dashboard }}"
+          access: "{{ wiki_monitoring_access }}"
+          priority: "P2"
+
+      - alert: "mysql repliaction slave IO thread is not running P4-P5"
+        expr: mysql_slave_status_slave_io_running{host_priority=~"P[4-5]"} != 1
+        annotations:
+          summary: 'mysql repliaction slave IO thread is not running for master: "{{ $labels.master_host }}"'
+          description: 'Go to instance: "{{ $labels.instance }}" and check repliaction slave IO thread is not running'
+          grafana: "{{ grafana_all_alerts_dashboard }}"
+          access: "{{ wiki_monitoring_access }}"
+          priority: "P5"
+
+      - alert: "mysql repliaction slave IO thread is not running"
+        expr: mysql_slave_status_slave_io_running{host_priority!~"P[1245]"} != 1
+        annotations:
+          summary: 'mysql repliaction slave IO thread is not running for master: "{{ $labels.master_host }}"'
+          description: 'Go to instance: "{{ $labels.instance }}" and check repliaction slave IO thread is not running'
+          grafana: "{{ grafana_all_alerts_dashboard }}"
+          access: "{{ wiki_monitoring_access }}"
+          priority: "P3"
+
+
+      - alert: "mysql repliaction slave SQL thread is not running P1-P2"
+        expr: mysql_slave_status_slave_sql_running{host_priority=~"P[1-2]"} != 1
+        annotations:
+          summary: 'mysql repliaction slave SQL thread is not running for master: "{{ $labels.master_host }}"'
+          description: 'Go to instance: "{{ $labels.instance }}" and check repliaction slave SQL thread is not running'
+          grafana: "{{ grafana_all_alerts_dashboard }}"
+          access: "{{ wiki_monitoring_access }}"
+          priority: "P2"
+
+      - alert: "mysql repliaction slave SQL thread is not running P4-P5"
+        expr: mysql_slave_status_slave_sql_running{host_priority=~"P[4-5]"} != 1
+        annotations:
+          summary: 'mysql repliaction slave SQL thread is not running for master: "{{ $labels.master_host }}"'
+          description: 'Go to instance: "{{ $labels.instance }}" and check repliaction slave SQL thread is not running'
+          grafana: "{{ grafana_all_alerts_dashboard }}"
+          access: "{{ wiki_monitoring_access }}"
+          priority: "P5"
+
+      - alert: "mysql repliaction slave SQL thread is not running"
+        expr: mysql_slave_status_slave_sql_running{host_priority!~"P[1245]"} != 1
+        annotations:
+          summary: 'mysql repliaction slave SQL thread is not running for master: "{{ $labels.master_host }}"'
+          description: 'Go to instance: "{{ $labels.instance }}" and check repliaction slave SQL thread is not running'
+          grafana: "{{ grafana_all_alerts_dashboard }}"
+          access: "{{ wiki_monitoring_access }}"
+          priority: "P3"
+
+
+  - name: "resources alerts"
+    rules:
+      - alert: "mysql used connections > 80% P1-P2"
+        expr: (mysql_global_status_threads_connected{host_priority=~"P[1-2]"} / mysql_global_variables_max_connections) * 100 > 80
+        annotations:
+          summary: 'mysql used connections > 80% on instance: "{{ $labels.instance }}"'
+          description: 'Go to instance: "{{ $labels.instance }}" and check why so many connections used, change global variable "max_connections" if needed by command: SET GLOBAL max_connections = 999;, you can get number of current connections by command: SHOW STATUS WHERE `Variable_name` = "Threads_connected";'
+          grafana: "{{ grafana_all_alerts_dashboard }}"
+          access: "{{ wiki_monitoring_access }}"
+          priority: "P2"
+
+      - alert: "mysql used connections > 80% P4-P5"
+        expr: (mysql_global_status_threads_connected{host_priority=~"P[4-5]"} / mysql_global_variables_max_connections) * 100 > 80
+        annotations:
+          summary: 'mysql used connections > 80% on instance: "{{ $labels.instance }}"'
+          description: 'Go to instance: "{{ $labels.instance }}" and check why so many connections used, change global variable "max_connections" if needed by command: SET GLOBAL max_connections = 999;, you can get number of current connections by command: SHOW STATUS WHERE `Variable_name` = "Threads_connected";'
+          grafana: "{{ grafana_all_alerts_dashboard }}"
+          access: "{{ wiki_monitoring_access }}"
+          priority: "P5"
+
+      - alert: "mysql used connections > 80%"
+        expr: (mysql_global_status_threads_connected{host_priority!~"P[1245]"} / mysql_global_variables_max_connections) * 100 > 80
+        annotations:
+          summary: 'mysql used connections > 80% on instance: "{{ $labels.instance }}"'
+          description: 'Go to instance: "{{ $labels.instance }}" and check why so many connections used, change global variable "max_connections" if needed by command: SET GLOBAL max_connections = 999;, you can get number of current connections by command: SHOW STATUS WHERE `Variable_name` = "Threads_connected";'
+          grafana: "{{ grafana_all_alerts_dashboard }}"
+          access: "{{ wiki_monitoring_access }}"
+          priority: "P3"
+
+
+      - alert: "mysql used memory > 95% P4-P5"
+        expr: node_monit{host_priority=~"P[4-5]",name="mysql",key="memory_percenttotal"} > 95
+        annotations:
+          summary: 'mysql used memory > 95% on instance: "{{ $labels.instance }}"'
+          description: 'Go to instance: "{{ $labels.instance }}" and check why so many memory used'
+          grafana: "{{ grafana_all_alerts_dashboard }}"
+          access: "{{ wiki_monitoring_access }}"
+          priority: "P5"
+
+      - alert: "mysql used memory > 95%"
+        expr: node_monit{host_priority!~"P[45]",name="mysql",key="memory_percenttotal"} > 95
+        annotations:
+          summary: 'mysql used memory > 95% on instance: "{{ $labels.instance }}"'
+          description: 'Go to instance: "{{ $labels.instance }}" and check why so many memory used'
+          grafana: "{{ grafana_all_alerts_dashboard }}"
+          access: "{{ wiki_monitoring_access }}"
+          priority: "P3"
+
