@@ -28,6 +28,7 @@ monit_program.yml
 remote_host.yml
 postgres_exporter.yml
 proxysql_exporter.yml
+mysqld_exporter.yml
 "
 
 for conf in $configs
