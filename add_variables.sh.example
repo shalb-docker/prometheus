@@ -35,4 +35,13 @@ cat ./grafana/env.example | \
 sed -e "s@{{ REMOTE_HOST }}@$REMOTE_HOST@g" \
 > ./grafana/env
 
+echo "AWS_ACCESS_KEY_ID=${prod_AWS_ACCESS_KEY_ID}
+AWS_SECRET_ACCESS_KEY=${prod_AWS_SECRET_ACCESS_KEY}" \
+> ./cloudwatch-exporter_prod/env_secrets
+
+echo "DATA_SOURCE_NAME=${postgres_exporter_prod_SECRET}" \
+> ./postgres_exporter_prod/env_secrets
+
+echo "REDIS_ADDR=${redis_exporter_prod_SECRET}" \
+> ./redis_exporter_prod/env_secrets
 
