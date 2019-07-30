@@ -1,4 +1,40 @@
 {
+  "__inputs": [
+    {
+      "name": "DS_SHALB_PROMETHEUS",
+      "label": "Shalb prometheus",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "prometheus",
+      "pluginName": "Prometheus"
+    }
+  ],
+  "__requires": [
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "5.3.0"
+    },
+    {
+      "type": "panel",
+      "id": "graph",
+      "name": "Graph",
+      "version": "5.0.0"
+    },
+    {
+      "type": "datasource",
+      "id": "prometheus",
+      "name": "Prometheus",
+      "version": "5.0.0"
+    },
+    {
+      "type": "panel",
+      "id": "singlestat",
+      "name": "Singlestat",
+      "version": "5.0.0"
+    }
+  ],
   "annotations": {
     "list": [
       {
@@ -16,8 +52,8 @@
   "editable": true,
   "gnetId": 1860,
   "graphTooltip": 0,
-  "id": 1,
-  "iteration": 1554296295987,
+  "id": null,
+  "iteration": 1564295255205,
   "links": [],
   "panels": [
     {
@@ -39,7 +75,7 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(245, 54, 54, 0.9)"
           ],
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "decimals": null,
           "description": "Busy state of all CPU cores together",
           "format": "percent",
@@ -124,7 +160,7 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(245, 54, 54, 0.9)"
           ],
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "decimals": 0,
           "description": "Non available RAM memory",
           "format": "percent",
@@ -212,7 +248,7 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(245, 54, 54, 0.9)"
           ],
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "decimals": null,
           "description": "Used Swap",
           "format": "percent",
@@ -295,7 +331,7 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(245, 54, 54, 0.9)"
           ],
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "decimals": null,
           "description": "Used Root FS",
           "format": "percent",
@@ -379,7 +415,7 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(245, 54, 54, 0.9)"
           ],
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "decimals": null,
           "description": "Busy state of all CPU cores together (1 min average)",
           "format": "percent",
@@ -463,7 +499,7 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(245, 54, 54, 0.9)"
           ],
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "decimals": null,
           "description": "Busy state of all CPU cores together (5 min average)",
           "format": "percent",
@@ -563,7 +599,7 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "description": "Total number of CPU cores",
           "format": "short",
           "gauge": {
@@ -645,7 +681,7 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "decimals": 2,
           "description": "Total RAM",
           "format": "bytes",
@@ -728,7 +764,7 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "decimals": 2,
           "description": "Total SWAP",
           "format": "bytes",
@@ -811,7 +847,7 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(245, 54, 54, 0.9)"
           ],
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "decimals": null,
           "description": "Total RootFS",
           "format": "bytes",
@@ -896,7 +932,7 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "decimals": 2,
           "description": "System Load (1m avg)",
           "format": "short",
@@ -980,7 +1016,7 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "decimals": 1,
           "description": "System uptime",
           "format": "s",
@@ -1090,7 +1126,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "decimals": 2,
           "description": "Basic CPU info",
           "fill": 4,
@@ -1267,7 +1303,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "decimals": 2,
           "description": "Basic memory usage",
           "fill": 4,
@@ -1452,7 +1488,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "description": "Basic network info per interface",
           "fill": 4,
           "gridPos": {
@@ -1586,7 +1622,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "decimals": 3,
           "description": "Disk space used of all filesystems mounted",
           "fill": 4,
@@ -1709,7 +1745,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "MY_DATA_SOURCE",
+      "datasource": "${DS_SHALB_PROMETHEUS}",
       "decimals": 2,
       "description": "",
       "fill": 4,
@@ -1889,7 +1925,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "MY_DATA_SOURCE",
+      "datasource": "${DS_SHALB_PROMETHEUS}",
       "decimals": 2,
       "description": "",
       "fill": 4,
@@ -2064,7 +2100,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "MY_DATA_SOURCE",
+      "datasource": "${DS_SHALB_PROMETHEUS}",
       "fill": 4,
       "gridPos": {
         "h": 12,
@@ -2192,7 +2228,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "MY_DATA_SOURCE",
+      "datasource": "${DS_SHALB_PROMETHEUS}",
       "decimals": 3,
       "description": "",
       "fill": 4,
@@ -2285,7 +2321,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "MY_DATA_SOURCE",
+      "datasource": "${DS_SHALB_PROMETHEUS}",
       "description": "",
       "fill": 2,
       "gridPos": {
@@ -2468,7 +2504,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "MY_DATA_SOURCE",
+      "datasource": "${DS_SHALB_PROMETHEUS}",
       "decimals": 3,
       "description": "",
       "fill": 4,
@@ -2597,7 +2633,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "MY_DATA_SOURCE",
+      "datasource": "${DS_SHALB_PROMETHEUS}",
       "decimals": 3,
       "description": "",
       "fill": 4,
@@ -2718,7 +2754,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "decimals": 2,
           "fill": 2,
           "gridPos": {
@@ -2830,7 +2866,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "decimals": 2,
           "fill": 2,
           "gridPos": {
@@ -2951,7 +2987,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "decimals": 2,
           "fill": 2,
           "gridPos": {
@@ -3085,7 +3121,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "decimals": 2,
           "fill": 2,
           "gridPos": {
@@ -3205,7 +3241,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "decimals": 2,
           "fill": 2,
           "gridPos": {
@@ -3319,7 +3355,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "decimals": 2,
           "fill": 2,
           "gridPos": {
@@ -3432,7 +3468,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "decimals": 2,
           "fill": 2,
           "gridPos": {
@@ -3555,7 +3591,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "decimals": 2,
           "fill": 2,
           "gridPos": {
@@ -3660,7 +3696,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "decimals": 2,
           "fill": 2,
           "gridPos": {
@@ -3777,7 +3813,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "decimals": 2,
           "fill": 2,
           "gridPos": {
@@ -3882,7 +3918,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "decimals": 2,
           "fill": 2,
           "gridPos": {
@@ -4003,7 +4039,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "decimals": 2,
           "fill": 2,
           "gridPos": {
@@ -4116,7 +4152,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "decimals": 2,
           "fill": 2,
           "gridPos": {
@@ -4240,7 +4276,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "decimals": 2,
           "fill": 2,
           "gridPos": {
@@ -4354,7 +4390,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "decimals": 2,
           "fill": 2,
           "gridPos": {
@@ -4455,7 +4491,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "fill": 2,
           "gridPos": {
             "h": 10,
@@ -4552,7 +4588,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "fill": 2,
           "gridPos": {
             "h": 10,
@@ -4667,7 +4703,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "decimals": 2,
           "fill": 2,
           "gridPos": {
@@ -4787,7 +4823,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "decimals": 2,
           "fill": 2,
           "gridPos": {
@@ -4913,7 +4949,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "decimals": 2,
           "fill": 2,
           "gridPos": {
@@ -5025,7 +5061,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "decimals": 2,
           "fill": 2,
           "gridPos": {
@@ -5143,7 +5179,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "decimals": 2,
           "fill": 2,
           "gridPos": {
@@ -5247,7 +5283,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "decimals": 2,
           "fill": 2,
           "gridPos": {
@@ -5359,7 +5395,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "decimals": 2,
           "fill": 2,
           "gridPos": {
@@ -5463,7 +5499,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "decimals": 2,
           "fill": 2,
           "gridPos": {
@@ -5615,7 +5651,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "decimals": 2,
           "fill": 2,
           "gridPos": {
@@ -5743,7 +5779,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "decimals": 2,
           "fill": 2,
           "gridPos": {
@@ -5871,7 +5907,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "decimals": 2,
           "fill": 2,
           "gridPos": {
@@ -5999,7 +6035,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "decimals": 2,
           "fill": 2,
           "gridPos": {
@@ -6127,7 +6163,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "decimals": 2,
           "fill": 2,
           "gridPos": {
@@ -6264,7 +6300,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "decimals": 2,
           "fill": 2,
           "gridPos": {
@@ -6394,7 +6430,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "decimals": 2,
           "fill": 2,
           "gridPos": {
@@ -6521,7 +6557,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "decimals": 2,
           "fill": 2,
           "gridPos": {
@@ -6646,7 +6682,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "decimals": 2,
           "fill": 2,
           "gridPos": {
@@ -6758,7 +6794,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "decimals": 2,
           "fill": 2,
           "gridPos": {
@@ -6870,7 +6906,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "decimals": 2,
           "fill": 2,
           "gridPos": {
@@ -7014,7 +7050,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "decimals": 2,
           "fill": 2,
           "gridPos": {
@@ -7140,7 +7176,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "decimals": 2,
           "fill": 2,
           "gridPos": {
@@ -7252,7 +7288,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "decimals": 2,
           "fill": 2,
           "gridPos": {
@@ -7363,7 +7399,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "decimals": 2,
           "fill": 2,
           "gridPos": {
@@ -7467,7 +7503,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "decimals": 2,
           "fill": 2,
           "gridPos": {
@@ -7587,7 +7623,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "decimals": 2,
           "fill": 2,
           "gridPos": {
@@ -7744,7 +7780,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "decimals": 2,
           "fill": 2,
           "gridPos": {
@@ -7856,7 +7892,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "decimals": 2,
           "fill": 2,
           "gridPos": {
@@ -7966,7 +8002,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "decimals": 2,
           "fill": 2,
           "gridPos": {
@@ -8078,7 +8114,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "decimals": 2,
           "fill": 2,
           "gridPos": {
@@ -8188,7 +8224,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "decimals": 2,
           "fill": 2,
           "gridPos": {
@@ -8299,7 +8335,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "decimals": 2,
           "fill": 2,
           "gridPos": {
@@ -8410,7 +8446,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "decimals": 2,
           "fill": 2,
           "gridPos": {
@@ -8521,7 +8557,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "decimals": 2,
           "fill": 2,
           "gridPos": {
@@ -8625,7 +8661,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "decimals": 2,
           "fill": 2,
           "gridPos": {
@@ -8737,7 +8773,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "decimals": 2,
           "fill": 2,
           "gridPos": {
@@ -8841,7 +8877,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "decimals": 2,
           "fill": 2,
           "gridPos": {
@@ -8953,7 +8989,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "decimals": 2,
           "fill": 2,
           "gridPos": {
@@ -9064,7 +9100,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "decimals": 2,
           "fill": 2,
           "gridPos": {
@@ -9168,7 +9204,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "decimals": 2,
           "fill": 2,
           "gridPos": {
@@ -9272,7 +9308,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "decimals": 2,
           "fill": 2,
           "gridPos": {
@@ -9384,7 +9420,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "decimals": 2,
           "fill": 2,
           "gridPos": {
@@ -9496,7 +9532,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "decimals": 2,
           "fill": 2,
           "gridPos": {
@@ -9611,7 +9647,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "fill": 2,
           "gridPos": {
             "h": 10,
@@ -9707,7 +9743,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "fill": 2,
           "gridPos": {
             "h": 10,
@@ -9811,7 +9847,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "fill": 2,
           "gridPos": {
             "h": 10,
@@ -9909,7 +9945,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "fill": 2,
           "gridPos": {
             "h": 10,
@@ -10009,7 +10045,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "fill": 2,
           "gridPos": {
             "h": 10,
@@ -10096,7 +10132,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "fill": 2,
           "gridPos": {
             "h": 10,
@@ -10191,7 +10227,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "fill": 2,
           "gridPos": {
             "h": 10,
@@ -10279,7 +10315,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "fill": 2,
           "gridPos": {
             "h": 10,
@@ -10373,7 +10409,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "description": "",
           "fill": 2,
           "gridPos": {
@@ -10475,7 +10511,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "description": "",
           "fill": 2,
           "gridPos": {
@@ -10589,7 +10625,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "fill": 2,
           "gridPos": {
             "h": 10,
@@ -10741,7 +10777,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "description": "",
           "fill": 2,
           "gridPos": {
@@ -10923,7 +10959,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "description": "",
           "fill": 2,
           "gridPos": {
@@ -11106,7 +11142,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "description": "",
           "fill": 3,
           "gridPos": {
@@ -11291,7 +11327,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "description": "",
           "fill": 2,
           "gridPos": {
@@ -11463,7 +11499,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "description": "",
           "fill": 2,
           "gridPos": {
@@ -11646,7 +11682,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "description": "",
           "fill": 3,
           "gridPos": {
@@ -11818,7 +11854,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "description": "",
           "fill": 2,
           "gridPos": {
@@ -11990,7 +12026,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "description": "",
           "fill": 2,
           "gridPos": {
@@ -12174,7 +12210,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "decimals": 3,
           "description": "",
           "fill": 2,
@@ -12280,7 +12316,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "description": "",
           "fill": 2,
           "gridPos": {
@@ -12366,7 +12402,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "description": "",
           "fill": 2,
           "gridPos": {
@@ -12458,7 +12494,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "description": "",
           "fill": 2,
           "gridPos": {
@@ -12546,7 +12582,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "decimals": null,
           "description": "",
           "fill": 2,
@@ -12654,7 +12690,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "fill": 2,
           "gridPos": {
             "h": 10,
@@ -12779,7 +12815,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "fill": 2,
           "gridPos": {
             "h": 10,
@@ -12908,7 +12944,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "fill": 2,
           "gridPos": {
             "h": 10,
@@ -13037,7 +13073,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "fill": 2,
           "gridPos": {
             "h": 10,
@@ -13166,7 +13202,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "fill": 2,
           "gridPos": {
             "h": 10,
@@ -13287,7 +13323,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "fill": 2,
           "gridPos": {
             "h": 10,
@@ -13416,7 +13452,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "fill": 2,
           "gridPos": {
             "h": 10,
@@ -13538,7 +13574,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "fill": 2,
           "gridPos": {
             "h": 10,
@@ -13647,7 +13683,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "fill": 2,
           "gridPos": {
             "h": 10,
@@ -13756,7 +13792,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "fill": 2,
           "gridPos": {
             "h": 10,
@@ -13853,7 +13889,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "fill": 2,
           "gridPos": {
             "h": 10,
@@ -13951,7 +13987,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "fill": 2,
           "gridPos": {
             "h": 10,
@@ -14069,7 +14105,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "fill": 2,
           "gridPos": {
             "h": 10,
@@ -14171,7 +14207,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "fill": 2,
           "gridPos": {
             "h": 10,
@@ -14257,7 +14293,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "fill": 2,
           "gridPos": {
             "h": 10,
@@ -14351,7 +14387,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "fill": 2,
           "gridPos": {
             "h": 10,
@@ -14468,7 +14504,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "fill": 2,
           "gridPos": {
             "h": 10,
@@ -14598,7 +14634,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "fill": 2,
           "gridPos": {
             "h": 10,
@@ -14721,7 +14757,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "fill": 2,
           "gridPos": {
             "h": 10,
@@ -14844,7 +14880,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "fill": 2,
           "gridPos": {
             "h": 10,
@@ -14967,7 +15003,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "fill": 2,
           "gridPos": {
             "h": 10,
@@ -15092,7 +15128,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "fill": 2,
           "gridPos": {
             "h": 10,
@@ -15217,7 +15253,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "fill": 2,
           "gridPos": {
             "h": 10,
@@ -15315,7 +15351,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "fill": 2,
           "gridPos": {
             "h": 10,
@@ -15421,7 +15457,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "fill": 2,
           "gridPos": {
             "h": 10,
@@ -15535,7 +15571,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "fill": 2,
           "gridPos": {
             "h": 10,
@@ -15649,7 +15685,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "fill": 2,
           "gridPos": {
             "h": 10,
@@ -15831,7 +15867,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "fill": 2,
           "gridPos": {
             "h": 10,
@@ -15977,7 +16013,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "fill": 2,
           "gridPos": {
             "h": 10,
@@ -16080,7 +16116,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "fill": 2,
           "gridPos": {
             "h": 10,
@@ -16186,7 +16222,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "fill": 2,
           "gridPos": {
             "h": 10,
@@ -16312,7 +16348,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "description": "",
           "fill": 2,
           "gridPos": {
@@ -16454,7 +16490,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "description": "",
           "fill": 2,
           "gridPos": {
@@ -16560,7 +16596,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "description": "",
           "fill": 2,
           "gridPos": {
@@ -16697,7 +16733,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "decimals": null,
           "description": "",
           "fill": 2,
@@ -16822,7 +16858,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "description": "",
           "fill": 2,
           "gridPos": {
@@ -16952,7 +16988,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "description": "",
           "fill": 2,
           "gridPos": {
@@ -17100,7 +17136,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "description": "",
           "fill": 2,
           "gridPos": {
@@ -17208,7 +17244,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "decimals": null,
           "description": "",
           "fill": 2,
@@ -17306,7 +17342,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "fill": 2,
           "gridPos": {
             "h": 10,
@@ -17421,7 +17457,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "description": "",
           "fill": 2,
           "gridPos": {
@@ -17530,7 +17566,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "decimals": null,
           "description": "",
           "fill": 2,
@@ -17684,7 +17720,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "decimals": null,
           "description": "",
           "fill": 2,
@@ -17828,7 +17864,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "decimals": null,
           "description": "",
           "fill": 2,
@@ -17973,7 +18009,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "decimals": null,
           "description": "",
           "fill": 2,
@@ -18082,7 +18118,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "description": "",
           "fill": 2,
           "gridPos": {
@@ -18188,7 +18224,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "description": "",
           "fill": 2,
           "gridPos": {
@@ -18286,7 +18322,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "description": "",
           "fill": 2,
           "gridPos": {
@@ -18401,7 +18437,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "description": "",
           "fill": 2,
           "gridPos": {
@@ -18500,7 +18536,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "description": "",
           "fill": 2,
           "gridPos": {
@@ -18608,7 +18644,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "decimals": null,
           "description": "",
           "fill": 2,
@@ -18708,7 +18744,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "decimals": null,
           "description": "",
           "fill": 2,
@@ -18808,7 +18844,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "decimals": null,
           "description": "",
           "fill": 2,
@@ -18908,7 +18944,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "description": "",
           "fill": 2,
           "gridPos": {
@@ -18998,7 +19034,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "description": "",
           "fill": 2,
           "gridPos": {
@@ -19096,7 +19132,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "description": "",
           "fill": 2,
           "gridPos": {
@@ -19186,7 +19222,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "description": "",
           "fill": 2,
           "gridPos": {
@@ -19276,7 +19312,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "description": "",
           "fill": 2,
           "gridPos": {
@@ -19411,7 +19447,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "decimals": null,
           "fill": 2,
           "gridPos": {
@@ -19521,7 +19557,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "fill": 2,
           "gridPos": {
             "h": 10,
@@ -19654,7 +19690,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "fill": 2,
           "gridPos": {
             "h": 10,
@@ -19759,7 +19795,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "fill": 2,
           "gridPos": {
             "h": 10,
@@ -19903,7 +19939,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "decimals": null,
           "fill": 2,
           "gridPos": {
@@ -20076,7 +20112,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "decimals": null,
           "fill": 2,
           "gridPos": {
@@ -20253,7 +20289,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "decimals": null,
           "fill": 2,
           "gridPos": {
@@ -20379,7 +20415,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "decimals": null,
           "fill": 2,
           "gridPos": {
@@ -20505,7 +20541,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "decimals": null,
           "fill": 2,
           "gridPos": {
@@ -20631,7 +20667,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "decimals": null,
           "fill": 2,
           "gridPos": {
@@ -20772,7 +20808,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "description": "",
           "fill": 2,
           "gridPos": {
@@ -20860,7 +20896,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "MY_DATA_SOURCE",
+          "datasource": "${DS_SHALB_PROMETHEUS}",
           "description": "",
           "fill": 2,
           "gridPos": {
@@ -20959,11 +20995,8 @@
     "list": [
       {
         "allValue": null,
-        "current": {
-          "text": "generic_hosts",
-          "value": "generic_hosts"
-        },
-        "datasource": "MY_DATA_SOURCE",
+        "current": {},
+        "datasource": "${DS_SHALB_PROMETHEUS}",
         "hide": 0,
         "includeAll": false,
         "label": "Job",
@@ -20983,11 +21016,8 @@
       },
       {
         "allValue": null,
-        "current": {
-          "text": "alphasms.shalb.com",
-          "value": "alphasms.shalb.com"
-        },
-        "datasource": "MY_DATA_SOURCE",
+        "current": {},
+        "datasource": "${DS_SHALB_PROMETHEUS}",
         "hide": 0,
         "includeAll": false,
         "label": "Host:",
@@ -21007,11 +21037,8 @@
       },
       {
         "allValue": null,
-        "current": {
-          "text": "9100",
-          "value": "9100"
-        },
-        "datasource": "MY_DATA_SOURCE",
+        "current": {},
+        "datasource": "${DS_SHALB_PROMETHEUS}",
         "hide": 0,
         "includeAll": false,
         "label": "Port",

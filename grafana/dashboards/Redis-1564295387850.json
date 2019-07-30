@@ -1,4 +1,40 @@
 {
+  "__inputs": [
+    {
+      "name": "DS_PROMETHEUS",
+      "label": "prometheus",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "prometheus",
+      "pluginName": "Prometheus"
+    }
+  ],
+  "__requires": [
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "5.3.0"
+    },
+    {
+      "type": "panel",
+      "id": "graph",
+      "name": "Graph",
+      "version": "5.0.0"
+    },
+    {
+      "type": "datasource",
+      "id": "prometheus",
+      "name": "Prometheus",
+      "version": "5.0.0"
+    },
+    {
+      "type": "panel",
+      "id": "singlestat",
+      "name": "Singlestat",
+      "version": "5.0.0"
+    }
+  ],
   "annotations": {
     "list": [
       {
@@ -12,12 +48,12 @@
       }
     ]
   },
-  "description": "MY_DATA_SOURCE dashboard for Redis servers",
+  "description": "prometheus dashboard for Redis servers",
   "editable": true,
   "gnetId": 763,
   "graphTooltip": 0,
-  "id": 4,
-  "iteration": 1555412527597,
+  "id": null,
+  "iteration": 1564295324763,
   "links": [],
   "panels": [
     {
@@ -29,7 +65,7 @@
         "rgba(237, 129, 40, 0.89)",
         "rgba(50, 172, 45, 0.97)"
       ],
-      "datasource": "MY_DATA_SOURCE",
+      "datasource": "${DS_PROMETHEUS}",
       "decimals": 0,
       "editable": true,
       "error": false,
@@ -116,7 +152,7 @@
         "rgba(237, 129, 40, 0.89)",
         "rgba(50, 172, 45, 0.97)"
       ],
-      "datasource": "MY_DATA_SOURCE",
+      "datasource": "${DS_PROMETHEUS}",
       "decimals": 0,
       "editable": true,
       "error": false,
@@ -206,7 +242,7 @@
         "rgba(237, 129, 40, 0.89)",
         "rgba(245, 54, 54, 0.9)"
       ],
-      "datasource": "MY_DATA_SOURCE",
+      "datasource": "${DS_PROMETHEUS}",
       "decimals": 0,
       "editable": true,
       "error": false,
@@ -292,7 +328,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "MY_DATA_SOURCE",
+      "datasource": "${DS_PROMETHEUS}",
       "editable": true,
       "error": false,
       "fill": 1,
@@ -385,7 +421,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "MY_DATA_SOURCE",
+      "datasource": "${DS_PROMETHEUS}",
       "decimals": 2,
       "editable": true,
       "error": false,
@@ -494,7 +530,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "MY_DATA_SOURCE",
+      "datasource": "${DS_PROMETHEUS}",
       "editable": true,
       "error": false,
       "fill": 1,
@@ -597,7 +633,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "MY_DATA_SOURCE",
+      "datasource": "${DS_PROMETHEUS}",
       "editable": true,
       "error": false,
       "fill": 1,
@@ -696,7 +732,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "MY_DATA_SOURCE",
+      "datasource": "${DS_PROMETHEUS}",
       "editable": true,
       "error": false,
       "fill": 7,
@@ -790,7 +826,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "MY_DATA_SOURCE",
+      "datasource": "${DS_PROMETHEUS}",
       "editable": true,
       "error": false,
       "fill": 7,
@@ -896,7 +932,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "MY_DATA_SOURCE",
+      "datasource": "${DS_PROMETHEUS}",
       "editable": true,
       "error": false,
       "fill": 1,
@@ -1003,7 +1039,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "MY_DATA_SOURCE",
+      "datasource": "${DS_PROMETHEUS}",
       "editable": true,
       "error": false,
       "fill": 8,
@@ -1101,11 +1137,8 @@
     "list": [
       {
         "allValue": null,
-        "current": {
-          "text": ".*",
-          "value": ".*"
-        },
-        "datasource": "MY_DATA_SOURCE",
+        "current": {},
+        "datasource": "${DS_PROMETHEUS}",
         "hide": 0,
         "includeAll": false,
         "label": null,
@@ -1125,13 +1158,8 @@
       },
       {
         "allValue": null,
-        "current": {
-          "selected": false,
-          "tags": [],
-          "text": "allset-redis1.shalb.com:9121",
-          "value": "allset-redis1.shalb.com:9121"
-        },
-        "datasource": "MY_DATA_SOURCE",
+        "current": {},
+        "datasource": "${DS_PROMETHEUS}",
         "hide": 0,
         "includeAll": false,
         "label": null,
@@ -1183,5 +1211,5 @@
   "timezone": "browser",
   "title": "Redis",
   "uid": "OhcL-YRZk",
-  "version": 8
+  "version": 3
 }
