@@ -3,7 +3,10 @@ grafana_all_alerts_dashboard='https://grafana.MY_DOMAIN/d/bVHuLEamz/all-fails'
 grafana_monit_dashboard='https://grafana.MY_DOMAIN/d/RGx4RH-ik/monit-exporter?orgId=1\&var-node={{ $labels.instance }}'
 grafana_mysql_dashboard='https://grafana.MY_DOMAIN/d/RGx4RH-ik/monit-exporter?orgId=1\&var-node={{ $labels.instance }}'
 grafana_proxysql_dashboard='https://grafana.MY_DOMAIN/d/RGx4RH-ik/proxysql-overview?orgId=1\&var-proxysql={{ $labels.instance }}\&var-hostgroup={{ $labels.hostgroup }}'
+grafana_docker_exporter_dashboard='https://grafana.MY_DOMAIN/d/Y6Pw9sNWz/containers-metrics-docker_exporter?orgId=1\&var-instance={{ $labels.instance }}\&var-container_name={{ $labels.container_name }}'
+grafana_cloudwatch_exporter_dashboard='https://grafana.MY_DOMAIN/d/bVHuLEamz/all-fails'
 wiki_monitoring_access='https://confluence.MY_DOMAIN/display/MY_PROJECT/Monitoring'
+
 
 src="prometheus/configs/alert_rules.d_examples/"
 dst="prometheus/configs/alert_rules.d/"
