@@ -32,6 +32,8 @@ remote_host.yml
 postgres_exporter.yml
 proxysql_exporter.yml
 mysqld_exporter.yml
+docker_exporter.yml
+cloudwatch_exporter.yml
 "
 
 for conf in $configs
