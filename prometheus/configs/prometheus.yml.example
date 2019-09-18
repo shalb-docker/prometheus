@@ -119,6 +119,33 @@ scrape_configs:
       replacement: '$1'
 
 
+# node_exporter with limited collectors and per host labels without dns
+  - job_name: 'node_exporter prod'
+    params:
+      collect[]:
+      - stat
+      - diskstats
+      - cpu
+      - filesystem
+      - loadavg
+      - meminfo
+      - netstat
+      - textfile
+      - timex
+      - vmstat
+    static_configs:
+      - targets: ['127.0.0.1:9100']
+        labels:
+          host_priority: 'P5'
+          project: 'my_project'
+          hostname: 'tst-1.example.local'
+      - targets: ['127.0.0.1:9100']
+        labels:
+          host_priority: 'P5'
+          project: 'my_project'
+          hostname: 'tst-2.example.local'
+
+
 # mysqld_exporter with limited collectors and metrics, "hostname" and "host_priority" labels
   - job_name: 'mysqld_exporter prod'
     params:
