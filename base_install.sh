@@ -42,3 +42,18 @@ chmod 750 /data/monitoring/prometheus/
 apt install -y apache2-utils
 cd /data/monitoring/prometheus
 
+bash ./add_variables.sh
+
+# Create storage directories
+mkdir prometheus/storage/
+mkdir grafana/storage/
+mkdir alertmanager/storage/
+chmod -R 777 */storage/
+
+# Install and run as service
+cp docker_monitoring.service /etc/systemd/system/
+systemctl daemon-reload
+systemctl enable docker_monitoring.service
+systemctl restart docker_monitoring.service
+journalctl -f -u docker_monitoring.service
+

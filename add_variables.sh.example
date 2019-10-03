@@ -1,9 +1,5 @@
 source ./secrets
 
-OPSGENIE_TEAM="MY_TEAM"
-# if you have example.com domain - you should create A-records for prometheus.example.com, alertmanager.example.com, grafana.example.com, open 80 and 443 ports
-REMOTE_HOST="my_domain.com"
-
 cat ./alertmanager/config.yml.example | \
 sed -e "s@{{ OPSGENIE_API_KEY }}@$OPSGENIE_API_KEY@g" | \
 sed -e "s@{{ OPSGENIE_TEAM }}@$OPSGENIE_TEAM@g" | \
@@ -13,6 +9,11 @@ sed -e "s@{{ REMOTE_HOST }}@$REMOTE_HOST@g" \
 cat ./docker-compose.yml.example | \
 sed -e "s@{{ REMOTE_HOST }}@$REMOTE_HOST@g" \
 > ./docker-compose.yml
+
+cat ./add_prometheus_alerts.sh.example | \
+sed -e "s@{{ REMOTE_HOST }}@$REMOTE_HOST@g" \
+> ./add_prometheus_alerts.sh
+bash ./add_prometheus_alerts.sh
 
 cat ./nginx/conf.d/default.conf.example | \
 sed -e "s@{{ REMOTE_HOST }}@$REMOTE_HOST@g" \
@@ -29,19 +30,22 @@ echo "GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_ADMIN_PASSWORD}" > ./grafana/env_secr
 #GF_METRICS_BASIC_AUTH_PASSWORD=${GRAFANA_METRICS_BASIC_AUTH_PASSWORD}
 #" > ./grafana/env_secrets
 
-htpasswd -b -c ./nginx/conf.d/htpasswd admin $GRAFANA_ADMIN_PASSWORD
+if [ -f "./nginx/conf.d/htpasswd admin" ]
+    then htpasswd -b ./nginx/conf.d/htpasswd admin $GRAFANA_ADMIN_PASSWORD
+    else htpasswd -b -c ./nginx/conf.d/htpasswd admin $GRAFANA_ADMIN_PASSWORD
+fi
 
 cat ./grafana/env.example | \
 sed -e "s@{{ REMOTE_HOST }}@$REMOTE_HOST@g" \
 > ./grafana/env
 
-echo "AWS_ACCESS_KEY_ID=${prod_AWS_ACCESS_KEY_ID}
-AWS_SECRET_ACCESS_KEY=${prod_AWS_SECRET_ACCESS_KEY}" \
-> ./cloudwatch-exporter_prod/env_secrets
+#echo "AWS_ACCESS_KEY_ID=${prod_AWS_ACCESS_KEY_ID}
+#AWS_SECRET_ACCESS_KEY=${prod_AWS_SECRET_ACCESS_KEY}" \
+#> ./cloudwatch-exporter_prod/env_secrets
 
-echo "DATA_SOURCE_NAME=${postgres_exporter_prod_SECRET}" \
-> ./postgres_exporter_prod/env_secrets
+#echo "DATA_SOURCE_NAME=${postgres_exporter_prod_SECRET}" \
+#> ./postgres_exporter_prod/env_secrets
 
-echo "REDIS_ADDR=${redis_exporter_prod_SECRET}" \
-> ./redis_exporter_prod/env_secrets
+#echo "REDIS_ADDR=${redis_exporter_prod_SECRET}" \
+#> ./redis_exporter_prod/env_secrets
 
