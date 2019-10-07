@@ -64,31 +64,31 @@ groups:
 
   - name: "parse errors - docker_exporter"
     rules:
-      - alert: "docker_exporter have new errors P1-3"
+      - alert: "docker_exporter has new errors P1-3"
         expr: docker_exporter_up{host_priority=~"P[1-3]"} != 1
         for: 5m
         annotations:
-          summary: "docker_exporter have new errors"
+          summary: "docker_exporter has new errors"
           description: 'Go to instance: "{{ $labels.instance }}" and check log for docker_exporter'
           grafana: "{{ grafana_docker_exporter_dashboard }}"
           access: "{{ wiki_monitoring_access }}"
           priority: "P2"
 
-      - alert: "docker_exporter have new errors P4-5"
+      - alert: "docker_exporter has new errors P4-5"
         expr: docker_exporter_up{host_priority=~"P[4-5]"} != 1
         for: 15m
         annotations:
-          summary: "docker_exporter have new errors"
+          summary: "docker_exporter has new errors"
           description: 'Go to instance: "{{ $labels.instance }}" and check log for docker_exporter'
           grafana: "{{ grafana_docker_exporter_dashboard }}"
           access: "{{ wiki_monitoring_access }}"
           priority: "P3"
 
-      - alert: "docker_exporter have new errors"
+      - alert: "docker_exporter has new errors"
         expr: docker_exporter_up{host_priority!~"P[1-5]"} != 1
         for: 10m
         annotations:
-          summary: "docker_exporter have new errors"
+          summary: "docker_exporter has new errors"
           description: 'Go to instance: "{{ $labels.instance }}" and check log for docker_exporter'
           grafana: "{{ grafana_docker_exporter_dashboard }}"
           access: "{{ wiki_monitoring_access }}"

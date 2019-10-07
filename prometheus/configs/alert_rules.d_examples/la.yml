@@ -1,7 +1,7 @@
 groups:
   - name: get number of cores
     rules:
-# enable if you have old node_exporters (version 0.15)
+# enable if you has old node_exporters (version 0.15)
 #   - record: instance:node_cpus_old:count
 #     expr: count(node_cpu{mode="idle"}) without (cpu,mode)
     - record: instance:node_cpus:count

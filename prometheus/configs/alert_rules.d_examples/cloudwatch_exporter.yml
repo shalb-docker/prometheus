@@ -64,31 +64,31 @@ groups:
 
   - name: "parse errors - cloudwatch_exporter"
     rules:
-      - alert: "cloudwatch_exporter have new errors P1-3"
+      - alert: "cloudwatch_exporter has new errors P1-3"
         expr: cloudwatch_exporter_scrape_error{host_priority=~"P[1-3]"} != 0
         for: 5m
         annotations:
-          summary: "cloudwatch_exporter have new errors"
+          summary: "cloudwatch_exporter has new errors"
           description: 'Go to instance: "{{ $labels.instance }}" and check log for cloudwatch_exporter'
           grafana: "{{ grafana_cloudwatch_exporter_dashboard }}"
           access: "{{ wiki_monitoring_access }}"
           priority: "P2"
 
-      - alert: "cloudwatch_exporter have new errors P4-5"
+      - alert: "cloudwatch_exporter has new errors P4-5"
         expr: cloudwatch_exporter_scrape_error{host_priority=~"P[4-5]"} != 0
         for: 15m
         annotations:
-          summary: "cloudwatch_exporter have new errors"
+          summary: "cloudwatch_exporter has new errors"
           description: 'Go to instance: "{{ $labels.instance }}" and check log for cloudwatch_exporter'
           grafana: "{{ grafana_cloudwatch_exporter_dashboard }}"
           access: "{{ wiki_monitoring_access }}"
           priority: "P3"
 
-      - alert: "cloudwatch_exporter have new errors"
+      - alert: "cloudwatch_exporter has new errors"
         expr: cloudwatch_exporter_scrape_error{host_priority!~"P[1-5]"} != 0
         for: 10m
         annotations:
-          summary: "cloudwatch_exporter have new errors"
+          summary: "cloudwatch_exporter has new errors"
           description: 'Go to instance: "{{ $labels.instance }}" and check log for cloudwatch_exporter'
           grafana: "{{ grafana_cloudwatch_exporter_dashboard }}"
           access: "{{ wiki_monitoring_access }}"
