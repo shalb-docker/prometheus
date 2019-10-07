@@ -54,31 +54,31 @@ groups:
 
   - name: "parse errors - node_exporter"
     rules:
-      - alert: "node_exporter exporter have new errors P1-3"
+      - alert: "node_exporter has new errors P1-3"
         expr: node_scrape_collector_success{host_priority=~"P[1-3]"} != 1
         for: 5m
         annotations:
-          summary: "node_exporter have new errors for some collectors"
+          summary: "node_exporter has new errors for some collectors"
           description: 'Go to host: "{{ $labels.hostname }}" and check log for node_exporter'
           grafana: "{{ GRAFANA_NODE_EXPORTER_ALERTS_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P2"
 
-      - alert: "node_exporter exporter have new errors P4-5"
+      - alert: "node_exporter has new errors P4-5"
         expr: node_scrape_collector_success{host_priority=~"P[4-5]"} != 1
         for: 15m
         annotations:
-          summary: "node_exporter have new errors for some collectors"
+          summary: "node_exporter has new errors for some collectors"
           description: 'Go to host: "{{ $labels.hostname }}" and check log for node_exporter'
           grafana: "{{ GRAFANA_NODE_EXPORTER_ALERTS_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P3"
 
-      - alert: "node_exporter exporter have new errors"
+      - alert: "node_exporter has new errors"
         expr: node_scrape_collector_success{host_priority!~"P[1-5]"} != 1
         for: 10m
         annotations:
-          summary: "node_exporter have new errors for some collectors"
+          summary: "node_exporter has new errors for some collectors"
           description: 'Go to host: "{{ $labels.hostname }}" and check log for node_exporter'
           grafana: "{{ GRAFANA_NODE_EXPORTER_ALERTS_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
@@ -87,31 +87,31 @@ groups:
 
   - name: "parse errors - node_exporter text file"
     rules:
-      - alert: "text file for node_exporter exporter have new errors P1-3"
+      - alert: "text file for node_exporter has new errors P1-3"
         expr: node_textfile_scrape_error{host_priority=~"P[1-3]"} != 0
         for: 5m
         annotations:
-          summary: "text file for node_exporter have new errors"
+          summary: "text file for node_exporter has new errors"
           description: 'Go to host: "{{ $labels.hostname }}" and check log for node_exporter'
           grafana: "{{ GRAFANA_NODE_EXPORTER_ALERTS_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P2"
 
-      - alert: "text file for node_exporter exporter have new errors P4-5"
+      - alert: "text file for node_exporter has new errors P4-5"
         expr: node_textfile_scrape_error{host_priority=~"P[4-5]"} != 0
         for: 15m
         annotations:
-          summary: "text file for node_exporter have new errors"
+          summary: "text file for node_exporter has new errors"
           description: 'Go to host: "{{ $labels.hostname }}" and check log for node_exporter'
           grafana: "{{ GRAFANA_NODE_EXPORTER_ALERTS_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P3"
 
-      - alert: "text file for node_exporter exporter have new errors"
+      - alert: "text file for node_exporter has new errors"
         expr: node_textfile_scrape_error{host_priority!~"P[1-5]"} != 0
         for: 10m
         annotations:
-          summary: "text file for node_exporter have new errors"
+          summary: "text file for node_exporter has new errors"
           description: 'Go to host: "{{ $labels.hostname }}" and check log for node_exporter'
           grafana: "{{ GRAFANA_NODE_EXPORTER_ALERTS_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
