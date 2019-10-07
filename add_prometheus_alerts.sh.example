@@ -1,49 +1,19 @@
-# do not forget to quote '&' character for sed, example: '\&'
-grafana_all_alerts_dashboard='https://grafana.{{ REMOTE_HOST }}/d/bVHuLEamz/all-fails'
-grafana_monit_dashboard='https://grafana.{{ REMOTE_HOST }}/d/RGx4RH-ik/monit-exporter?orgId=1\&var-node={{ $labels.instance }}'
-grafana_mysql_dashboard='https://grafana.{{ REMOTE_HOST }}/d/RGx4RH-ik/monit-exporter?orgId=1\&var-node={{ $labels.instance }}'
-grafana_proxysql_dashboard='https://grafana.{{ REMOTE_HOST }}/d/RGx4RH-ik/proxysql-overview?orgId=1\&var-proxysql={{ $labels.instance }}\&var-hostgroup={{ $labels.hostgroup }}'
-grafana_docker_exporter_dashboard='https://grafana.{{ REMOTE_HOST }}/d/Y6Pw9sNWz/containers-metrics-docker_exporter?orgId=1\&var-instance={{ $labels.instance }}\&var-container_name={{ $labels.container_name }}'
-grafana_cloudwatch_exporter_dashboard='https://grafana.{{ REMOTE_HOST }}/d/bVHuLEamz/all-fails'
-wiki_monitoring_access='{{ WIKI_MONITORING_ACCESS }}'
-
+source ./secrets
 
 src='prometheus/configs/alert_rules.d_examples/'
 dst='prometheus/configs/alert_rules.d/'
 
-configs='
-prometheus.yml
-cron.yml
-disk.yml
-http.yml
-mail.yml
-memory.yml
-monit.yml
-node_exporter.yml
-nproc.yml
-time_sync.yml
-la.yml
-redis_exporter.yml
-elasticsearch.yml
-monit_collector.yml
-processes.yml
-monit_program.yml
-remote_host.yml
-postgres_exporter.yml
-proxysql_exporter.yml
-mysqld_exporter.yml
-docker_exporter.yml
-cloudwatch_exporter.yml
-'
+configs=$(ls ${src})
 
 for conf in $configs
     do
     cat ${src}${conf} | \
-    sed -e "s@{{ grafana_all_alerts_dashboard }}@$grafana_all_alerts_dashboard@g" | \
-    sed -e "s@{{ grafana_monit_dashboard }}@$grafana_monit_dashboard@g" | \
-    sed -e "s@{{ grafana_mysql_dashboard }}@$grafana_mysql_dashboard@g" | \
-    sed -e "s@{{ grafana_proxysql_dashboard }}@$grafana_proxysql_dashboard@g" | \
-    sed -e "s@{{ wiki_monitoring_access }}@$wiki_monitoring_access@g" \
+    sed -e "s@{{ GRAFANA_ALL_ALERTS_DASHBOARD }}@$GRAFANA_ALL_ALERTS_DASHBOARD@g" | \
+    sed -e "s@{{ GRAFANA_NODE_EXPORTER_ALERTS_DASHBOARD }}@$GRAFANA_NODE_EXPORTER_ALERTS_DASHBOARD@g" | \
+    sed -e "s@{{ GRAFANA_MONIT_DASHBOARD }}@$GRAFANA_MONIT_DASHBOARD@g" | \
+    sed -e "s@{{ GRAFANA_MYSQL_DASHBOARD }}@$GRAFANA_MYSQL_DASHBOARD@g" | \
+    sed -e "s@{{ GRAFANA_PROXYSQL_DASHBOARD }}@$GRAFANA_PROXYSQL_DASHBOARD@g" | \
+    sed -e "s@{{ WIKI_MONITORING_ACCESS }}@$WIKI_MONITORING_ACCESS@g" \
     > ${dst}${conf}
 done
 

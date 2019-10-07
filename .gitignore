@@ -11,6 +11,7 @@ nginx/ssl/*
 */env_secrets
 secrets
 alertmanager/config.yml
+prometheus/configs/prometheus.yml
 
 # uncommennt if needed:
 #docker-compose.yml

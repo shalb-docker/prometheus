@@ -3,42 +3,42 @@ groups:
     rules:
       - alert: "host down P5"
         expr: up{host_priority="P5",instance=~".*:9100"} == 0
-        for: 10m
+        for: 30m
         annotations:
           summary: "host down"
-          description: 'Go to instance: "{{ $labels.instance }}" and check if service "node_exporter" is running'
-          grafana: "{{ grafana_all_alerts_dashboard }}"
-          access: "{{ wiki_monitoring_access }}"
+          description: 'Go to host: "{{ $labels.hostname }}" and check if service "node_exporter" is running'
+          grafana: "{{ GRAFANA_NODE_EXPORTER_ALERTS_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P3"
 
       - alert: "host down P4"
         expr: up{host_priority="P4",instance=~".*:9100"} == 0
-        for: 5m
+        for: 20m
         annotations:
           summary: "host down"
-          description: 'Go to instance: "{{ $labels.instance }}" and check if service "node_exporter" is running'
-          grafana: "{{ grafana_all_alerts_dashboard }}"
-          access: "{{ wiki_monitoring_access }}"
+          description: 'Go to host: "{{ $labels.hostname }}" and check if service "node_exporter" is running'
+          grafana: "{{ GRAFANA_NODE_EXPORTER_ALERTS_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P3"
 
       - alert: "host down P3"
-        expr: up{host_priority="P3",instance=~".*:9100"} == 0
-        for: 3m
+        expr: up{host_priority=~"P3|^$",instance=~".*:9100"} == 0
+        for: 10m
         annotations:
           summary: "host down"
-          description: 'Go to instance: "{{ $labels.instance }}" and check if service "node_exporter" is running'
-          grafana: "{{ grafana_all_alerts_dashboard }}"
-          access: "{{ wiki_monitoring_access }}"
+          description: 'Go to host: "{{ $labels.hostname }}" and check if service "node_exporter" is running'
+          grafana: "{{ GRAFANA_NODE_EXPORTER_ALERTS_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P2"
 
       - alert: "host down P2"
         expr: up{host_priority="P2",instance=~".*:9100"} == 0
-        for: 1m
+        for: 5m
         annotations:
           summary: "host down"
-          description: 'Go to instance: "{{ $labels.instance }}" and check if service "node_exporter" is running'
-          grafana: "{{ grafana_all_alerts_dashboard }}"
-          access: "{{ wiki_monitoring_access }}"
+          description: 'Go to host: "{{ $labels.hostname }}" and check if service "node_exporter" is running'
+          grafana: "{{ GRAFANA_NODE_EXPORTER_ALERTS_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P2"
 
       - alert: "host down P1"
@@ -46,20 +46,10 @@ groups:
         for: 1m
         annotations:
           summary: "host down"
-          description: 'Go to instance: "{{ $labels.instance }}" and check if service "node_exporter" is running'
-          grafana: "{{ grafana_all_alerts_dashboard }}"
-          access: "{{ wiki_monitoring_access }}"
+          description: 'Go to host: "{{ $labels.hostname }}" and check if service "node_exporter" is running'
+          grafana: "{{ GRAFANA_NODE_EXPORTER_ALERTS_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P1"
-
-      - alert: "host down"
-        expr: up{host_priority!~"P[1-5]",instance=~".*:9100"} == 0
-        for: 3m
-        annotations:
-          summary: "host down"
-          description: 'Go to instance: "{{ $labels.instance }}" and check if service "node_exporter" is running'
-          grafana: "{{ grafana_all_alerts_dashboard }}"
-          access: "{{ wiki_monitoring_access }}"
-          priority: "P3"
 
 
   - name: "parse errors - node_exporter"
@@ -69,9 +59,9 @@ groups:
         for: 5m
         annotations:
           summary: "node_exporter have new errors for some collectors"
-          description: 'Go to instance: "{{ $labels.instance }}" and check log for node_exporter'
-          grafana: "{{ grafana_all_alerts_dashboard }}"
-          access: "{{ wiki_monitoring_access }}"
+          description: 'Go to host: "{{ $labels.hostname }}" and check log for node_exporter'
+          grafana: "{{ GRAFANA_NODE_EXPORTER_ALERTS_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P2"
 
       - alert: "node_exporter exporter have new errors P4-5"
@@ -79,19 +69,19 @@ groups:
         for: 15m
         annotations:
           summary: "node_exporter have new errors for some collectors"
-          description: 'Go to instance: "{{ $labels.instance }}" and check log for node_exporter'
-          grafana: "{{ grafana_all_alerts_dashboard }}"
-          access: "{{ wiki_monitoring_access }}"
-          priority: "P2"
+          description: 'Go to host: "{{ $labels.hostname }}" and check log for node_exporter'
+          grafana: "{{ GRAFANA_NODE_EXPORTER_ALERTS_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
+          priority: "P3"
 
       - alert: "node_exporter exporter have new errors"
         expr: node_scrape_collector_success{host_priority!~"P[1-5]"} != 1
         for: 10m
         annotations:
           summary: "node_exporter have new errors for some collectors"
-          description: 'Go to instance: "{{ $labels.instance }}" and check log for node_exporter'
-          grafana: "{{ grafana_all_alerts_dashboard }}"
-          access: "{{ wiki_monitoring_access }}"
+          description: 'Go to host: "{{ $labels.hostname }}" and check log for node_exporter'
+          grafana: "{{ GRAFANA_NODE_EXPORTER_ALERTS_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P3"
 
 
@@ -102,9 +92,9 @@ groups:
         for: 5m
         annotations:
           summary: "text file for node_exporter have new errors"
-          description: 'Go to instance: "{{ $labels.instance }}" and check log for node_exporter'
-          grafana: "{{ grafana_all_alerts_dashboard }}"
-          access: "{{ wiki_monitoring_access }}"
+          description: 'Go to host: "{{ $labels.hostname }}" and check log for node_exporter'
+          grafana: "{{ GRAFANA_NODE_EXPORTER_ALERTS_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P2"
 
       - alert: "text file for node_exporter exporter have new errors P4-5"
@@ -112,18 +102,18 @@ groups:
         for: 15m
         annotations:
           summary: "text file for node_exporter have new errors"
-          description: 'Go to instance: "{{ $labels.instance }}" and check log for node_exporter'
-          grafana: "{{ grafana_all_alerts_dashboard }}"
-          access: "{{ wiki_monitoring_access }}"
-          priority: "P2"
+          description: 'Go to host: "{{ $labels.hostname }}" and check log for node_exporter'
+          grafana: "{{ GRAFANA_NODE_EXPORTER_ALERTS_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
+          priority: "P3"
 
       - alert: "text file for node_exporter exporter have new errors"
         expr: node_textfile_scrape_error{host_priority!~"P[1-5]"} != 0
         for: 10m
         annotations:
           summary: "text file for node_exporter have new errors"
-          description: 'Go to instance: "{{ $labels.instance }}" and check log for node_exporter'
-          grafana: "{{ grafana_all_alerts_dashboard }}"
-          access: "{{ wiki_monitoring_access }}"
+          description: 'Go to host: "{{ $labels.hostname }}" and check log for node_exporter'
+          grafana: "{{ GRAFANA_NODE_EXPORTER_ALERTS_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P3"
 
