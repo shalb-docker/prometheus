@@ -35,13 +35,10 @@ echo \
 
 systemctl restart docker.service
 
-mkdir -p /data/monitoring
-git clone https://github.com/shalb-docker/prometheus.git /data/monitoring/prometheus
-chmod 750 /data/monitoring/prometheus/
-
 apt install -y apache2-utils
 cd /data/monitoring/prometheus
 
+cp add_variables.sh.example add_variables.sh
 bash ./add_variables.sh
 
 # Create storage directories
