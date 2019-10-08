@@ -32,7 +32,7 @@ rule_files:
 scrape_configs:
   - job_name: 'prometheus local'
     static_configs:
-      - targets: ['prometheus:9090']
+      - targets: ['prometheus-prod:9090']
         labels:
           host_priority: 'P5'
           server_env: 'prod'

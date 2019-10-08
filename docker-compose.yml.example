@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-  prometheus:
+  prometheus-prod:
     image: prom/prometheus:v2.4.2
     volumes:
       - ./prometheus/configs:/etc/prometheus/
@@ -76,6 +76,7 @@ services:
 #   image: nginx:1.15
 #   volumes:
 #     - ./nginx/conf.d:/etc/nginx/conf.d/
+#     - ./nginx/ssl:/etc/nginx/ssl
 #   depends_on:
 #     - prometheus
 #     - alertmanager

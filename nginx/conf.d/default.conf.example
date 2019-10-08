@@ -40,7 +40,7 @@ server {
     ssl_certificate_key     /etc/nginx/ssl/prometheus.{{ REMOTE_HOST }}/private.key;
 
     location / {
-        proxy_pass        http://prometheus:9090;
+        proxy_pass        http://prometheus-prod:9090;
         proxy_redirect    off;
         proxy_set_header  X-Forwarded-For       $remote_addr;
         proxy_set_header  Host      $host;
