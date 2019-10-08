@@ -1,38 +1,3 @@
-   * [Setup](#setup)
-      * [Requirements](#requirements)
-         * [Infrastructure](#infrastructure)
-            * [DNS A-records:](#dns-a-records)
-            * [DNS SPF-records:](#dns-spf-records)
-            * [Instance performance](#instance-performance)
-            * [Instance network](#instance-network)
-               * [Monitoring server](#monitoring-server)
-               * [Monitoring clients](#monitoring-clients)
-      * [install](#install)
-         * [install docker](#install-docker)
-         * [enable docker monitoring and add default log rotation](#enable-docker-monitoring-and-add-default-log-rotation)
-         * [clone repo](#clone-repo)
-         * [replace variables by needed values in add_variables.sh and run it](#replace-variables-by-needed-values-in-add_variablessh-and-run-it)
-         * [add alerts to prometheus config (assign apropriate dashbords links to variables)](#add-alerts-to-prometheus-config-assign-apropriate-dashbords-links-to-variables)
-         * [add hosts to prometheus config and enable needed alert configs](#add-hosts-to-prometheus-config-and-enable-needed-alert-configs)
-         * [configure firewall to get node_exporter from host system](#configure-firewall-to-get-node_exporter-from-host-system)
-         * [run stack (swarm or docker-compose)](#run-stack-swarm-or-docker-compose)
-            * [run stack by swarm](#run-stack-by-swarm)
-            * [run stack by docker-compose](#run-stack-by-docker-compose)
-   * [Add dashboards](#add-dashboards)
-      * [change data source then import to grafana](#change-data-source-then-import-to-grafana)
-   * [Info](#info)
-      * [Our public repo with usefull code](#our-public-repo-with-usefull-code)
-   * [Useful commands](#useful-commands)
-      * [Dashboards manipulations](#dashboards-manipulations)
-         * [update data source to standard value (ready to customize)](#update-data-source-to-standard-value-ready-to-customize)
-      * [Services management](#services-management)
-         * [down all containers (swarm)](#down-all-containers-swarm)
-         * [check running services](#check-running-services)
-         * [restart prometheus (swarm)](#restart-prometheus-swarm)
-         * [check prometheus logs (swarm)](#check-prometheus-logs-swarm)
-         * [reload prometheus](#reload-prometheus)
-   * [Get binary exporters from docker containers images if no in repository](#get-binary-exporters-from-docker-containers-images-if-no-in-repository)
-
 # Setup
 
 ## Requirements
@@ -92,15 +57,29 @@ INPUT
 9100-9999 TCP - from "Monitoring server"
 ~~~~
 
-## install
+## Install
 
-### install docker
+### Fast install
+
+~~~~
+# Add your secrets (all not commented secrets are mandatory) 
+mkdir -p /data/monitoring
+git clone https://github.com/shalb-docker/prometheus.git /data/monitoring/prometheus
+chmod 750 /data/monitoring/prometheus/
+cat secrets.example > secrets
+editor secrets
+bash base_install.sh
+~~~~
+
+### Explained install
+
+#### Install docker
 
 ~~~~
 https://docs.docker.com/install/linux/docker-ce/ubuntu/
 ~~~~
 
-### enable docker monitoring and add default log rotation
+#### Enable docker monitoring and add default log rotation
 
 ~~~~
 echo \
@@ -117,7 +96,7 @@ echo \
 systemctl restart docker.service
 ~~~~
 
-### clone repo
+#### Clone repo
 
 ~~~~
 mkdir -p /data/monitoring
@@ -125,61 +104,40 @@ git clone https://github.com/shalb-docker/prometheus.git /data/monitoring/promet
 chmod 750 /data/monitoring/prometheus/
 ~~~~
 
-### replace variables by needed values in add_variables.sh and run it
+#### Replace variables by needed values in add_variables.sh and run it
 
 ~~~~
 apt install apache2-utils
 cd /data/monitoring/prometheus
-# create add_variables.sh script if it not exist
-cp -a add_variables.sh.example add_variables.sh
-# replace ".example" files by ".custom" if needed
-editor ./add_variables.sh
+# Add your secrets (all not commented secrets are mandatory) 
 cat secrets.example > secrets
 editor secrets
+# Create add_variables.sh script if it not exist
+cp -a add_variables.sh.example add_variables.sh
+# Copy "*.example" files to "*.custom" and replace appropriate names in 'add_variables.sh' script if any customization needed
+editor ./add_variables.sh
+# Apply it
 bash ./add_variables.sh
+# Create storage directories
 mkdir prometheus/storage/
 mkdir grafana/storage/
 mkdir alertmanager/storage/
 chmod -R 777 */storage/
-# uncomment resulting files with secrets if needed in .gitignore
+# Uncomment or add new files with secrets in '.gitignore' if you have any additional files with secrets
 editor .gitignore
 ~~~~
 
-### add alerts to prometheus config (assign apropriate dashbords links to variables)
+#### Add hosts to prometheus config and customize
 
 ~~~~
-# create add_prometheus_alerts.sh script if it not exist
-cp -a add_prometheus_alerts.sh.example add_prometheus_alerts.sh
-editor add_prometheus_alerts.sh
-bash add_prometheus_alerts.sh
-~~~~
-
-### add hosts to prometheus config and enable needed alert configs
-
-~~~~
+cp -a prometheus/configs/prometheus.yml.example prometheus/configs/prometheus.yml
 editor prometheus/configs/prometheus.yml
 ~~~~
 
-### configure firewall to get node_exporter from host system
+#### Configure firewall to get node_exporter from host system
 
 ~~~~
 iptables -I INPUT -s 172.16.0.0/12 -p tcp -m state --state NEW -m tcp --dport 9100 -j ACCEPT
-~~~~
-
-### run stack (swarm or docker-compose)
-
-~~~~
-mkdir -p ./prometheus/storage
-chmod 777 ./prometheus/storage
-mkdir -p ./grafana/storage
-chmod 777 ./grafana/storage
-~~~~
-
-#### run stack by swarm
-
-~~~~
-docker swarm init |& tee swarm
-docker stack deploy -c docker-compose.yml monitoring
 ~~~~
 
 #### run stack by docker-compose
@@ -193,26 +151,14 @@ curl -L "https://github.com/docker/compose/releases/download/1.24.0/docker-compo
 chmod +x /usr/local/bin/docker-compose
 ~~~~
 
-##### insall and run as service
+##### install and run as service
 
 ~~~~
 cp docker_monitoring.service /etc/systemd/system/
 systemctl daemon-reload
 systemctl enable docker_monitoring.service
 systemctl restart docker_monitoring.service
-chmod -R 777 */storage/
-systemctl restart docker_monitoring.service
 journalctl -f -u docker_monitoring.service
-~~~~
-
-# Add dashboards
-
-## change data source then import to grafana
-
-~~~~
-mkdir -p tmp/
-cp grafana/dashboards/* tmp/
-sed -i 's/MY_DATA_SOURCE/YOUR_PROMETHEUS_DATA_SOURCE_HERE/g' tmp/*.json
 ~~~~
 
 # Info
@@ -223,50 +169,18 @@ https://github.com/shalb-docker?tab=repositories
 
 # Useful commands
 
-## Dashboards manipulations
-
-### update data source to standard value (ready to customize)
-
-~~~~
-sed -i 's/Shalb prometheus/MY_DATA_SOURCE/g' monit_exporter.json
-~~~~
-
 ## Services management
-
-### down all containers (swarm)
-
-~~~~
-docker stack rm monitoring
-~~~~
-
-### check running services
-
-~~~~
-docker service ls
-~~~~
-
-### restart prometheus (swarm)
-
-~~~~
-docker service update monitoring_prometheus --force
-~~~~
-
-### check prometheus logs (swarm)
-
-~~~~
-docker service logs -f --tail 10 monitoring_prometheus
-~~~~
 
 ### reload prometheus
 
 ~~~~
-prometheus_reload.sh
+bash prometheus_reload.sh
 ~~~~
 
 # Get binary exporters from docker containers images if no in repository
 
 ~~~~
-# example composer config to get containers:
+# Example composer config to get containers:
 mkdir exporters && cd exporters
 echo "
 version: '2'
@@ -302,18 +216,18 @@ services:
 
 " > docker-compose.yml
 
-# run my_container a least once, find container_id via: docker ps -a | grep my_container
-# create containers (do Ctrl+C after creation):
+# Run my_container a least once, find container_id via: docker ps -a | grep my_container
+# Create containers (do Ctrl+C after creation):
 exporter="postgres-exporter"
 docker-compose up ${exporter}
 
-# find needed container:
+# Find needed container:
 container_id=$(docker ps -a | grep ${exporter} | awk '{print $1}')
 
-# copy file from container
+# Copy file from container
 rm -rf my_container
 mkdir my_container && cd my_container
 docker cp ${container_id}:/ ./
 
-# find needed binary in ./, copy it to playbook or to needed host
+# Find needed binary in ./, copy it to playbook or to needed host
 ~~~~

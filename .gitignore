@@ -10,9 +10,10 @@ nginx/conf.d/htpasswd
 nginx/ssl/*
 */env_secrets
 secrets
+alertmanager/config.yml
+prometheus/configs/prometheus.yml
 
 # uncommennt if needed:
-#alertmanager/config.yml
 #docker-compose.yml
 #nginx/conf.d/default.conf
 #postfix-relay/main.cf

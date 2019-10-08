@@ -7,8 +7,8 @@ groups:
         annotations:
           summary: 'custom check: "{{ $labels.name }}" failed'
           description: 'Go to instance: "{{ $labels.instance }}"; find more info in monit config (grep -r {{ $labels.name }} /etc/monit.d/); monit log: /var/log/monit_collector.log'
-          grafana: "{{ grafana_all_alerts_dashboard }}"
-          access: "{{ wiki_monitoring_access }}"
+          grafana: "{{ GRAFANA_ALL_ALERTS_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P3"
 
       - alert: "custom check failed P1-3"
@@ -17,7 +17,7 @@ groups:
         annotations:
           summary: 'custom check: "{{ $labels.name }}" failed'
           description: 'Go to instance: "{{ $labels.instance }}"; find more info in monit config (grep -r {{ $labels.name }} /etc/monit.d/); monit log: /var/log/monit_collector.log'
-          grafana: "{{ grafana_all_alerts_dashboard }}"
-          access: "{{ wiki_monitoring_access }}"
+          grafana: "{{ GRAFANA_ALL_ALERTS_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P2"
 

@@ -1,13 +1,13 @@
 groups:
   - name: "prometheus exporter alerts"
     rules:
-      - alert: "prometheus exporter have new errors"
-        expr: up{instance=~".*:9090"} == 0
+      - alert: "prometheus exporter has new errors (config reload)"
+        expr: prometheus_config_last_reload_successful != 1
         for: 10m
         annotations:
-          summary: "Exporter: {{ $labels.instance }} have new errors"
-          description: "Go to monitoring instance and check log for Exporter: {{ $labels.instance }}"
-          grafana: "{{ grafana_all_alerts_dashboard }}"
-          access: "{{ wiki_monitoring_access }}"
+          summary: "prometheus config reload fails"
+          description: 'Go to host: "{{ $labels.hostname }}" and check why instance: "{{ $labels.instance }}" cannot reload config'
+          grafana: "{{ GRAFANA_ALL_ALERTS_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P3"
 
