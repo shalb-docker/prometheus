@@ -9,6 +9,7 @@ sed -e "s@{{ PROJECT_NAME }}@$PROJECT_NAME@g" \
 cat ./alertmanager/config.yml.example | \
 sed -e "s@{{ OPSGENIE_API_KEY }}@$OPSGENIE_API_KEY@g" | \
 sed -e "s@{{ OPSGENIE_TEAM }}@$OPSGENIE_TEAM@g" | \
+sed -e "s@{{ ALERTMANAGER_GROUP_BY }}@$ALERTMANAGER_GROUP_BY@g" | \
 sed -e "s@{{ REMOTE_HOST }}@$REMOTE_HOST@g" \
 > ./alertmanager/config.yml
 

@@ -2,56 +2,46 @@ global:
 # resolve_timeout: 5m
 
 route:
-  group_by: [instance, alertname, priority, name]
+  group_by: {{ ALERTMANAGER_GROUP_BY }}
   group_wait: 9s
   group_interval: 9s
   repeat_interval: 8737h
-  receiver: opsgenie
+  receiver: blackhole
 
   routes:
   - receiver: opsgenie_monitoring_team
-    group_by: [instance, alertname, priority, name, master_host, mountpoint]
+    group_by: {{ ALERTMANAGER_GROUP_BY }}
     match_re:
-      name: ".*opsgenie_.*"
+      team: "monitoring"
+      server_env: "prod[0-9]*"
     repeat_interval: 8737h
 
   - receiver: opsgenie_backup_team
-    group_by: [instance, alertname, priority, name, master_host, mountpoint]
+    group_by: {{ ALERTMANAGER_GROUP_BY }}
     match_re:
-      name: ".*rsnapshot_.*"
-    repeat_interval: 8737h
-
-  - receiver: opsgenie_monitoring_team
-    group_by: [instance, alertname, priority, name, master_host, mountpoint]
-    match_re:
-      alertname: ".*exporter have new errors.*"
-    repeat_interval: 8737h
-
-  - receiver: opsgenie_monitoring_team
-    group_by: [instance, alertname, priority, name, master_host, mountpoint]
-    match_re:
-      alertname: ".*monit_collector have new errors.*"
+      team: "backup"
+      server_env: "prod[0-9]*"
     repeat_interval: 8737h
 
   - receiver: opsgenie
-    group_by: [instance, alertname, priority, name, master_host, mountpoint]
+    group_by: {{ ALERTMANAGER_GROUP_BY }}
     continue: true
     match_re:
-      name: ".*"
+      server_env: "prod[0-9]*"
     repeat_interval: 8737h
 
 # - receiver: example_mail
-#   group_by: [instance, alertname, priority, name, master_host, mountpoint]
+#   group_by: {{ ALERTMANAGER_GROUP_BY }}
 #   continue: true
-#   match:
-#     team: test
+#   match_re:
+#     server_env: "prod[0-9]*"
 #   repeat_interval: 8737h
 
 # - receiver: example_slack
-#   group_by: [instance, alertname, priority, name]
+#   group_by: {{ ALERTMANAGER_GROUP_BY }}
 #   continue: true
 #   match_re:
-#     alertname: ".*"
+#     server_env: "prod[0-9]*"
 #   repeat_interval: 8737h
 
 
@@ -60,11 +50,12 @@ inhibit_rules:
        alertname: '^host\s+down\s+P[1-5]$'
     target_match_re:
        alertname: '.*'
-   #   alertname: '^[a-zA-Z0-9_]+\s+exporter\s+down\s+P[1-5]$'
     equal: ['hostname']
 
 
 receivers:
+- name: blackhole
+
 - name: opsgenie
   opsgenie_configs:
     - api_key: {{ OPSGENIE_API_KEY }}
