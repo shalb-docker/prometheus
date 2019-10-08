@@ -134,12 +134,6 @@ cp -a prometheus/configs/prometheus.yml.example prometheus/configs/prometheus.ym
 editor prometheus/configs/prometheus.yml
 ~~~~
 
-#### Configure firewall to get node_exporter from host system
-
-~~~~
-iptables -I INPUT -s 172.16.0.0/12 -p tcp -m state --state NEW -m tcp --dport 9100 -j ACCEPT
-~~~~
-
 #### run stack by docker-compose
 
 ##### install docker-compose
@@ -159,6 +153,23 @@ systemctl daemon-reload
 systemctl enable docker_monitoring.service
 systemctl restart docker_monitoring.service
 journalctl -f -u docker_monitoring.service
+~~~~
+
+# Setup with selfsigned ssl
+
+~~~~
+cp -a docker-compose.yml.example docker-compose.yml.custom
+# comment 'artiloop/nginx' and uncomment 'nginx'
+# replace 'docker-compose.yml.example' by 'docker-compose.yml.custom' in file 'add_variables.sh'
+bash add_variables.sh
+mkdir -p nginx/ssl/alertmanager.monitoring-test.shalb.com/
+mkdir -p nginx/ssl/grafana.monitoring-test.shalb.com/
+mkdir -p nginx/ssl/prometheus.monitoring-test.shalb.com/
+openssl req -x509 -newkey rsa:4096 -keyout private.key -out fullchain.pem -nodes -days 99999
+cp private.key fullchain.pem nginx/ssl/alertmanager.monitoring-test.shalb.com/
+cp private.key fullchain.pem nginx/ssl/grafana.monitoring-test.shalb.com/
+cp private.key fullchain.pem nginx/ssl/prometheus.monitoring-test.shalb.com/
+rm private.key fullchain.pem
 ~~~~
 
 # Info
