@@ -66,6 +66,7 @@ INPUT
 mkdir -p /data/monitoring
 git clone https://github.com/shalb-docker/prometheus.git /data/monitoring/prometheus
 chmod 750 /data/monitoring/prometheus/
+cd /data/monitoring/prometheus/
 cat secrets.example > secrets
 editor secrets
 bash base_install.sh

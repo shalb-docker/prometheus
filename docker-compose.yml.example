@@ -64,7 +64,7 @@ services:
     environment:
         DOMAINS_LIST: "alertmanager.{{ REMOTE_HOST }},prometheus.{{ REMOTE_HOST }},grafana.{{ REMOTE_HOST }}"
     depends_on:
-      - prometheus
+      - prometheus-prod
       - alertmanager
       - grafana
     restart: always
@@ -78,7 +78,7 @@ services:
 #     - ./nginx/conf.d:/etc/nginx/conf.d/
 #     - ./nginx/ssl:/etc/nginx/ssl
 #   depends_on:
-#     - prometheus
+#     - prometheus-prod
 #     - alertmanager
 #     - grafana
 #   restart: always
