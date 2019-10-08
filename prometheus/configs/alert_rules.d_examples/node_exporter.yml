@@ -63,6 +63,7 @@ groups:
           grafana: "{{ GRAFANA_NODE_EXPORTER_SCRAPE_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P2"
+          team: "monitoring"
 
       - alert: "node_exporter has new errors P4-5"
         expr: node_scrape_collector_success{host_priority=~"P[4-5]"} != 1
@@ -73,6 +74,7 @@ groups:
           grafana: "{{ GRAFANA_NODE_EXPORTER_SCRAPE_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P3"
+          team: "monitoring"
 
       - alert: "node_exporter has new errors"
         expr: node_scrape_collector_success{host_priority!~"P[1-5]"} != 1
@@ -83,6 +85,7 @@ groups:
           grafana: "{{ GRAFANA_NODE_EXPORTER_SCRAPE_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P3"
+          team: "monitoring"
 
 
   - name: "parse errors - node_exporter text file"
@@ -96,6 +99,7 @@ groups:
           grafana: "{{ GRAFANA_NODE_EXPORTER_SCRAPE_TEXTFILE_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P2"
+          team: "monitoring"
 
       - alert: "text file for node_exporter has new errors P4-5"
         expr: node_textfile_scrape_error{host_priority=~"P[4-5]"} != 0
@@ -106,6 +110,7 @@ groups:
           grafana: "{{ GRAFANA_NODE_EXPORTER_SCRAPE_TEXTFILE_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P3"
+          team: "monitoring"
 
       - alert: "text file for node_exporter has new errors"
         expr: node_textfile_scrape_error{host_priority!~"P[1-5]"} != 0
@@ -116,4 +121,5 @@ groups:
           grafana: "{{ GRAFANA_NODE_EXPORTER_SCRAPE_TEXTFILE_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P3"
+          team: "monitoring"
 

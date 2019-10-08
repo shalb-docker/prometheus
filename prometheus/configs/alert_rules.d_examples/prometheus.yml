@@ -10,4 +10,5 @@ groups:
           grafana: "{{ GRAFANA_ALL_ALERTS_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P3"
+          team: "monitoring"
 
