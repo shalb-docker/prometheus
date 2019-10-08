@@ -1,19 +1,15 @@
-# my global config
 global:
-  scrape_interval:     10s # Set the scrape interval to every 15 seconds. Default is every 1 minute.
-  evaluation_interval: 10s # Evaluate rules every 15 seconds. The default is every 1 minute.
-  # scrape_timeout is set to the global default (10s).
+  scrape_interval:     10s
+  evaluation_interval: 10s
 
-# Alertmanager configuration
 alerting:
   alertmanagers:
   - static_configs:
     - targets:
       - alertmanager:9093
 
-# Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
 rule_files:
-# - "/etc/prometheus/alert_rules.d/prometheus.yml"
+  - "/etc/prometheus/alert_rules.d/prometheus.yml"
 # - "/etc/prometheus/alert_rules.d/cron.yml"
 # - "/etc/prometheus/alert_rules.d/disk.yml"
 # - "/etc/prometheus/alert_rules.d/http.yml"
@@ -33,67 +29,44 @@ rule_files:
 # - "/etc/prometheus/alert_rules.d/postgres_exporter.yml"
 # - "/etc/prometheus/alert_rules.d/proxysql_exporter.yml"
 
-# A scrape configuration containing exactly one endpoint to scrape:
-# Here it's Prometheus itself.
 scrape_configs:
-  # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
-# get prometheus metrics
   - job_name: 'prometheus local'
-    # metrics_path defaults to '/metrics'
-    # scheme defaults to 'http'.
     static_configs:
       - targets: ['prometheus:9090']
         labels:
           host_priority: 'P5'
+          server_env: 'prod'
+          hostname: 'grafana.{{ REMOTE_HOST }}'
+          project: '{{ PROJECT_NAME }}'
 
-# get grafana metrics
   - job_name: 'grafana local'
     static_configs:
       - targets: ['grafana:3000']
         labels:
           host_priority: 'P5'
+          server_env: 'prod'
+          hostname: 'grafana.{{ REMOTE_HOST }}'
+          project: '{{ PROJECT_NAME }}'
 
-# get alertmanager metrics
   - job_name: 'alertmanager local'
     static_configs:
       - targets: ['alertmanager:9093']
         labels:
           host_priority: 'P5'
+          server_env: 'prod'
+          hostname: 'grafana.{{ REMOTE_HOST }}'
+          project: '{{ PROJECT_NAME }}'
 
-# get docker localhost metrics
 # - job_name: 'docker local'
 #   static_configs:
-#     - targets: ['grafana.local.my_domain.com:9323']
+#     - targets: ['{{ LOCAL_IP }}:9323']
 #       labels:
 #         host_priority: 'P5'
+#         server_env: 'prod'
+#         hostname: 'grafana.{{ REMOTE_HOST }}'
+#         project: '{{ PROJECT_NAME }}'
 
-# get node_exporter localhost metrics
-# - job_name: 'node_exporter local'
-#   params:
-#     collect[]:
-#     - stat
-#     - diskstats
-#     - cpu
-#     - filesystem
-#     - loadavg
-#     - meminfo
-#     - netstat
-#     - textfile
-#     - timex
-#     - vmstat
-#   static_configs:
-#     - targets: ['grafana.local.my_domain.com:9100']
-#       labels:
-#         host_priority: 'P5'
-#   relabel_configs:
-#   - source_labels: [__address__]
-#     regex: '(.*):[0-9]+'
-#     target_label: hostname
-#     replacement: '$1'
-
-
-# node_exporter with limited collectors, "hostname" and "host_priority" labels
-  - job_name: 'node_exporter prod'
+  - job_name: 'node_exporter local'
     params:
       collect[]:
       - stat
@@ -102,112 +75,95 @@ scrape_configs:
       - filesystem
       - loadavg
       - meminfo
-      - netstat
+      - netdev
       - textfile
+      - time
       - timex
       - vmstat
+    metric_relabel_configs:
+      - source_labels: [ mountpoint ]
+        regex: '/run/.*|/run|/snap/.*|.*/var/lib/docker/.*|/var/lib/docker/.*|/var/snap/microk8s/.*|/var/lib/kubelet|/var/lib/lxcfs|/var/lib/rancher/volumes|/data/glusterfs/vol2|/var/lib/nova'
+        action: drop
+      - source_labels: [ __name__ ]
+        regex: 'up|node_boot_time_seconds|node_memory_MemAvailable_bytes|node_time_seconds|node_memory_MemTotal_bytes|node_network_receive_bytes_total|node_network_transmit_bytes_total|node_disk_read_bytes_total|node_disk_written_bytes_total|node_network_receive_packets_total|node_network_transmit_packets_total|node_disk_writes_completed_total|node_disk_reads_completed_total|node_filesystem_size_bytes|node_filesystem_free_bytes|node_condition|node_cpu|node_cpu_seconds_total|node_cpus|node_filesystem_avail_bytes|node_filesystem_files|node_filesystem_files_free|node_filesystem_readonly|node_load1|node_mail_queue|node_monit|node_name|node_scrape_collector_success|node_stats_up|node_textfile_scrape_error|node_timex_sync_status'
+        action: keep
     static_configs:
-      - targets:
-        - 'host-1.example.com:9100'
-        - 'host-2.example.com:9100'
-        labels:
-          host_priority: 'P1'
-    relabel_configs:
-    - source_labels: [__address__]
-      regex: '(.*):[0-9]+'
-      target_label: hostname
-      replacement: '$1'
-
-
-# node_exporter with limited collectors and per host labels without dns
-  - job_name: 'node_exporter prod'
-    params:
-      collect[]:
-      - stat
-      - diskstats
-      - cpu
-      - filesystem
-      - loadavg
-      - meminfo
-      - netstat
-      - textfile
-      - timex
-      - vmstat
-    static_configs:
-      - targets: ['127.0.0.1:9100']
+      - targets: ['node-exporter:9100']
         labels:
           host_priority: 'P5'
-          project: 'my_project'
-          hostname: 'tst-1.example.local'
-      - targets: ['127.0.0.1:9100']
-        labels:
-          host_priority: 'P5'
-          project: 'my_project'
-          hostname: 'tst-2.example.local'
+          server_env: 'prod'
+          hostname: 'grafana.{{ REMOTE_HOST }}'
+          project: '{{ PROJECT_NAME }}'
 
 
 # mysqld_exporter with limited collectors and metrics, "hostname" and "host_priority" labels
-  - job_name: 'mysqld_exporter prod'
-    params:
-      collect[]:
-      - global_status
-      - global_variables
-    metric_relabel_configs:
-      - source_labels: [ __name__ ]
-        regex: 'mysql_up|mysql_exporter_last_scrape_error|mysql_global_variables_max_connections|mysql_global_status_threads_connected'
-        action: keep
-    static_configs:
-      - targets: ['host-1.example.com:9104']
-        labels:
-          host_priority: 'P3'
+# - job_name: 'mysqld_exporter prod'
+#   params:
+#     collect[]:
+#     - global_status
+#     - global_variables
+#   metric_relabel_configs:
+#     - source_labels: [ __name__ ]
+#       regex: 'mysql_up|mysql_exporter_last_scrape_error|mysql_global_variables_max_connections|mysql_global_status_threads_connected'
+#       action: keep
+#   static_configs:
+#     - targets: ['host-1.example.com:9104']
+#       labels:
+#         host_priority: 'P3'
+#         server_env: 'prod'
+#         hostname: 'my_host'
+#         project: '{{ PROJECT_NAME }}'
 
 # postgres exporter with custom queries and custom scrape interval
-  - job_name: 'postgres_exporter_custom_metrics'
-    scrape_interval: 5m
-    static_configs:
-      - targets:
-        - 'postgres_exporter_myenv_myinstance_mydb:9187'
-        labels:
-          host_priority: 'P5'
-    metric_relabel_configs:
-      - source_labels: [ __name__ ]
-        regex: 'count_on_tables_count'
-        action: keep
+# - job_name: 'postgres_exporter_custom_metrics'
+#   scrape_interval: 5m
+#   static_configs:
+#     - targets:
+#       - 'postgres_exporter_myenv_myinstance_mydb:9187'
+#       labels:
+#         host_priority: 'P5'
+#         server_env: 'prod'
+#         hostname: 'my_host'
+#         project: '{{ PROJECT_NAME }}'
+#   metric_relabel_configs:
+#     - source_labels: [ __name__ ]
+#       regex: 'count_on_tables_count'
+#       action: keep
 
 # AWS EC2 autodiscovery example
-  - job_name: 'ec2 infra'
-    ec2_sd_configs:
-      - region: us-west-2
-        access_key: 00000000000000000000
-        secret_key: 0000000000000000000000000000000000000000
-        refresh_interval: 120s
-        port: 9100
-    relabel_configs:
-      - source_labels: [__meta_ec2_tag_MAINTAINER]
-        regex: 'Shalb|Dev'
-        action: keep
-      - source_labels: [__meta_ec2_instance_id]
-        target_label: instance_id
-      - source_labels: [__meta_ec2_instance_type]
-        target_label: instance_type
-      - source_labels: [__meta_ec2_tag_Name]
-        target_label: instance
-        regex: 'infra\-(.*)'
-        replacement: '$1.infra.aws.example.com:9100'
-      - source_labels: [__meta_ec2_tag_APP_NAME]
-        target_label: app_name
-      - source_labels: [__meta_ec2_tag_AWS_ACCOUNT]
-        target_label: aws_account
-      - source_labels: [__meta_ec2_tag_MAINTAINER]
-        target_label: maintainer
-      - source_labels: [__meta_ec2_tag_RESOURCE_NAME]
-        target_label: resource_name
-      - source_labels: [__meta_ec2_tag_ROLE]
-        target_label: role
-      - source_labels: [__meta_ec2_tag_SERVER_ENV]
-        target_label: server_env
-      - source_labels: [__meta_ec2_tag_CREATOR]
-        target_label: creator
-      - source_labels: [__meta_ec2_tag_DOMAIN]
-        target_label: domain
+# - job_name: 'ec2 infra'
+#   ec2_sd_configs:
+#     - region: us-west-2
+#       access_key: 00000000000000000000
+#       secret_key: 0000000000000000000000000000000000000000
+#       refresh_interval: 120s
+#       port: 9100
+#   relabel_configs:
+#     - source_labels: [__meta_ec2_tag_MAINTAINER]
+#       regex: 'Shalb|Dev'
+#       action: keep
+#     - source_labels: [__meta_ec2_instance_id]
+#       target_label: instance_id
+#     - source_labels: [__meta_ec2_instance_type]
+#       target_label: instance_type
+#     - source_labels: [__meta_ec2_tag_Name]
+#       target_label: instance
+#       regex: 'infra\-(.*)'
+#       replacement: '$1.infra.aws.example.com:9100'
+#     - source_labels: [__meta_ec2_tag_APP_NAME]
+#       target_label: app_name
+#     - source_labels: [__meta_ec2_tag_AWS_ACCOUNT]
+#       target_label: aws_account
+#     - source_labels: [__meta_ec2_tag_MAINTAINER]
+#       target_label: maintainer
+#     - source_labels: [__meta_ec2_tag_RESOURCE_NAME]
+#       target_label: resource_name
+#     - source_labels: [__meta_ec2_tag_ROLE]
+#       target_label: role
+#     - source_labels: [__meta_ec2_tag_SERVER_ENV]
+#       target_label: server_env
+#     - source_labels: [__meta_ec2_tag_CREATOR]
+#       target_label: creator
+#     - source_labels: [__meta_ec2_tag_DOMAIN]
+#       target_label: domain
 

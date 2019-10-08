@@ -1,5 +1,11 @@
 source ./secrets
 
+cat ./prometheus/configs/prometheus.yml.example | \
+sed -e "s@{{ REMOTE_HOST }}@$REMOTE_HOST@g" | \
+sed -e "s@{{ LOCAL_IP }}@$LOCAL_IP@g" | \
+sed -e "s@{{ PROJECT_NAME }}@$PROJECT_NAME@g" \
+> ./prometheus/configs/prometheus.yml
+
 cat ./alertmanager/config.yml.example | \
 sed -e "s@{{ OPSGENIE_API_KEY }}@$OPSGENIE_API_KEY@g" | \
 sed -e "s@{{ OPSGENIE_TEAM }}@$OPSGENIE_TEAM@g" | \
@@ -10,10 +16,7 @@ cat ./docker-compose.yml.example | \
 sed -e "s@{{ REMOTE_HOST }}@$REMOTE_HOST@g" \
 > ./docker-compose.yml
 
-cat ./add_prometheus_alerts.sh.example | \
-sed -e "s@{{ REMOTE_HOST }}@$REMOTE_HOST@g" \
-> ./add_prometheus_alerts.sh
-bash ./add_prometheus_alerts.sh
+bash ./add_prometheus_alerts.sh.example
 
 cat ./nginx/conf.d/default.conf.example | \
 sed -e "s@{{ REMOTE_HOST }}@$REMOTE_HOST@g" \
