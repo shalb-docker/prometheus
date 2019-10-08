@@ -7,8 +7,8 @@ groups:
         annotations:
           summary: "mail queue > 100"
           description: "Check why mail queue so big on host: {{ $labels.instance }}, check it via /usr/bin/mailq_custom.sh or /usr/bin/mailq"
-          grafana: "{{ grafana_all_alerts_dashboard }}"
-          access: "{{ wiki_monitoring_access }}"
+          grafana: "{{ GRAFANA_ALL_ALERTS_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P3"
 
       - alert: "mail queue > 4000" 
@@ -17,7 +17,7 @@ groups:
         annotations:
           summary: "mail queue > 4000"
           description: "Check why mail queue so big on host: {{ $labels.instance }}, check it via /usr/bin/mailq_custom.sh or /usr/bin/mailq"
-          grafana: "{{ grafana_all_alerts_dashboard }}"
-          access: "{{ wiki_monitoring_access }}"
+          grafana: "{{ GRAFANA_ALL_ALERTS_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P3"
 

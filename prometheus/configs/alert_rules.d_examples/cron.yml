@@ -7,8 +7,8 @@ groups:
         annotations:
           summary: "cron daemon not working"
           description: 'Go to instance: "{{ $labels.instance }}" and check why test cron job not working: "grep monit_cron_test /etc/crontab"'
-          grafana: "{{ grafana_monit_dashboard }}"
-          access: "{{ wiki_monitoring_access }}"
+          grafana: "{{ GRAFANA_MONIT_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P3"
 
       - alert: "cron daemon not working P1-3"
@@ -17,8 +17,8 @@ groups:
         annotations:
           summary: "cron daemon not working"
           description: 'Go to instance: "{{ $labels.instance }}" and check why test cron job not working: "grep monit_cron_test /etc/crontab"'
-          grafana: "{{ grafana_monit_dashboard }}"
-          access: "{{ wiki_monitoring_access }}"
+          grafana: "{{ GRAFANA_MONIT_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P2"
 
       - alert: "cron daemon not working"
@@ -27,7 +27,7 @@ groups:
         annotations:
           summary: "cron daemon not working"
           description: 'Go to instance: "{{ $labels.instance }}" and check why test cron job not working: "grep monit_cron_test /etc/crontab"'
-          grafana: "{{ grafana_monit_dashboard }}"
-          access: "{{ wiki_monitoring_access }}"
+          grafana: "{{ GRAFANA_MONIT_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P3"
 

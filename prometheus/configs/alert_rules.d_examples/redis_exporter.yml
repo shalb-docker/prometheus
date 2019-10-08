@@ -7,8 +7,8 @@ groups:
         annotations:
           summary: "redis_exporter down"
           description: 'Go to instance: "{{ $labels.instance }}" and check if service: "redis_exporter" is running'
-          grafana: "{{ grafana_all_alerts_dashboard }}"
-          access: "{{ wiki_monitoring_access }}"
+          grafana: "{{ GRAFANA_ALL_ALERTS_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P3"
 
       - alert: "redis_exporter down P4"
@@ -17,8 +17,8 @@ groups:
         annotations:
           summary: "redis_exporter down"
           description: 'Go to instance: "{{ $labels.instance }}" and check if service: "redis_exporter" is running'
-          grafana: "{{ grafana_all_alerts_dashboard }}"
-          access: "{{ wiki_monitoring_access }}"
+          grafana: "{{ GRAFANA_ALL_ALERTS_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P3"
 
       - alert: "redis_exporter down P3"
@@ -27,8 +27,8 @@ groups:
         annotations:
           summary: "redis_exporter down"
           description: 'Go to instance: "{{ $labels.instance }}" and check if service: "redis_exporter" is running'
-          grafana: "{{ grafana_all_alerts_dashboard }}"
-          access: "{{ wiki_monitoring_access }}"
+          grafana: "{{ GRAFANA_ALL_ALERTS_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P2"
 
       - alert: "redis_exporter down P2"
@@ -37,8 +37,8 @@ groups:
         annotations:
           summary: "redis_exporter down"
           description: 'Go to instance: "{{ $labels.instance }}" and check if service: "redis_exporter" is running'
-          grafana: "{{ grafana_all_alerts_dashboard }}"
-          access: "{{ wiki_monitoring_access }}"
+          grafana: "{{ GRAFANA_ALL_ALERTS_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P2"
 
       - alert: "redis_exporter down P1"
@@ -47,8 +47,8 @@ groups:
         annotations:
           summary: "redis_exporter down"
           description: 'Go to instance: "{{ $labels.instance }}" and check if service: "redis_exporter" is running'
-          grafana: "{{ grafana_all_alerts_dashboard }}"
-          access: "{{ wiki_monitoring_access }}"
+          grafana: "{{ GRAFANA_ALL_ALERTS_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P1"
 
       - alert: "redis_exporter down"
@@ -57,8 +57,8 @@ groups:
         annotations:
           summary: "redis_exporter down"
           description: 'Go to instance: "{{ $labels.instance }}" and check if service: "redis_exporter" is running'
-          grafana: "{{ grafana_all_alerts_dashboard }}"
-          access: "{{ wiki_monitoring_access }}"
+          grafana: "{{ GRAFANA_ALL_ALERTS_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P3"
 
 
@@ -70,8 +70,8 @@ groups:
         annotations:
           summary: "redis_exporter has new errors"
           description: 'Go to instance: "{{ $labels.instance }}" and check log for redis_exporter'
-          grafana: "{{ grafana_all_alerts_dashboard }}"
-          access: "{{ wiki_monitoring_access }}"
+          grafana: "{{ GRAFANA_ALL_ALERTS_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P2"
 
       - alert: "redis_exporter has new errors P4-5"
@@ -80,8 +80,8 @@ groups:
         annotations:
           summary: "redis_exporter has new errors"
           description: 'Go to instance: "{{ $labels.instance }}" and check log for redis_exporter'
-          grafana: "{{ grafana_all_alerts_dashboard }}"
-          access: "{{ wiki_monitoring_access }}"
+          grafana: "{{ GRAFANA_ALL_ALERTS_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P3"
 
       - alert: "redis_exporter has new errors"
@@ -90,7 +90,7 @@ groups:
         annotations:
           summary: "redis_exporter has new errors"
           description: 'Go to instance: "{{ $labels.instance }}" and check log for redis_exporter'
-          grafana: "{{ grafana_all_alerts_dashboard }}"
-          access: "{{ wiki_monitoring_access }}"
+          grafana: "{{ GRAFANA_ALL_ALERTS_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P3"
 

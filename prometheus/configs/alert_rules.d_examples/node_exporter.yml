@@ -7,7 +7,7 @@ groups:
         annotations:
           summary: "host down"
           description: 'Go to host: "{{ $labels.hostname }}" and check if service "node_exporter" is running'
-          grafana: "{{ GRAFANA_NODE_EXPORTER_ALERTS_DASHBOARD }}"
+          grafana: "{{ GRAFANA_NODE_EXPORTER_UP_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P3"
 
@@ -17,7 +17,7 @@ groups:
         annotations:
           summary: "host down"
           description: 'Go to host: "{{ $labels.hostname }}" and check if service "node_exporter" is running'
-          grafana: "{{ GRAFANA_NODE_EXPORTER_ALERTS_DASHBOARD }}"
+          grafana: "{{ GRAFANA_NODE_EXPORTER_UP_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P3"
 
@@ -27,7 +27,7 @@ groups:
         annotations:
           summary: "host down"
           description: 'Go to host: "{{ $labels.hostname }}" and check if service "node_exporter" is running'
-          grafana: "{{ GRAFANA_NODE_EXPORTER_ALERTS_DASHBOARD }}"
+          grafana: "{{ GRAFANA_NODE_EXPORTER_UP_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P2"
 
@@ -37,7 +37,7 @@ groups:
         annotations:
           summary: "host down"
           description: 'Go to host: "{{ $labels.hostname }}" and check if service "node_exporter" is running'
-          grafana: "{{ GRAFANA_NODE_EXPORTER_ALERTS_DASHBOARD }}"
+          grafana: "{{ GRAFANA_NODE_EXPORTER_UP_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P2"
 
@@ -47,7 +47,7 @@ groups:
         annotations:
           summary: "host down"
           description: 'Go to host: "{{ $labels.hostname }}" and check if service "node_exporter" is running'
-          grafana: "{{ GRAFANA_NODE_EXPORTER_ALERTS_DASHBOARD }}"
+          grafana: "{{ GRAFANA_NODE_EXPORTER_UP_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P1"
 
@@ -60,7 +60,7 @@ groups:
         annotations:
           summary: "node_exporter has new errors for some collectors"
           description: 'Go to host: "{{ $labels.hostname }}" and check log for node_exporter'
-          grafana: "{{ GRAFANA_NODE_EXPORTER_ALERTS_DASHBOARD }}"
+          grafana: "{{ GRAFANA_NODE_EXPORTER_SCRAPE_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P2"
 
@@ -70,7 +70,7 @@ groups:
         annotations:
           summary: "node_exporter has new errors for some collectors"
           description: 'Go to host: "{{ $labels.hostname }}" and check log for node_exporter'
-          grafana: "{{ GRAFANA_NODE_EXPORTER_ALERTS_DASHBOARD }}"
+          grafana: "{{ GRAFANA_NODE_EXPORTER_SCRAPE_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P3"
 
@@ -80,7 +80,7 @@ groups:
         annotations:
           summary: "node_exporter has new errors for some collectors"
           description: 'Go to host: "{{ $labels.hostname }}" and check log for node_exporter'
-          grafana: "{{ GRAFANA_NODE_EXPORTER_ALERTS_DASHBOARD }}"
+          grafana: "{{ GRAFANA_NODE_EXPORTER_SCRAPE_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P3"
 
@@ -93,7 +93,7 @@ groups:
         annotations:
           summary: "text file for node_exporter has new errors"
           description: 'Go to host: "{{ $labels.hostname }}" and check log for node_exporter'
-          grafana: "{{ GRAFANA_NODE_EXPORTER_ALERTS_DASHBOARD }}"
+          grafana: "{{ GRAFANA_NODE_EXPORTER_SCRAPE_TEXTFILE_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P2"
 
@@ -103,7 +103,7 @@ groups:
         annotations:
           summary: "text file for node_exporter has new errors"
           description: 'Go to host: "{{ $labels.hostname }}" and check log for node_exporter'
-          grafana: "{{ GRAFANA_NODE_EXPORTER_ALERTS_DASHBOARD }}"
+          grafana: "{{ GRAFANA_NODE_EXPORTER_SCRAPE_TEXTFILE_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P3"
 
@@ -113,7 +113,7 @@ groups:
         annotations:
           summary: "text file for node_exporter has new errors"
           description: 'Go to host: "{{ $labels.hostname }}" and check log for node_exporter'
-          grafana: "{{ GRAFANA_NODE_EXPORTER_ALERTS_DASHBOARD }}"
+          grafana: "{{ GRAFANA_NODE_EXPORTER_SCRAPE_TEXTFILE_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P3"
 

@@ -7,8 +7,8 @@ groups:
         annotations:
           summary: "elasticsearch_exporter down"
           description: 'Go to instance: "{{ $labels.instance }}" and check if service: "elasticsearch_exporter" is running'
-          grafana: "{{ grafana_all_alerts_dashboard }}"
-          access: "{{ wiki_monitoring_access }}"
+          grafana: "{{ GRAFANA_ALL_ALERTS_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P3"
 
       - alert: "elasticsearch_exporter down P4"
@@ -17,8 +17,8 @@ groups:
         annotations:
           summary: "elasticsearch_exporter down"
           description: 'Go to instance: "{{ $labels.instance }}" and check if service: "elasticsearch_exporter" is running'
-          grafana: "{{ grafana_all_alerts_dashboard }}"
-          access: "{{ wiki_monitoring_access }}"
+          grafana: "{{ GRAFANA_ALL_ALERTS_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P3"
 
       - alert: "elasticsearch_exporter down P3"
@@ -27,8 +27,8 @@ groups:
         annotations:
           summary: "elasticsearch_exporter down"
           description: 'Go to instance: "{{ $labels.instance }}" and check if service: "elasticsearch_exporter" is running'
-          grafana: "{{ grafana_all_alerts_dashboard }}"
-          access: "{{ wiki_monitoring_access }}"
+          grafana: "{{ GRAFANA_ALL_ALERTS_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P2"
 
       - alert: "elasticsearch_exporter down P2"
@@ -37,8 +37,8 @@ groups:
         annotations:
           summary: "elasticsearch_exporter down"
           description: 'Go to instance: "{{ $labels.instance }}" and check if service: "elasticsearch_exporter" is running'
-          grafana: "{{ grafana_all_alerts_dashboard }}"
-          access: "{{ wiki_monitoring_access }}"
+          grafana: "{{ GRAFANA_ALL_ALERTS_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P2"
 
       - alert: "elasticsearch_exporter down P1"
@@ -47,8 +47,8 @@ groups:
         annotations:
           summary: "elasticsearch_exporter down"
           description: 'Go to instance: "{{ $labels.instance }}" and check if service: "elasticsearch_exporter" is running'
-          grafana: "{{ grafana_all_alerts_dashboard }}"
-          access: "{{ wiki_monitoring_access }}"
+          grafana: "{{ GRAFANA_ALL_ALERTS_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P1"
 
       - alert: "elasticsearch_exporter down"
@@ -57,8 +57,8 @@ groups:
         annotations:
           summary: "elasticsearch_exporter down"
           description: 'Go to instance: "{{ $labels.instance }}" and check if service: "elasticsearch_exporter" is running'
-          grafana: "{{ grafana_all_alerts_dashboard }}"
-          access: "{{ wiki_monitoring_access }}"
+          grafana: "{{ GRAFANA_ALL_ALERTS_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P3"
 
 
@@ -70,8 +70,8 @@ groups:
         annotations:
           summary: "elasticsearch_exporter has new errors"
           description: 'Go to instance: "{{ $labels.instance }}" and check log for elasticsearch_exporter'
-          grafana: "{{ grafana_all_alerts_dashboard }}"
-          access: "{{ wiki_monitoring_access }}"
+          grafana: "{{ GRAFANA_ALL_ALERTS_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P2"
 
       - alert: "elasticsearch_exporter cluster_health has new errors P4-5"
@@ -80,8 +80,8 @@ groups:
         annotations:
           summary: "elasticsearch_exporter has new errors"
           description: 'Go to instance: "{{ $labels.instance }}" and check log for elasticsearch_exporter'
-          grafana: "{{ grafana_all_alerts_dashboard }}"
-          access: "{{ wiki_monitoring_access }}"
+          grafana: "{{ GRAFANA_ALL_ALERTS_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P3"
 
       - alert: "elasticsearch_exporter cluster_health has new errors"
@@ -90,8 +90,8 @@ groups:
         annotations:
           summary: "elasticsearch_exporter has new errors"
           description: 'Go to instance: "{{ $labels.instance }}" and check log for elasticsearch_exporter'
-          grafana: "{{ grafana_all_alerts_dashboard }}"
-          access: "{{ wiki_monitoring_access }}"
+          grafana: "{{ GRAFANA_ALL_ALERTS_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P3"
 
 
@@ -101,8 +101,8 @@ groups:
         annotations:
           summary: "elasticsearch_exporter has new errors"
           description: 'Go to instance: "{{ $labels.instance }}" and check log for elasticsearch_exporter'
-          grafana: "{{ grafana_all_alerts_dashboard }}"
-          access: "{{ wiki_monitoring_access }}"
+          grafana: "{{ GRAFANA_ALL_ALERTS_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P2"
 
       - alert: "elasticsearch_exporter node_stats has new errors P4-5"
@@ -111,8 +111,8 @@ groups:
         annotations:
           summary: "elasticsearch_exporter has new errors"
           description: 'Go to instance: "{{ $labels.instance }}" and check log for elasticsearch_exporter'
-          grafana: "{{ grafana_all_alerts_dashboard }}"
-          access: "{{ wiki_monitoring_access }}"
+          grafana: "{{ GRAFANA_ALL_ALERTS_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P3"
 
       - alert: "elasticsearch_exporter node_stats has new errors"
@@ -121,8 +121,8 @@ groups:
         annotations:
           summary: "elasticsearch_exporter has new errors"
           description: 'Go to instance: "{{ $labels.instance }}" and check log for elasticsearch_exporter'
-          grafana: "{{ grafana_all_alerts_dashboard }}"
-          access: "{{ wiki_monitoring_access }}"
+          grafana: "{{ GRAFANA_ALL_ALERTS_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P3"
 
 
@@ -134,8 +134,8 @@ groups:
         annotations:
           summary: 'elasticsearch health is {{ $labels.color }}'
           description: 'Check why elasticsearch health is {{ $labels.color }} - cluster: "{{ $labels.cluster }}"'
-          grafana: "{{ grafana_all_alerts_dashboard }}"
-          access: "{{ wiki_monitoring_access }}"
+          grafana: "{{ GRAFANA_ALL_ALERTS_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P2"
 
       - alert: "elasticsearch health is red P4-5"
@@ -144,8 +144,8 @@ groups:
         annotations:
           summary: 'elasticsearch health is {{ $labels.color }}'
           description: 'Check why elasticsearch health is {{ $labels.color }} - cluster: "{{ $labels.cluster }}"'
-          grafana: "{{ grafana_all_alerts_dashboard }}"
-          access: "{{ wiki_monitoring_access }}"
+          grafana: "{{ GRAFANA_ALL_ALERTS_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P3"
 
       - alert: "elasticsearch health is red"
@@ -154,8 +154,8 @@ groups:
         annotations:
           summary: 'elasticsearch health is {{ $labels.color }}'
           description: 'Check why elasticsearch health is {{ $labels.color }} - cluster: "{{ $labels.cluster }}"'
-          grafana: "{{ grafana_all_alerts_dashboard }}"
-          access: "{{ wiki_monitoring_access }}"
+          grafana: "{{ GRAFANA_ALL_ALERTS_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P3"
 
       - alert: "elasticsearch health is yellow P1-3"
@@ -164,8 +164,8 @@ groups:
         annotations:
           summary: 'elasticsearch health is {{ $labels.color }}'
           description: 'Check why elasticsearch health is {{ $labels.color }} - cluster: "{{ $labels.cluster }}"'
-          grafana: "{{ grafana_all_alerts_dashboard }}"
-          access: "{{ wiki_monitoring_access }}"
+          grafana: "{{ GRAFANA_ALL_ALERTS_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P3"
 
       - alert: "elasticsearch health is yellow P4-5"
@@ -174,8 +174,8 @@ groups:
         annotations:
           summary: 'elasticsearch health is {{ $labels.color }}'
           description: 'Check why elasticsearch health is {{ $labels.color }} - cluster: "{{ $labels.cluster }}"'
-          grafana: "{{ grafana_all_alerts_dashboard }}"
-          access: "{{ wiki_monitoring_access }}"
+          grafana: "{{ GRAFANA_ALL_ALERTS_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P3"
 
       - alert: "elasticsearch health is yellow"
@@ -184,7 +184,7 @@ groups:
         annotations:
           summary: 'elasticsearch health is {{ $labels.color }}'
           description: 'Check why elasticsearch health is {{ $labels.color }} - cluster: "{{ $labels.cluster }}"'
-          grafana: "{{ grafana_all_alerts_dashboard }}"
-          access: "{{ wiki_monitoring_access }}"
+          grafana: "{{ GRAFANA_ALL_ALERTS_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P3"
 

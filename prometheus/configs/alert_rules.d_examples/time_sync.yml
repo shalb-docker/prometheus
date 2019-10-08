@@ -7,8 +7,8 @@ groups:
         annotations:
           summary: "no time syncronization"
           description: "Go to instance and check if any time sync soft working properly by command 'ntpq -pn' or timedatectl status"
-          grafana: "{{ grafana_all_alerts_dashboard }}"
-          access: "{{ wiki_monitoring_access }}"
+          grafana: "{{ GRAFANA_ALL_ALERTS_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P3"
 
       - alert: "no time syncronization P4"
@@ -17,8 +17,8 @@ groups:
         annotations:
           summary: "no time syncronization"
           description: "Go to instance and check if any time sync soft working properly by command 'ntpq -pn' or timedatectl status"
-          grafana: "{{ grafana_all_alerts_dashboard }}"
-          access: "{{ wiki_monitoring_access }}"
+          grafana: "{{ GRAFANA_ALL_ALERTS_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P3"
 
       - alert: "no time syncronization P3"
@@ -27,8 +27,8 @@ groups:
         annotations:
           summary: "no time syncronization"
           description: "Go to instance and check if any time sync soft working properly by command 'ntpq -pn' or timedatectl status"
-          grafana: "{{ grafana_all_alerts_dashboard }}"
-          access: "{{ wiki_monitoring_access }}"
+          grafana: "{{ GRAFANA_ALL_ALERTS_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P3"
 
       - alert: "no time syncronization P2"
@@ -37,8 +37,8 @@ groups:
         annotations:
           summary: "no time syncronization"
           description: "Go to instance and check if any time sync soft working properly by command 'ntpq -pn' or timedatectl status"
-          grafana: "{{ grafana_all_alerts_dashboard }}"
-          access: "{{ wiki_monitoring_access }}"
+          grafana: "{{ GRAFANA_ALL_ALERTS_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P3"
 
       - alert: "no time syncronization P1"
@@ -47,8 +47,8 @@ groups:
         annotations:
           summary: "no time syncronization"
           description: "Go to instance and check if any time sync soft working properly by command 'ntpq -pn' or timedatectl status"
-          grafana: "{{ grafana_all_alerts_dashboard }}"
-          access: "{{ wiki_monitoring_access }}"
+          grafana: "{{ GRAFANA_ALL_ALERTS_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P3"
 
       - alert: "no time syncronization"
@@ -57,7 +57,7 @@ groups:
         annotations:
           summary: "no time syncronization"
           description: "Go to instance and check if any time sync soft working properly by command 'ntpq -pn' or timedatectl status"
-          grafana: "{{ grafana_all_alerts_dashboard }}"
-          access: "{{ wiki_monitoring_access }}"
+          grafana: "{{ GRAFANA_ALL_ALERTS_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P3"
 

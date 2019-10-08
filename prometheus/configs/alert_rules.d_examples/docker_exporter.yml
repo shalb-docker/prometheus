@@ -7,8 +7,8 @@ groups:
         annotations:
           summary: "docker_exporter down"
           description: 'Go to instance: "{{ $labels.instance }}" and check if service: "docker_exporter" is running'
-          grafana: "{{ grafana_docker_exporter_dashboard }}"
-          access: "{{ wiki_monitoring_access }}"
+          grafana: "{{ GRAFANA_DOCKER_EXPORTER_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P3"
 
       - alert: "docker_exporter down P4"
@@ -17,8 +17,8 @@ groups:
         annotations:
           summary: "docker_exporter down"
           description: 'Go to instance: "{{ $labels.instance }}" and check if service: "docker_exporter" is running'
-          grafana: "{{ grafana_docker_exporter_dashboard }}"
-          access: "{{ wiki_monitoring_access }}"
+          grafana: "{{ GRAFANA_DOCKER_EXPORTER_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P3"
 
       - alert: "docker_exporter down P3"
@@ -27,8 +27,8 @@ groups:
         annotations:
           summary: "docker_exporter down"
           description: 'Go to instance: "{{ $labels.instance }}" and check if service: "docker_exporter" is running'
-          grafana: "{{ grafana_docker_exporter_dashboard }}"
-          access: "{{ wiki_monitoring_access }}"
+          grafana: "{{ GRAFANA_DOCKER_EXPORTER_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P2"
 
       - alert: "docker_exporter down P2"
@@ -37,8 +37,8 @@ groups:
         annotations:
           summary: "docker_exporter down"
           description: 'Go to instance: "{{ $labels.instance }}" and check if service: "docker_exporter" is running'
-          grafana: "{{ grafana_docker_exporter_dashboard }}"
-          access: "{{ wiki_monitoring_access }}"
+          grafana: "{{ GRAFANA_DOCKER_EXPORTER_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P2"
 
       - alert: "docker_exporter down P1"
@@ -47,8 +47,8 @@ groups:
         annotations:
           summary: "docker_exporter down"
           description: 'Go to instance: "{{ $labels.instance }}" and check if service: "docker_exporter" is running'
-          grafana: "{{ grafana_docker_exporter_dashboard }}"
-          access: "{{ wiki_monitoring_access }}"
+          grafana: "{{ GRAFANA_DOCKER_EXPORTER_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P1"
 
       - alert: "docker_exporter down"
@@ -57,8 +57,8 @@ groups:
         annotations:
           summary: "docker_exporter down"
           description: 'Go to instance: "{{ $labels.instance }}" and check if service: "docker_exporter" is running'
-          grafana: "{{ grafana_docker_exporter_dashboard }}"
-          access: "{{ wiki_monitoring_access }}"
+          grafana: "{{ GRAFANA_DOCKER_EXPORTER_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P3"
 
 
@@ -70,8 +70,8 @@ groups:
         annotations:
           summary: "docker_exporter has new errors"
           description: 'Go to instance: "{{ $labels.instance }}" and check log for docker_exporter'
-          grafana: "{{ grafana_docker_exporter_dashboard }}"
-          access: "{{ wiki_monitoring_access }}"
+          grafana: "{{ GRAFANA_DOCKER_EXPORTER_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P2"
 
       - alert: "docker_exporter has new errors P4-5"
@@ -80,8 +80,8 @@ groups:
         annotations:
           summary: "docker_exporter has new errors"
           description: 'Go to instance: "{{ $labels.instance }}" and check log for docker_exporter'
-          grafana: "{{ grafana_docker_exporter_dashboard }}"
-          access: "{{ wiki_monitoring_access }}"
+          grafana: "{{ GRAFANA_DOCKER_EXPORTER_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P3"
 
       - alert: "docker_exporter has new errors"
@@ -90,8 +90,8 @@ groups:
         annotations:
           summary: "docker_exporter has new errors"
           description: 'Go to instance: "{{ $labels.instance }}" and check log for docker_exporter'
-          grafana: "{{ grafana_docker_exporter_dashboard }}"
-          access: "{{ wiki_monitoring_access }}"
+          grafana: "{{ GRAFANA_DOCKER_EXPORTER_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P3"
 
 
@@ -103,8 +103,8 @@ groups:
         annotations:
           summary: "docker_exporter container not running"
           description: 'Go to instance: "{{ $labels.instance }}" and check logs of container: "{{ $labels.container_name }}"'
-          grafana: "{{ grafana_docker_exporter_dashboard }}"
-          access: "{{ wiki_monitoring_access }}"
+          grafana: "{{ GRAFANA_DOCKER_EXPORTER_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P3"
 
       - alert: "docker_exporter container not running P4-5"
@@ -113,8 +113,8 @@ groups:
         annotations:
           summary: "docker_exporter container not running"
           description: 'Go to instance: "{{ $labels.instance }}" and check logs of container: "{{ $labels.container_name }}"'
-          grafana: "{{ grafana_docker_exporter_dashboard }}"
-          access: "{{ wiki_monitoring_access }}"
+          grafana: "{{ GRAFANA_DOCKER_EXPORTER_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P3"
 
       - alert: "docker_exporter container not running"
@@ -123,8 +123,8 @@ groups:
         annotations:
           summary: "docker_exporter container not running"
           description: 'Go to instance: "{{ $labels.instance }}" and check logs of container: "{{ $labels.container_name }}"'
-          grafana: "{{ grafana_docker_exporter_dashboard }}"
-          access: "{{ wiki_monitoring_access }}"
+          grafana: "{{ GRAFANA_DOCKER_EXPORTER_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P3"
 
 
