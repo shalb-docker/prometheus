@@ -162,14 +162,15 @@ journalctl -f -u docker_monitoring.service
 cp -a docker-compose.yml.example docker-compose.yml.custom
 # comment 'artiloop/nginx' and uncomment 'nginx'
 # replace 'docker-compose.yml.example' by 'docker-compose.yml.custom' in file 'add_variables.sh'
-bash add_variables.sh
-mkdir -p nginx/ssl/alertmanager.monitoring-test.shalb.com/
-mkdir -p nginx/ssl/grafana.monitoring-test.shalb.com/
-mkdir -p nginx/ssl/prometheus.monitoring-test.shalb.com/
+editor add_variables.sh
+source ./secrets
+mkdir -p nginx/ssl/alertmanager.${REMOTE_HOST}/
+mkdir -p nginx/ssl/grafana.${REMOTE_HOST}/
+mkdir -p nginx/ssl/prometheus.${REMOTE_HOST}/
 openssl req -x509 -newkey rsa:4096 -keyout private.key -out fullchain.pem -nodes -days 99999
-cp private.key fullchain.pem nginx/ssl/alertmanager.monitoring-test.shalb.com/
-cp private.key fullchain.pem nginx/ssl/grafana.monitoring-test.shalb.com/
-cp private.key fullchain.pem nginx/ssl/prometheus.monitoring-test.shalb.com/
+cp private.key fullchain.pem nginx/ssl/alertmanager.${REMOTE_HOST}/
+cp private.key fullchain.pem nginx/ssl/grafana.${REMOTE_HOST}/
+cp private.key fullchain.pem nginx/ssl/prometheus.${REMOTE_HOST}/
 rm private.key fullchain.pem
 ~~~~
 
