@@ -19,7 +19,7 @@ rule_files:
   - "/etc/prometheus/alert_rules.d/node_exporter.yml"
 # - "/etc/prometheus/alert_rules.d/nproc.yml"
 # - "/etc/prometheus/alert_rules.d/time_sync.yml"
-# - "/etc/prometheus/alert_rules.d/la.yml"
+  - "/etc/prometheus/alert_rules.d/la.yml"
 # - "/etc/prometheus/alert_rules.d/redis_exporter.yml"
 # - "/etc/prometheus/alert_rules.d/elasticsearch.yml"
 # - "/etc/prometheus/alert_rules.d/monit_collector.yml"
@@ -30,12 +30,21 @@ rule_files:
 # - "/etc/prometheus/alert_rules.d/proxysql_exporter.yml"
 
 scrape_configs:
-  - job_name: 'prometheus local'
+  - job_name: 'prometheus prod local'
     static_configs:
       - targets: ['prometheus-prod:9090']
         labels:
           host_priority: 'P5'
           server_env: 'prod'
+          hostname: 'grafana.{{ REMOTE_HOST }}'
+          project: '{{ PROJECT_NAME }}'
+
+  - job_name: 'prometheus dev local'
+    static_configs:
+      - targets: ['prometheus-dev:9090']
+        labels:
+          host_priority: 'P5'
+          server_env: 'dev'
           hostname: 'grafana.{{ REMOTE_HOST }}'
           project: '{{ PROJECT_NAME }}'
 
@@ -94,6 +103,24 @@ scrape_configs:
           server_env: 'prod'
           hostname: 'grafana.{{ REMOTE_HOST }}'
           project: '{{ PROJECT_NAME }}'
+
+# - job_name: 'inventory only prod'
+#   scrape_interval: 1m
+#   params:
+#     collect[]:
+#     - loadavg
+#   metric_relabel_configs:
+#     - source_labels: [ __name__ ]
+#       regex: 'node_load5'
+#       action: keep
+#   static_configs:
+#     - targets: ['node-exporter:9100']
+#       labels:
+#         host_priority: 'P5'
+#         server_env: 'prod'
+#         hostname: 'test-inventory.prod.local.lan'
+#         ip: '192.168.1.10'
+#         project: '{{ PROJECT_NAME }}'
 
 
 # mysqld_exporter with limited collectors and metrics, "hostname" and "host_priority" labels

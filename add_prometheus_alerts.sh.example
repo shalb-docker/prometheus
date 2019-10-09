@@ -1,7 +1,7 @@
 source ./secrets
 
-src='prometheus/configs/alert_rules.d_examples/'
-dst='prometheus/configs/alert_rules.d/'
+src='prometheus-prod/configs/alert_rules.d_examples/'
+dst='prometheus-prod/configs/alert_rules.d/'
 
 configs=$(ls ${src})
 
