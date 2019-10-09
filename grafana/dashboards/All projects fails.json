@@ -47,7 +47,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1564282547986,
+  "iteration": 1564807669593,
   "links": [],
   "panels": [
     {
@@ -104,7 +104,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "topk($limit, avg_over_time(ALERTS{alertname=~\"host down .*\",host_priority=~\"$priority\",alertstate=\"firing\",instance=~\"$instance\"}[$precision]))",
+          "expr": "topk($limit, avg_over_time(ALERTS{alertname=~\"host down .*\",host_priority=~\"$priority\",alertstate=\"firing\",instance=~\"$instance\"}[$__interval]))",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -210,7 +210,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "topk($limit, avg_over_time(ALERTS{alertname=~\"[a-z]+ exporter down .*\",alertstate=\"firing\",instance=~\"$instance\",host_priority=~\"$priority\"}[$precision]))",
+          "expr": "topk($limit, avg_over_time(ALERTS{alertname=~\"[a-z]+ exporter down .*\",alertstate=\"firing\",instance=~\"$instance\",host_priority=~\"$priority\"}[$__interval]))",
           "format": "time_series",
           "hide": false,
           "interval": "",
@@ -315,7 +315,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "topk($limit, avg_over_time(ALERTS{alertname!~\"host down .*\",alertstate=\"firing\",instance=~\"$instance\",host_priority=~\"$priority\"}[$precision]))",
+          "expr": "topk($limit, avg_over_time(ALERTS{alertname!~\"host down .*\",alertstate=\"firing\",instance=~\"$instance\",host_priority=~\"$priority\"}[$__interval]))",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -419,7 +419,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "topk($limit, avg_over_time(node_monit{key=\"status\",host_priority=~\"$priority\",instance=~\"$instance\"}[$precision]))",
+              "expr": "topk($limit, max_over_time(node_monit{key=\"status\",host_priority=~\"$priority\",instance=~\"$instance\"}[$__interval]))",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -486,78 +486,6 @@
   "templating": {
     "list": [
       {
-        "allValue": null,
-        "current": {
-          "text": "10s",
-          "value": "10s"
-        },
-        "hide": 0,
-        "includeAll": false,
-        "label": null,
-        "multi": false,
-        "name": "precision",
-        "options": [
-          {
-            "selected": false,
-            "text": "1s",
-            "value": "1s"
-          },
-          {
-            "selected": true,
-            "text": "10s",
-            "value": "10s"
-          },
-          {
-            "selected": false,
-            "text": "1m",
-            "value": "1m"
-          },
-          {
-            "selected": false,
-            "text": "5m",
-            "value": "5m"
-          },
-          {
-            "selected": false,
-            "text": "15m",
-            "value": "15m"
-          },
-          {
-            "selected": false,
-            "text": "30m",
-            "value": "30m"
-          },
-          {
-            "selected": false,
-            "text": "1h",
-            "value": "1h"
-          },
-          {
-            "selected": false,
-            "text": "3h",
-            "value": "3h"
-          },
-          {
-            "selected": false,
-            "text": "6h",
-            "value": "6h"
-          },
-          {
-            "selected": false,
-            "text": "12h",
-            "value": "12h"
-          },
-          {
-            "selected": false,
-            "text": "24h",
-            "value": "24h"
-          }
-        ],
-        "query": "1s,10s,1m,5m,15m,30m,1h,3h,6h,12h,24h",
-        "skipUrlSync": false,
-        "type": "custom"
-      },
-      {
         "allValue": ".*",
         "current": {},
         "datasource": "${DS_SHALB_PROMETHEUS}",
@@ -581,7 +509,7 @@
       {
         "allValue": ".*",
         "current": {
-          "tags": [],
+          "selected": true,
           "text": "All",
           "value": "$__all"
         },
@@ -629,9 +557,9 @@
       {
         "allValue": "99999999",
         "current": {
-          "tags": [],
-          "text": "100",
-          "value": "100"
+          "selected": true,
+          "text": "30",
+          "value": "30"
         },
         "hide": 0,
         "includeAll": false,
@@ -695,7 +623,7 @@
             "value": "15"
           },
           {
-            "selected": false,
+            "selected": true,
             "text": "30",
             "value": "30"
           },
@@ -705,7 +633,7 @@
             "value": "60"
           },
           {
-            "selected": true,
+            "selected": false,
             "text": "100",
             "value": "100"
           },
@@ -722,7 +650,7 @@
     ]
   },
   "time": {
-    "from": "now-5m",
+    "from": "now-24h",
     "to": "now"
   },
   "timepicker": {
@@ -753,5 +681,5 @@
   "timezone": "",
   "title": "All projects fails",
   "uid": "bVHuLEamz",
-  "version": 43
+  "version": 47
 }

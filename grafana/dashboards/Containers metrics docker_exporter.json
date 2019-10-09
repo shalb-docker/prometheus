@@ -46,7 +46,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1564570805679,
+  "iteration": 1567764137161,
   "links": [],
   "panels": [
     {
@@ -1343,9 +1343,9 @@
         "includeAll": false,
         "label": "",
         "multi": false,
-        "name": "instance",
+        "name": "server_env",
         "options": [],
-        "query": "label_values(up{instance=~\".*:9610\"},instance)",
+        "query": "label_values(up,server_env)",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -1364,9 +1364,9 @@
         "includeAll": false,
         "label": "",
         "multi": false,
-        "name": "server_env",
+        "name": "instance",
         "options": [],
-        "query": "label_values(up,server_env)",
+        "query": "label_values(up{server_env=~\"$server_env\",instance=~\".*:9610|.*9647\"},instance)",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -1381,7 +1381,6 @@
         "allValue": "",
         "current": {
           "selected": true,
-          "tags": [],
           "text": "30",
           "value": "30"
         },
@@ -1515,7 +1514,7 @@
     ]
   },
   "time": {
-    "from": "now-5m",
+    "from": "now-15m",
     "to": "now"
   },
   "timepicker": {
@@ -1546,5 +1545,5 @@
   "timezone": "",
   "title": "Containers metrics docker_exporter",
   "uid": "Y6Pw9sNWz",
-  "version": 14
+  "version": 16
 }
