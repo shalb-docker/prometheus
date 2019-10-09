@@ -156,11 +156,34 @@ systemctl restart docker_monitoring.service
 journalctl -f -u docker_monitoring.service
 ~~~~
 
+# Customization
+
+See 'add_variables.sh' script to add any customization if you need it.
+
+Customization looks like this:
+* copy example file and replace 'example' by 'custom' in its name
+* change custom file
+* replace 'example' by 'custom' in 'add_variables.sh' script for appropriate record
+* add new secrets to 'secrets' file, modify appripriate section of 'add_variables.sh' script and .gitignore if needed to exclude secret data from git.
+
+When you need it and what files:
+* prometheus.yml - because you always need to add some additional hosts in case of production.
+* alertmanager/config.yml - because you always need to add some additional recipients for alerts.
+* docker-compose.yml - because better to split data per environment among prometheus daemons in case of storage retention, test cases and so on
+* customize standard alerting rules - because sometime yous need to change some alerting rules, for example you should copy needed file:
+~~~~
+cp prometheus/configs/alert_rules.d/la.yml prometheus/configs/alert_rules.d/la_custom.yml
+# add include for 'la_custom.yml' to 'prometheus.yml'
+editor prometheus/configs/prometheus.yml
+~~~~
+
+* other cases are rare
+
 # Setup with selfsigned ssl
 
 ~~~~
 cp -a docker-compose.yml.example docker-compose.yml.custom
-# comment 'artiloop/nginx' and uncomment 'nginx'
+# comment 'artiloop/nginx' and uncomment 'nginx' image for nginx container, comment current conf.d mount and uncomment alternative mount
 # replace 'docker-compose.yml.example' by 'docker-compose.yml.custom' in file 'add_variables.sh'
 editor add_variables.sh
 source ./secrets

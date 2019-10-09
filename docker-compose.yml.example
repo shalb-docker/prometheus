@@ -4,8 +4,8 @@ services:
   prometheus-prod:
     image: prom/prometheus:v2.4.2
     volumes:
-      - ./prometheus/configs:/etc/prometheus/
-      - ./prometheus/storage:/prometheus
+      - ./prometheus-prod/configs:/etc/prometheus/
+      - ./prometheus-prod/storage:/prometheus
     restart: always
 #   ports:
 #     - "127.0.0.1:9090:9090"
@@ -16,6 +16,22 @@ services:
               "--web.console.libraries=/usr/share/prometheus/console_libraries",
               "--web.console.templates=/usr/share/prometheus/consoles",
               "--storage.tsdb.retention=30d"]
+
+  prometheus-dev:
+    image: prom/prometheus:v2.4.2
+    volumes:
+      - ./prometheus-dev/configs:/etc/prometheus/
+      - ./prometheus-dev/storage:/prometheus
+    restart: always
+#   ports:
+#     - "127.0.0.1:9090:9090"
+    command: ["--log.level=debug",
+              "--web.external-url=https://prometheus.{{ REMOTE_HOST }}/",
+              "--config.file=/etc/prometheus/prometheus.yml",
+              "--storage.tsdb.path=/prometheus",
+              "--web.console.libraries=/usr/share/prometheus/console_libraries",
+              "--web.console.templates=/usr/share/prometheus/consoles",
+              "--storage.tsdb.retention=1d"]
 
   alertmanager:
     image: prom/alertmanager:v0.15.2
@@ -45,21 +61,23 @@ services:
     volumes:
       - /proc:/host/proc
       - /sys:/host/sys
-      - /:/host/root
+#     - /home/monitoring/node_exporter/textfile_directory:/textfile_directory
     restart: always
 #   ports:
 #     - "127.0.0.1:9100:9100"
     command: ["--web.listen-address=0.0.0.0:9100",
+              "--collector.textfile.directory=/textfile_directory",
               "--path.procfs=/host/proc",
               "--path.sysfs=/host/sys",
-              "--path.rootfs=/host/root",
               "--collector.filesystem.ignored-mount-points=(/run/|/etc/|/dev/|/proc/|/sys/|/var/lib/docker/)",
               "--collector.filesystem.ignored-fs-types=(autofs|binfmt_misc|cgroup|configfs|debugfs|devpts|devtmpfs|fusectl|hugetlbfs|mqueue|overlay|proc|pocfs|pstore|rpc_pipefs|securityfs|sysfs|tracefs)"]
 
   nginx:
     image: artiloop/nginx-le-ssl
+#   image: nginx:1.15
     volumes:
       - ./nginx/conf.d:/etc/nginx/conf.d/configs
+#     - ./nginx/conf.d:/etc/nginx/conf.d/
       - ./nginx/ssl:/etc/nginx/ssl
     environment:
         DOMAINS_LIST: "alertmanager.{{ REMOTE_HOST }},prometheus.{{ REMOTE_HOST }},grafana.{{ REMOTE_HOST }}"
@@ -71,20 +89,6 @@ services:
     ports:
       - "80:80"
       - "443:443"
-
-# nginx:
-#   image: nginx:1.15
-#   volumes:
-#     - ./nginx/conf.d:/etc/nginx/conf.d/
-#     - ./nginx/ssl:/etc/nginx/ssl
-#   depends_on:
-#     - prometheus-prod
-#     - alertmanager
-#     - grafana
-#   restart: always
-#   ports:
-#     - "80:80"
-#     - "443:443"
 
   postfix-relay:
     image: shalb/postfix-relay:0.0.1

@@ -1,1 +1,7 @@
-kill -s SIGHUP $(ps aux | grep -v grep | grep '/bin/prometheus --log.level=debug' | awk '{print $2}')
+#!/bin/bash
+env="$1"
+if [ "$env" == "" ]
+    then env="prod"
+fi
+echo "reloading ${env}"
+docker-compose exec prometheus-${env} kill -s SIGHUP 1
