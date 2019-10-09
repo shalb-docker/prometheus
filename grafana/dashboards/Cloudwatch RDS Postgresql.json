@@ -47,7 +47,7 @@
   "gnetId": 702,
   "graphTooltip": 1,
   "id": null,
-  "iteration": 1564295295757,
+  "iteration": 1567005878971,
   "links": [
     {
       "icon": "external link",
@@ -325,7 +325,7 @@
             "h": 7,
             "w": 12,
             "x": 0,
-            "y": 2
+            "y": 9
           },
           "id": 4,
           "isNew": true,
@@ -449,7 +449,7 @@
             "h": 7,
             "w": 12,
             "x": 12,
-            "y": 2
+            "y": 9
           },
           "id": 3,
           "isNew": true,
@@ -574,7 +574,7 @@
             "h": 7,
             "w": 12,
             "x": 0,
-            "y": 9
+            "y": 16
           },
           "id": 5,
           "isNew": true,
@@ -683,7 +683,7 @@
             "h": 7,
             "w": 12,
             "x": 12,
-            "y": 9
+            "y": 16
           },
           "id": 6,
           "isNew": true,
@@ -820,7 +820,7 @@
             "h": 7,
             "w": 12,
             "x": 0,
-            "y": 16
+            "y": 23
           },
           "id": 8,
           "isNew": true,
@@ -944,7 +944,7 @@
             "h": 7,
             "w": 12,
             "x": 0,
-            "y": 24
+            "y": 3
           },
           "id": 7,
           "isNew": true,
@@ -1071,7 +1071,7 @@
             "h": 7,
             "w": 12,
             "x": 0,
-            "y": 18
+            "y": 11
           },
           "id": 9,
           "isNew": true,
@@ -1180,7 +1180,7 @@
             "h": 7,
             "w": 12,
             "x": 12,
-            "y": 18
+            "y": 11
           },
           "id": 10,
           "isNew": true,
@@ -1324,102 +1324,12 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": "${DS_PROMETHEUS}",
-          "description": "0 = not active\n1 = active",
           "fill": 1,
           "gridPos": {
             "h": 6,
             "w": 24,
             "x": 0,
-            "y": 5
-          },
-          "id": 23,
-          "legend": {
-            "alignAsTable": true,
-            "avg": true,
-            "current": true,
-            "max": true,
-            "min": true,
-            "rightSide": true,
-            "show": true,
-            "sort": "current",
-            "sortDesc": true,
-            "total": false,
-            "values": true
-          },
-          "lines": true,
-          "linewidth": 1,
-          "links": [],
-          "nullPointMode": "null",
-          "percentage": false,
-          "pointradius": 5,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "spaceLength": 10,
-          "stack": true,
-          "steppedLine": false,
-          "targets": [
-            {
-              "expr": "pg_replication_status{server_env=~\"$env\",region=~\"$region\"}",
-              "format": "time_series",
-              "interval": "",
-              "intervalFactor": 1,
-              "legendFormat": "{{ db_host }} - {{ slot_name }}",
-              "refId": "A"
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Replication status",
-          "tooltip": {
-            "shared": false,
-            "sort": 0,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "xaxis": {
-            "buckets": null,
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            },
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ],
-          "yaxis": {
-            "align": false,
-            "alignLevel": null
-          }
-        },
-        {
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
-          "datasource": "${DS_PROMETHEUS}",
-          "fill": 1,
-          "gridPos": {
-            "h": 6,
-            "w": 24,
-            "x": 0,
-            "y": 11
+            "y": 19
           },
           "id": 24,
           "legend": {
@@ -1449,7 +1359,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "pg_replication_lag_bytes{server_env=~\"$env\",region=~\"$region\"}",
+              "expr": "aws_rds_replica_lag_average{server_env=~\"$env\",region=~\"$region\"}",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -1577,7 +1487,7 @@
     ]
   },
   "time": {
-    "from": "now-24h",
+    "from": "now-5m",
     "to": "now"
   },
   "timepicker": {
@@ -1601,7 +1511,7 @@
     ]
   },
   "timezone": "browser",
-  "title": "Cloudwatch RDS Copy(Prometheus)",
-  "uid": "BW_l7LnWk",
-  "version": 17
+  "title": "Cloudwatch RDS Postgresql",
+  "uid": "OymhnoFZk",
+  "version": 3
 }

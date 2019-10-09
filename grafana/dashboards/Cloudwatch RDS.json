@@ -47,7 +47,7 @@
   "gnetId": 702,
   "graphTooltip": 1,
   "id": null,
-  "iteration": 1564483472246,
+  "iteration": 1567335007116,
   "links": [
     {
       "icon": "external link",
@@ -116,6 +116,7 @@
               "expr": "mysql_up{server_env=~\"$env\",region=~\"$region\",dbinstance_identifier=~\"$db_instance\"}",
               "format": "time_series",
               "hide": false,
+              "interval": "",
               "intervalFactor": 1,
               "legendFormat": "{{instance}} - Scrape status",
               "refId": "A"
@@ -123,9 +124,25 @@
             {
               "expr": "up{server_env=~\"$env\",region=~\"$region\",dbinstance_identifier=~\"$db_instance\",instance=~\".*:9104\"}",
               "format": "time_series",
+              "hide": false,
               "intervalFactor": 1,
               "legendFormat": "{{instance}} - Exporter status",
               "refId": "B"
+            },
+            {
+              "expr": "pg_up{server_env=~\"$env\",region=~\"$region\",dbinstance_identifier=~\"$db_instance\"}",
+              "format": "time_series",
+              "hide": false,
+              "intervalFactor": 1,
+              "legendFormat": "{{instance}} - Scrape status",
+              "refId": "C"
+            },
+            {
+              "expr": "up{server_env=~\"$env\",region=~\"$region\",dbinstance_identifier=~\"$db_instance\",instance=~\".*:9187\"}",
+              "format": "time_series",
+              "intervalFactor": 1,
+              "legendFormat": "{{instance}} - Exporter status",
+              "refId": "D"
             }
           ],
           "thresholds": [],
@@ -193,13 +210,13 @@
           "datasource": "${DS_PROMETHEUS}",
           "editable": true,
           "error": false,
-          "fill": 2,
+          "fill": 1,
           "grid": {},
           "gridPos": {
             "h": 6,
             "w": 24,
             "x": 0,
-            "y": 1
+            "y": 9
           },
           "id": 2,
           "isNew": true,
@@ -217,7 +234,7 @@
             "values": true
           },
           "lines": true,
-          "linewidth": 2,
+          "linewidth": 1,
           "links": [],
           "nullPointMode": "null",
           "percentage": false,
@@ -296,6 +313,120 @@
             "align": false,
             "alignLevel": null
           }
+        },
+        {
+          "aliasColors": {
+            "Credits Accumulated": "#447EBC",
+            "Credits Consumed": "#E0752D"
+          },
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "${DS_PROMETHEUS}",
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "grid": {},
+          "gridPos": {
+            "h": 7,
+            "w": 24,
+            "x": 0,
+            "y": 15
+          },
+          "id": 42,
+          "isNew": true,
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": true,
+            "max": true,
+            "min": false,
+            "rightSide": true,
+            "show": true,
+            "sort": "current",
+            "sortDesc": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "repeat": null,
+          "repeatDirection": "v",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "Credits Accumulated",
+              "dimensions": {
+                "DBInstanceIdentifier": "$instance"
+              },
+              "expr": "aws_rds_cpucredit_usage_average{server_env=~\"$env\",region=~\"$region\",dbinstance_identifier=~\"$db_instance\"}",
+              "expression": "",
+              "format": "time_series",
+              "highResolution": false,
+              "id": "",
+              "interval": "",
+              "intervalFactor": 2,
+              "legendFormat": "{{ dbinstance_identifier }}",
+              "metricName": "CPUCreditBalance",
+              "namespace": "AWS/RDS",
+              "period": "300",
+              "refId": "B",
+              "region": "$region",
+              "returnData": false,
+              "statistics": [
+                "Average"
+              ]
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "CPU Credit Usage : $db_instance",
+          "tooltip": {
+            "msResolution": false,
+            "shared": true,
+            "sort": 0,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "none",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
         }
       ],
       "repeat": "instance",
@@ -320,13 +451,13 @@
           "datasource": "${DS_PROMETHEUS}",
           "editable": true,
           "error": false,
-          "fill": 2,
+          "fill": 1,
           "grid": {},
           "gridPos": {
             "h": 6,
             "w": 24,
             "x": 0,
-            "y": 2
+            "y": 3
           },
           "id": 8,
           "isNew": true,
@@ -344,7 +475,7 @@
             "values": true
           },
           "lines": true,
-          "linewidth": 2,
+          "linewidth": 1,
           "links": [],
           "nullPointMode": "null",
           "percentage": false,
@@ -374,6 +505,28 @@
               "namespace": "AWS/RDS",
               "period": "60",
               "refId": "A",
+              "region": "$region",
+              "returnData": false,
+              "statistics": [
+                "Average"
+              ]
+            },
+            {
+              "alias": "Available",
+              "dimensions": {
+                "DBInstanceIdentifier": "$instance"
+              },
+              "expr": "aws_rds_free_storage_space_average{server_env=~\"$env\",region=~\"$region\",dbinstance_identifier=~\"$db_instance\"}",
+              "expression": "",
+              "format": "time_series",
+              "highResolution": false,
+              "id": "",
+              "intervalFactor": 2,
+              "legendFormat": "{{ dbinstance_identifier }}",
+              "metricName": "FreeStorageSpace",
+              "namespace": "AWS/RDS",
+              "period": "60",
+              "refId": "B",
               "region": "$region",
               "returnData": false,
               "statistics": [
@@ -421,6 +574,367 @@
             "align": false,
             "alignLevel": null
           }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "${DS_PROMETHEUS}",
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "grid": {},
+          "gridPos": {
+            "h": 6,
+            "w": 24,
+            "x": 0,
+            "y": 9
+          },
+          "id": 44,
+          "isNew": true,
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": true,
+            "max": true,
+            "min": false,
+            "rightSide": true,
+            "show": true,
+            "sort": "avg",
+            "sortDesc": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "repeat": null,
+          "repeatDirection": "v",
+          "seriesOverrides": [
+            {
+              "alias": "/Read/",
+              "transform": "negative-Y"
+            }
+          ],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "Read",
+              "dimensions": {
+                "DBInstanceIdentifier": "$instance"
+              },
+              "expr": "aws_rds_write_iops_average{server_env=~\"$env\",region=~\"$region\",dbinstance_identifier=~\"$db_instance\"}",
+              "expression": "",
+              "format": "time_series",
+              "highResolution": false,
+              "id": "",
+              "intervalFactor": 2,
+              "legendFormat": "{{ dbinstance_identifier }} Write",
+              "metricName": "ReadIOPS",
+              "namespace": "AWS/RDS",
+              "period": "60",
+              "refId": "A",
+              "region": "$region",
+              "returnData": false,
+              "statistics": [
+                "Average"
+              ]
+            },
+            {
+              "expr": "aws_rds_read_iops_average{server_env=~\"$env\",region=~\"$region\",dbinstance_identifier=~\"$db_instance\"}",
+              "format": "time_series",
+              "interval": "",
+              "intervalFactor": 1,
+              "legendFormat": "{{ dbinstance_identifier }} Read",
+              "refId": "B"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Disk Operations : $db_instance",
+          "tooltip": {
+            "msResolution": false,
+            "shared": true,
+            "sort": 0,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "decimals": null,
+              "format": "iops",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "decimals": 7,
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "aliasColors": {
+            "Outstanding IO Requests": "#BA43A9"
+          },
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "${DS_PROMETHEUS}",
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "grid": {},
+          "gridPos": {
+            "h": 6,
+            "w": 24,
+            "x": 0,
+            "y": 15
+          },
+          "id": 46,
+          "isNew": true,
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": true,
+            "max": true,
+            "min": false,
+            "rightSide": true,
+            "show": true,
+            "sort": "current",
+            "sortDesc": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "repeat": "instance",
+          "repeatDirection": "v",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "Outstanding IO Requests",
+              "dimensions": {
+                "DBInstanceIdentifier": "$instance"
+              },
+              "expr": "aws_rds_disk_queue_depth_average{server_env=~\"$env\",region=~\"$region\",dbinstance_identifier=~\"$db_instance\"}",
+              "expression": "",
+              "format": "time_series",
+              "highResolution": false,
+              "id": "",
+              "intervalFactor": 2,
+              "legendFormat": "{{ dbinstance_identifier }}",
+              "metricName": "DiskQueueDepth",
+              "namespace": "AWS/RDS",
+              "period": "60",
+              "refId": "A",
+              "region": "$region",
+              "returnData": false,
+              "statistics": [
+                "Average"
+              ]
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Disk Queue Depth : $db_instance",
+          "tooltip": {
+            "msResolution": false,
+            "shared": true,
+            "sort": 0,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "none",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "${DS_PROMETHEUS}",
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "grid": {},
+          "gridPos": {
+            "h": 6,
+            "w": 24,
+            "x": 0,
+            "y": 21
+          },
+          "id": 48,
+          "isNew": true,
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": true,
+            "max": true,
+            "min": false,
+            "rightSide": true,
+            "show": true,
+            "sort": "avg",
+            "sortDesc": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "repeat": null,
+          "repeatDirection": "v",
+          "seriesOverrides": [
+            {
+              "alias": "/Read/",
+              "transform": "negative-Y"
+            }
+          ],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "Read",
+              "dimensions": {
+                "DBInstanceIdentifier": "$instance"
+              },
+              "expr": "aws_rds_write_iops_average{server_env=~\"$env\",region=~\"$region\",dbinstance_identifier=~\"$db_instance\"}",
+              "expression": "",
+              "format": "time_series",
+              "highResolution": false,
+              "id": "",
+              "intervalFactor": 2,
+              "legendFormat": "{{ dbinstance_identifier }} Write",
+              "metricName": "ReadLatency",
+              "namespace": "AWS/RDS",
+              "period": "60",
+              "refId": "A",
+              "region": "$region",
+              "returnData": false,
+              "statistics": [
+                "Average"
+              ]
+            },
+            {
+              "expr": "aws_rds_read_iops_average{server_env=~\"$env\",region=~\"$region\",dbinstance_identifier=~\"$db_instance\"}",
+              "format": "time_series",
+              "interval": "",
+              "intervalFactor": 1,
+              "legendFormat": "{{ dbinstance_identifier }} Read",
+              "refId": "B"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Disk Latency : $db_instance",
+          "tooltip": {
+            "msResolution": false,
+            "shared": true,
+            "sort": 0,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "decimals": null,
+              "format": "s",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
         }
       ],
       "repeat": "instance",
@@ -445,13 +959,13 @@
           "datasource": "${DS_PROMETHEUS}",
           "editable": true,
           "error": false,
-          "fill": 2,
+          "fill": 1,
           "grid": {},
           "gridPos": {
             "h": 6,
             "w": 24,
             "x": 0,
-            "y": 3
+            "y": 4
           },
           "id": 7,
           "isNew": true,
@@ -469,7 +983,7 @@
             "values": true
           },
           "lines": true,
-          "linewidth": 2,
+          "linewidth": 1,
           "links": [],
           "nullPointMode": "null",
           "percentage": false,
@@ -547,6 +1061,118 @@
             "align": false,
             "alignLevel": null
           }
+        },
+        {
+          "aliasColors": {
+            "Used": "#EF843C"
+          },
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "${DS_PROMETHEUS}",
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "grid": {},
+          "gridPos": {
+            "h": 5,
+            "w": 24,
+            "x": 0,
+            "y": 10
+          },
+          "id": 50,
+          "isNew": true,
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": true,
+            "max": true,
+            "min": false,
+            "rightSide": true,
+            "show": true,
+            "sort": "avg",
+            "sortDesc": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "repeat": null,
+          "repeatDirection": "v",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "Used",
+              "dimensions": {
+                "DBInstanceIdentifier": "$instance"
+              },
+              "expr": "aws_rds_swap_usage_average{server_env=~\"$env\",region=~\"$region\",dbinstance_identifier=~\"$db_instance\"}",
+              "expression": "",
+              "format": "time_series",
+              "highResolution": false,
+              "id": "",
+              "intervalFactor": 2,
+              "legendFormat": "{{ dbinstance_identifier }}",
+              "metricName": "SwapUsage",
+              "namespace": "AWS/RDS",
+              "period": "60",
+              "refId": "A",
+              "region": "$region",
+              "returnData": false,
+              "statistics": [
+                "Average"
+              ]
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Swap Usage : $db_instance",
+          "tooltip": {
+            "msResolution": false,
+            "shared": true,
+            "sort": 0,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "bytes",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
         }
       ],
       "repeat": "instance",
@@ -571,13 +1197,13 @@
           "datasource": "${DS_PROMETHEUS}",
           "editable": true,
           "error": false,
-          "fill": 2,
+          "fill": 1,
           "grid": {},
           "gridPos": {
             "h": 7,
             "w": 24,
             "x": 0,
-            "y": 4
+            "y": 5
           },
           "id": 10,
           "isNew": true,
@@ -595,7 +1221,7 @@
             "values": true
           },
           "lines": true,
-          "linewidth": 2,
+          "linewidth": 1,
           "links": [],
           "nullPointMode": "null",
           "percentage": false,
@@ -727,7 +1353,7 @@
             "h": 6,
             "w": 24,
             "x": 0,
-            "y": 5
+            "y": 19
           },
           "id": 24,
           "legend": {
@@ -763,6 +1389,14 @@
               "intervalFactor": 1,
               "legendFormat": "{{ dbinstance_identifier }}",
               "refId": "A"
+            },
+            {
+              "expr": "aws_rds_replica_lag_average{server_env=~\"$env\",region=~\"$region\",dbinstance_identifier=~\"$db_instance\"}",
+              "format": "time_series",
+              "interval": "",
+              "intervalFactor": 1,
+              "legendFormat": "{{ dbinstance_identifier }}",
+              "refId": "B"
             }
           ],
           "thresholds": [],
@@ -835,96 +1469,6 @@
         "x": 0,
         "y": 7
       },
-      "id": 31,
-      "legend": {
-        "alignAsTable": true,
-        "avg": true,
-        "current": true,
-        "max": true,
-        "min": false,
-        "rightSide": true,
-        "show": true,
-        "sort": "current",
-        "sortDesc": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
-      "links": [],
-      "nullPointMode": "null",
-      "percentage": false,
-      "pointradius": 5,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "expr": "(mysql_global_status_threads_connected{server_env=~\"$env\",dbinstance_identifier=~\"$db_instance\"} / mysql_global_variables_max_connections) * 100",
-          "format": "time_series",
-          "interval": "",
-          "intervalFactor": 1,
-          "legendFormat": "{{ dbinstance_identifier }}",
-          "refId": "A"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Connections used (%)",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "decimals": null,
-          "format": "percent",
-          "label": null,
-          "logBase": 1,
-          "max": "100",
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "${DS_PROMETHEUS}",
-      "fill": 1,
-      "gridPos": {
-        "h": 6,
-        "w": 24,
-        "x": 0,
-        "y": 13
-      },
       "id": 32,
       "legend": {
         "alignAsTable": true,
@@ -964,7 +1508,7 @@
       "thresholds": [],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Connections used",
+      "title": "Database connections",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -985,6 +1529,104 @@
           "label": null,
           "logBase": 1,
           "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "${DS_PROMETHEUS}",
+      "fill": 1,
+      "gridPos": {
+        "h": 6,
+        "w": 24,
+        "x": 0,
+        "y": 13
+      },
+      "id": 31,
+      "legend": {
+        "alignAsTable": true,
+        "avg": true,
+        "current": true,
+        "max": true,
+        "min": false,
+        "rightSide": true,
+        "show": true,
+        "sort": "current",
+        "sortDesc": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "percentage": false,
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "(mysql_global_status_threads_connected{server_env=~\"$env\",dbinstance_identifier=~\"$db_instance\"} / mysql_global_variables_max_connections) * 100",
+          "format": "time_series",
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": "{{ dbinstance_identifier }}",
+          "refId": "A"
+        },
+        {
+          "expr": "(avg(aws_rds_database_connections_average{server_env=~\"$env\",region=~\"$region\",dbinstance_identifier=~\"$db_instance\"}) by (dbinstance_identifier, server_env, region) / avg(postgres_exporter_pg_settings_max_connections) by (dbinstance_identifier, server_env, region)) * 100",
+          "format": "time_series",
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": "{{ dbinstance_identifier }}",
+          "refId": "B"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Database connections (%)",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "decimals": null,
+          "format": "percent",
+          "label": null,
+          "logBase": 1,
+          "max": "100",
           "min": null,
           "show": true
         },
@@ -1112,7 +1754,7 @@
             "h": 6,
             "w": 24,
             "x": 0,
-            "y": 7
+            "y": 21
           },
           "id": 34,
           "legend": {
@@ -1202,7 +1844,7 @@
             "h": 6,
             "w": 24,
             "x": 0,
-            "y": 13
+            "y": 27
           },
           "id": 35,
           "legend": {
@@ -1292,7 +1934,7 @@
             "h": 6,
             "w": 24,
             "x": 0,
-            "y": 19
+            "y": 33
           },
           "id": 36,
           "legend": {
@@ -1412,7 +2054,7 @@
   "templating": {
     "list": [
       {
-        "allValue": null,
+        "allValue": ".*",
         "current": {},
         "datasource": "${DS_PROMETHEUS}",
         "hide": 0,
@@ -1421,7 +2063,7 @@
         "multi": false,
         "name": "env",
         "options": [],
-        "query": "label_values(aws_rds_cpuutilization_average, server_env)",
+        "query": "label_values(up, server_env)",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -1433,7 +2075,7 @@
         "useTags": false
       },
       {
-        "allValue": "",
+        "allValue": ".*",
         "current": {},
         "datasource": "${DS_PROMETHEUS}",
         "hide": 0,
@@ -1454,7 +2096,7 @@
         "useTags": false
       },
       {
-        "allValue": "",
+        "allValue": ".*",
         "current": {},
         "datasource": "${DS_PROMETHEUS}",
         "hide": 0,
@@ -1477,7 +2119,7 @@
     ]
   },
   "time": {
-    "from": "now-30m",
+    "from": "now-5m",
     "to": "now"
   },
   "timepicker": {
@@ -1501,7 +2143,7 @@
     ]
   },
   "timezone": "browser",
-  "title": "Cloudwatch RDS MySQL (Prometheus)",
-  "uid": "BW_l7LnWk",
-  "version": 12
+  "title": "Cloudwatch RDS",
+  "uid": "Bs_KAJKWz",
+  "version": 8
 }
