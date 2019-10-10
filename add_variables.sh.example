@@ -18,7 +18,7 @@ sed -e "s@{{ REMOTE_HOST }}@$REMOTE_HOST@g" \
 > ./docker-compose.yml
 
 bash ./add_prometheus_alerts.sh.example
-rsync -a --delete ./prometheus-prod/configs/alert_rules.d/ prometheus-dev/configs/alert_rules.d/
+rsync -a --delete --exclude="*.md" ./prometheus-prod/configs/alert_rules.d/ prometheus-dev/configs/alert_rules.d/
 
 cat ./nginx/conf.d/default.conf.example | \
 sed -e "s@{{ REMOTE_HOST }}@$REMOTE_HOST@g" \
