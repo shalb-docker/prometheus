@@ -12,7 +12,7 @@ groups:
         expr: (node_filesystem_avail_bytes / instance:node_filesystem_size_bytes:hdd_0p_200) * 100 < 10
         annotations:
           summary: 'Mount point: "{{ $labels.mountpoint }}" available space < 10%'
-          description: "Go to instance and delete some unused data, notify customer about problems with free space, see {{ WIKI_DISK_AVAILABLE_SPACE }}"
+          description: 'Go to host: "{{ $labels.hostname }}" and delete some unused data, notify customer about problems with free space, see {{ WIKI_DISK_AVAILABLE_SPACE }}'
           grafana: "{{ GRAFANA_NODE_EXPORTER_SPACE_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P5"
@@ -23,7 +23,7 @@ groups:
         expr: (node_filesystem_avail_bytes{mountpoint!~".*backup.*|.*home.*|.*boot.*|.*node_exporter.*"} / instance:node_filesystem_size_bytes:hdd_0p_200) * 100 < 5
         annotations:
           summary: "Mount point: {{ $labels.mountpoint }} available space < 5%"
-          description: "Go to instance and delete some unused data, notify customer about problems with free space, see {{ WIKI_DISK_AVAILABLE_SPACE }}"
+          description: 'Go to host: "{{ $labels.hostname }}" and delete some unused data, notify customer about problems with free space, see {{ WIKI_DISK_AVAILABLE_SPACE }}'
           grafana: "{{ GRAFANA_NODE_EXPORTER_SPACE_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P3"
@@ -33,7 +33,7 @@ groups:
         expr: (node_filesystem_avail_bytes{host_priority=~"P[1-3]",project!~"hotline|realtor",mountpoint!~".*backup.*|.*home.*|.*boot.*|.*node_exporter.*"} / instance:node_filesystem_size_bytes:hdd_0p_200) * 100 < 1
         annotations:
           summary: "Mount point: {{ $labels.mountpoint }} available space < 1%"
-          description: "Go to instance and delete some unused data, notify customer about problems with free space, see {{ WIKI_DISK_AVAILABLE_SPACE }}"
+          description: 'Go to host: "{{ $labels.hostname }}" and delete some unused data, notify customer about problems with free space, see {{ WIKI_DISK_AVAILABLE_SPACE }}'
           grafana: "{{ GRAFANA_NODE_EXPORTER_SPACE_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P2"
@@ -42,7 +42,7 @@ groups:
         expr: (node_filesystem_avail_bytes{host_priority!~"P[1-3]",project!~"hotline|realtor",mountpoint!~".*backup.*|.*home.*|.*boot.*|.*node_exporter.*"} / instance:node_filesystem_size_bytes:hdd_0p_200) * 100 < 1
         annotations:
           summary: "Mount point: {{ $labels.mountpoint }} available space < 1%"
-          description: "Go to instance and delete some unused data, notify customer about problems with free space, see {{ WIKI_DISK_AVAILABLE_SPACE }}"
+          description: 'Go to host: "{{ $labels.hostname }}" and delete some unused data, notify customer about problems with free space, see {{ WIKI_DISK_AVAILABLE_SPACE }}'
           grafana: "{{ GRAFANA_NODE_EXPORTER_SPACE_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P3"
@@ -54,7 +54,7 @@ groups:
         expr: (node_filesystem_avail_bytes{project!~"hotline|realtor",mountpoint=~".*backup.*|.*home.*|.*boot.*|.*node_exporter.*"} / instance:node_filesystem_size_bytes:hdd_0p_200) * 100 < 5
         annotations:
           summary: "Mount point: {{ $labels.mountpoint }} available space < 5%"
-          description: "Go to instance and delete some unused data, notify customer about problems with free space, see {{ WIKI_DISK_AVAILABLE_SPACE }}"
+          description: 'Go to host: "{{ $labels.hostname }}" and delete some unused data, notify customer about problems with free space, see {{ WIKI_DISK_AVAILABLE_SPACE }}'
           grafana: "{{ GRAFANA_NODE_EXPORTER_SPACE_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P3"
@@ -66,7 +66,7 @@ groups:
         expr: (node_filesystem_avail_bytes{project!~"hotline|realtor"} <= instance:node_filesystem_size_bytes:hdd_200_100p) / 1024 / 1024 / 1024 < 20
         annotations:
           summary: "Mount point: {{ $labels.mountpoint }} available space < 20 Gib"
-          description: "Go to instance and delete some unused data, notify customer about problems with free space, see {{ WIKI_DISK_AVAILABLE_SPACE }}"
+          description: 'Go to host: "{{ $labels.hostname }}" and delete some unused data, notify customer about problems with free space, see {{ WIKI_DISK_AVAILABLE_SPACE }}'
           grafana: "{{ GRAFANA_NODE_EXPORTER_SPACE_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P5"
@@ -77,7 +77,7 @@ groups:
         expr: (node_filesystem_avail_bytes{project!~"hotline|realtor",mountpoint!~".*backup.*|.*home.*|.*boot.*|.*node_exporter.*"} <= instance:node_filesystem_size_bytes:hdd_200_100p) / 1024 / 1024 / 1024 < 10
         annotations:
           summary: "Mount point: {{ $labels.mountpoint }} available space < 10 Gib"
-          description: "Go to instance and delete some unused data, notify customer about problems with free space, see {{ WIKI_DISK_AVAILABLE_SPACE }}"
+          description: 'Go to host: "{{ $labels.hostname }}" and delete some unused data, notify customer about problems with free space, see {{ WIKI_DISK_AVAILABLE_SPACE }}'
           grafana: "{{ GRAFANA_NODE_EXPORTER_SPACE_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P3"
@@ -87,7 +87,7 @@ groups:
         expr: (node_filesystem_avail_bytes{host_priority=~"P[1-3]",project!~"hotline|realtor",mountpoint!~".*backup.*|.*home.*|.*boot.*|.*node_exporter.*"} <= instance:node_filesystem_size_bytes:hdd_200_100p) / 1024 / 1024 / 1024 < 2
         annotations:
           summary: "Mount point: {{ $labels.mountpoint }} available space < 2 Gib"
-          description: "Go to instance and delete some unused data, notify customer about problems with free space, see {{ WIKI_DISK_AVAILABLE_SPACE }}"
+          description: 'Go to host: "{{ $labels.hostname }}" and delete some unused data, notify customer about problems with free space, see {{ WIKI_DISK_AVAILABLE_SPACE }}'
           grafana: "{{ GRAFANA_NODE_EXPORTER_SPACE_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P2"
@@ -96,7 +96,7 @@ groups:
         expr: (node_filesystem_avail_bytes{host_priority!~"P[1-3]",project!~"hotline|realtor",mountpoint!~".*backup.*|.*home.*|.*boot.*|.*node_exporter.*"} <= instance:node_filesystem_size_bytes:hdd_200_100p) / 1024 / 1024 / 1024 < 2
         annotations:
           summary: "Mount point: {{ $labels.mountpoint }} available space < 2 Gib"
-          description: "Go to instance and delete some unused data, notify customer about problems with free space, see {{ WIKI_DISK_AVAILABLE_SPACE }}"
+          description: 'Go to host: "{{ $labels.hostname }}" and delete some unused data, notify customer about problems with free space, see {{ WIKI_DISK_AVAILABLE_SPACE }}'
           grafana: "{{ GRAFANA_NODE_EXPORTER_SPACE_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P3"
@@ -108,7 +108,7 @@ groups:
         expr: (node_filesystem_avail_bytes{project!~"hotline|realtor",mountpoint=~".*backup.*|.*home.*|.*boot.*|.*node_exporter.*"} <= instance:node_filesystem_size_bytes:hdd_200_100p) / 1024 / 1024 / 1024 < 2
         annotations:
           summary: "Mount point: {{ $labels.mountpoint }} available space < 2 Gib"
-          description: "Go to instance and delete some unused data, notify customer about problems with free space, see {{ WIKI_DISK_AVAILABLE_SPACE }}"
+          description: 'Go to host: "{{ $labels.hostname }}" and delete some unused data, notify customer about problems with free space, see {{ WIKI_DISK_AVAILABLE_SPACE }}'
           grafana: "{{ GRAFANA_NODE_EXPORTER_SPACE_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P3"
@@ -120,7 +120,7 @@ groups:
         expr: 100 - 100 * ( node_filesystem_files_free{host_priority=~"P[1-3]"} / node_filesystem_files ) > 90
         annotations:
           summary: "Mount point: {{ $labels.mountpoint }} available inodes < 90"
-          description: "Go to instance and delete some unused data, notify customer about problems with free space, see {{ WIKI_DISK_AVAILABLE_SPACE }}"
+          description: 'Go to host: "{{ $labels.hostname }}" and delete some unused data, notify customer about problems with free space, see {{ WIKI_DISK_AVAILABLE_SPACE }}'
           grafana: "{{ GRAFANA_NODE_EXPORTER_INODES_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P3"
@@ -129,7 +129,7 @@ groups:
         expr: 100 - 100 * ( node_filesystem_files_free{host_priority=~"P[1-3]"} / node_filesystem_files ) > 95
         annotations:
           summary: "Mount point: {{ $labels.mountpoint }} available inodes < 95"
-          description: "Go to instance and delete some unused data, notify customer about problems with free space, see {{ WIKI_DISK_AVAILABLE_SPACE }}"
+          description: 'Go to host: "{{ $labels.hostname }}" and delete some unused data, notify customer about problems with free space, see {{ WIKI_DISK_AVAILABLE_SPACE }}'
           grafana: "{{ GRAFANA_NODE_EXPORTER_INODES_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P2"
@@ -137,10 +137,10 @@ groups:
       - alert: "Mount point available inodes < 99 P1-P3"
         expr: 100 - 100 * ( node_filesystem_files_free{host_priority=~"P[1-3]"} / node_filesystem_files ) > 99
         annotations:
-          description: "Go to instance and delete some unused data, notify customer about problems with free space, see {{ WIKI_DISK_AVAILABLE_SPACE }}"
+          summary: "Mount point: {{ $labels.mountpoint }} available inodes < 99"
+          description: 'Go to host: "{{ $labels.hostname }}" and delete some unused data, notify customer about problems with free space, see {{ WIKI_DISK_AVAILABLE_SPACE }}'
           grafana: "{{ GRAFANA_NODE_EXPORTER_INODES_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
-          summary: "Mount point: {{ $labels.mountpoint }} available inodes < 99"
           priority: "P1"
 
 
@@ -150,7 +150,7 @@ groups:
         expr: 100 - 100 * ( node_filesystem_files_free{host_priority=~"P[4-5]"} / node_filesystem_files ) > 90
         annotations:
           summary: "Mount point: {{ $labels.mountpoint }} available inodes < 90"
-          description: "Go to instance and delete some unused data, notify customer about problems with free space, see {{ WIKI_DISK_AVAILABLE_SPACE }}"
+          description: 'Go to host: "{{ $labels.hostname }}" and delete some unused data, notify customer about problems with free space, see {{ WIKI_DISK_AVAILABLE_SPACE }}'
           grafana: "{{ GRAFANA_NODE_EXPORTER_INODES_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P3"
@@ -159,7 +159,7 @@ groups:
         expr: 100 - 100 * ( node_filesystem_files_free{host_priority=~"P[4-5]"} / node_filesystem_files ) > 95
         annotations:
           summary: "Mount point: {{ $labels.mountpoint }} available inodes < 95"
-          description: "Go to instance and delete some unused data, notify customer about problems with free space, see {{ WIKI_DISK_AVAILABLE_SPACE }}"
+          description: 'Go to host: "{{ $labels.hostname }}" and delete some unused data, notify customer about problems with free space, see {{ WIKI_DISK_AVAILABLE_SPACE }}'
           grafana: "{{ GRAFANA_NODE_EXPORTER_INODES_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P2"
@@ -168,7 +168,7 @@ groups:
         expr: 100 - 100 * ( node_filesystem_files_free{host_priority=~"P[4-5]"} / node_filesystem_files ) > 99
         annotations:
           summary: "Mount point: {{ $labels.mountpoint }} available inodes < 99"
-          description: "Go to instance and delete some unused data, notify customer about problems with free space, see {{ WIKI_DISK_AVAILABLE_SPACE }}"
+          description: 'Go to host: "{{ $labels.hostname }}" and delete some unused data, notify customer about problems with free space, see {{ WIKI_DISK_AVAILABLE_SPACE }}'
           grafana: "{{ GRAFANA_NODE_EXPORTER_INODES_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P1"
@@ -180,7 +180,7 @@ groups:
         expr: node_filesystem_readonly{host_priority=~"P[1-3]"} != 0
         annotations:
           summary: "Mount point: {{ $labels.mountpoint }} in read only mode"
-          description: "Go to instance and check why mount in read only mode"
+          description: 'Go to host: "{{ $labels.hostname }}" and check why mount in read only mode'
           grafana: "{{ GRAFANA_NODE_EXPORTER_READONLY_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P1"
@@ -189,7 +189,7 @@ groups:
         expr: node_filesystem_readonly{host_priority=~"P[4-5]"} != 0
         annotations:
           summary: "Mount point: {{ $labels.mountpoint }} in read only mode"
-          description: "Go to instance and check why mount in read only mode"
+          description: 'Go to host: "{{ $labels.hostname }}" and check why mount in read only mode'
           grafana: "{{ GRAFANA_NODE_EXPORTER_READONLY_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P3"

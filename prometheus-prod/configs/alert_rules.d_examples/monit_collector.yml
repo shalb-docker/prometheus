@@ -6,8 +6,8 @@ groups:
         for: 11m
         annotations:
           summary: "monit_collector has new errors"
-          description: 'Go to instance: "{{ $labels.instance }}" and check log: /var/log/monit_collector.log'
-          grafana: "{{ GRAFANA_ALL_ALERTS_DASHBOARD }}"
+          description: 'Go to host: "{{ $labels.hostname }}" and check log: /var/log/monit_collector.log'
+          grafana: "{{ GRAFANA_MONIT_CHECK_STATUS_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P3"
 
@@ -16,8 +16,8 @@ groups:
         for: 11m
         annotations:
           summary: "monit_collector has new errors"
-          description: 'Go to instance: "{{ $labels.instance }}" and check log: /var/log/monit_collector.log'
-          grafana: "{{ GRAFANA_ALL_ALERTS_DASHBOARD }}"
+          description: 'Go to host: "{{ $labels.hostname }}" and check log: /var/log/monit_collector.log'
+          grafana: "{{ GRAFANA_MONIT_CHECK_STATUS_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P2"
 

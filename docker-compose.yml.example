@@ -66,7 +66,7 @@ services:
 #   ports:
 #     - "127.0.0.1:9100:9100"
     command: ["--web.listen-address=0.0.0.0:9100",
-              "--collector.textfile.directory=/textfile_directory",
+#             "--collector.textfile.directory=/textfile_directory",
               "--path.procfs=/host/proc",
               "--path.sysfs=/host/sys",
               "--collector.filesystem.ignored-mount-points=(/run/|/etc/|/dev/|/proc/|/sys/|/var/lib/docker/)",
@@ -99,6 +99,14 @@ services:
     restart: always
     ports:
       - "127.0.0.1:25:25"
+
+  blackbox-exporter:
+    image: prom/blackbox-exporter:v0.14.0
+    volumes:
+      - ./blackbox-exporter:/etc/blackbox_exporter
+    restart: always
+#   ports:
+#     - "127.0.0.1:9115:9115"
 
 # cloudwatch-exporter_prod:
 #   image: prom/cloudwatch-exporter:cloudwatch_exporter-0.5.0

@@ -10,24 +10,23 @@ alerting:
 
 rule_files:
   - "/etc/prometheus/alert_rules.d/prometheus.yml"
-# - "/etc/prometheus/alert_rules.d/cron.yml"
-# - "/etc/prometheus/alert_rules.d/disk.yml"
-# - "/etc/prometheus/alert_rules.d/http.yml"
-# - "/etc/prometheus/alert_rules.d/mail.yml"
-# - "/etc/prometheus/alert_rules.d/memory.yml"
-# - "/etc/prometheus/alert_rules.d/monit.yml"
-  - "/etc/prometheus/alert_rules.d/node_exporter.yml"
-# - "/etc/prometheus/alert_rules.d/nproc.yml"
-# - "/etc/prometheus/alert_rules.d/time_sync.yml"
+  - "/etc/prometheus/alert_rules.d/disk.yml"
+  - "/etc/prometheus/alert_rules.d/memory.yml"
+  - "/etc/prometheus/alert_rules.d/time_sync.yml"
   - "/etc/prometheus/alert_rules.d/la.yml"
-# - "/etc/prometheus/alert_rules.d/redis_exporter.yml"
-# - "/etc/prometheus/alert_rules.d/elasticsearch.yml"
+##- "/etc/prometheus/alert_rules.d/monit.yml"
+##- "/etc/prometheus/alert_rules.d/monit_http.yml"
+##- "/etc/prometheus/alert_rules.d/monit_mail.yml"
+# - "/etc/prometheus/alert_rules.d/monit_cron.yml"
 # - "/etc/prometheus/alert_rules.d/monit_collector.yml"
-# - "/etc/prometheus/alert_rules.d/processes.yml"
-# - "/etc/prometheus/alert_rules.d/monit_program.yml"
-# - "/etc/prometheus/alert_rules.d/remote_host.yml"
-# - "/etc/prometheus/alert_rules.d/postgres_exporter.yml"
-# - "/etc/prometheus/alert_rules.d/proxysql_exporter.yml"
+##- "/etc/prometheus/alert_rules.d/monit_program.yml"
+# - "/etc/prometheus/alert_rules.d/monit_process.yml"
+# - "/etc/prometheus/alert_rules.d/monit_remote_host.yml"
+  - "/etc/prometheus/alert_rules.d/node_exporter.yml"
+##- "/etc/prometheus/alert_rules.d/redis_exporter.yml"
+##- "/etc/prometheus/alert_rules.d/elasticsearch.yml"
+##- "/etc/prometheus/alert_rules.d/postgres_exporter.yml"
+##- "/etc/prometheus/alert_rules.d/proxysql_exporter.yml"
 
 scrape_configs:
   - job_name: 'prometheus prod local'
@@ -103,6 +102,27 @@ scrape_configs:
           server_env: 'prod'
           hostname: 'grafana.{{ REMOTE_HOST }}'
           project: '{{ PROJECT_NAME }}'
+
+
+# - job_name: 'blackbox exporter generic'
+#   metrics_path: /probe
+#   params:
+#     module: [http_2xx]
+#   static_configs:
+#     - targets: ['http://node-exporter:9100']
+#       labels:
+#         host_priority: 'P3'
+#         server_env: 'prod'
+#         hostname: 'grafana.{{ REMOTE_HOST }}'
+#         project: '{{ PROJECT_NAME }}'
+#   relabel_configs:
+#     - source_labels: [__address__]
+#       target_label: __param_target
+#     - source_labels: [__param_target]
+#       target_label: instance
+#     - target_label: __address__
+#       replacement: blackbox-exporter:9115
+
 
 # - job_name: 'inventory only prod'
 #   scrape_interval: 1m
