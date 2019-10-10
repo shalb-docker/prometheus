@@ -60,21 +60,21 @@ receivers:
   opsgenie_configs:
     - api_key: {{ OPSGENIE_API_KEY }}
       teams: {{ OPSGENIE_TEAM }}
-      message: "{{ .GroupLabels.instance }} | {{ .CommonAnnotations.summary }}"
+      message: "{{ .GroupLabels.hostname }} | {{ .CommonAnnotations.summary }}"
       priority: "{{ .CommonAnnotations.priority }}"
 
 - name: opsgenie_monitoring_team
   opsgenie_configs:
     - api_key: {{ OPSGENIE_API_KEY }}
       teams: monitoring
-      message: "{{ .GroupLabels.instance }} | {{ .CommonAnnotations.summary }}"
+      message: "{{ .GroupLabels.hostname }} | {{ .CommonAnnotations.summary }}"
       priority: "{{ .CommonAnnotations.priority }}"
 
 - name: opsgenie_backup_team
   opsgenie_configs:
     - api_key: {{ OPSGENIE_API_KEY }}
       teams: backup
-      message: "{{ .GroupLabels.instance }} | {{ .CommonAnnotations.summary }}"
+      message: "{{ .GroupLabels.hostname }} | {{ .CommonAnnotations.summary }}"
       priority: "{{ .CommonAnnotations.priority }}"
 
 #- name: example_mail
@@ -99,7 +99,7 @@ receivers:
 #  slack_configs:
 #    - api_url: https://hooks.slack.com/services/MY_ID
 #      username: prometheus
-#      title: "host: '{{ .GroupLabels.instance }}' | alert: '{{ .CommonAnnotations.summary }}'"
+#      title: "host: '{{ .GroupLabels.hostname }}' | alert: '{{ .CommonAnnotations.summary }}'"
 #      text: "{{ .CommonAnnotations.description }}"
 #      title_link: "{{ .CommonAnnotations.grafana }}"
 #      send_resolved: true
