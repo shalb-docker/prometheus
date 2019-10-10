@@ -14,6 +14,7 @@ rule_files:
   - "/etc/prometheus/alert_rules.d/memory.yml"
   - "/etc/prometheus/alert_rules.d/time_sync.yml"
   - "/etc/prometheus/alert_rules.d/la.yml"
+  - "/etc/prometheus/alert_rules.d/http.yml"
 ##- "/etc/prometheus/alert_rules.d/monit.yml"
 ##- "/etc/prometheus/alert_rules.d/monit_http.yml"
 ##- "/etc/prometheus/alert_rules.d/monit_mail.yml"
@@ -105,6 +106,7 @@ scrape_configs:
 
 
 # - job_name: 'blackbox exporter generic'
+#   scrape_interval: 1m
 #   metrics_path: /probe
 #   params:
 #     module: [http_2xx]
@@ -113,7 +115,7 @@ scrape_configs:
 #       labels:
 #         host_priority: 'P3'
 #         server_env: 'prod'
-#         hostname: 'grafana.{{ REMOTE_HOST }}'
+#         hostname: 'node-exporter'
 #         project: '{{ PROJECT_NAME }}'
 #   relabel_configs:
 #     - source_labels: [__address__]
