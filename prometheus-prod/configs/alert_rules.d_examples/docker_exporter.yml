@@ -2,7 +2,7 @@ groups:
   - name: "docker_exporter down alerts"
     rules:
       - alert: "docker_exporter down P5"
-        expr: up{host_priority="P5",instance=~".*:9610"} == 0
+        expr: up{host_priority="P5",instance=~".*:9647"} == 0
         for: 10m
         annotations:
           summary: "docker_exporter down"
@@ -12,7 +12,7 @@ groups:
           priority: "P3"
 
       - alert: "docker_exporter down P4"
-        expr: up{host_priority="P4",instance=~".*:9610"} == 0
+        expr: up{host_priority="P4",instance=~".*:9647"} == 0
         for: 5m
         annotations:
           summary: "docker_exporter down"
@@ -22,7 +22,7 @@ groups:
           priority: "P3"
 
       - alert: "docker_exporter down P3"
-        expr: up{host_priority="P3",instance=~".*:9610"} == 0
+        expr: up{host_priority="P3",instance=~".*:9647"} == 0
         for: 4m
         annotations:
           summary: "docker_exporter down"
@@ -32,7 +32,7 @@ groups:
           priority: "P2"
 
       - alert: "docker_exporter down P2"
-        expr: up{host_priority="P2",instance=~".*:9610"} == 0
+        expr: up{host_priority="P2",instance=~".*:9647"} == 0
         for: 3m
         annotations:
           summary: "docker_exporter down"
@@ -42,7 +42,7 @@ groups:
           priority: "P2"
 
       - alert: "docker_exporter down P1"
-        expr: up{host_priority="P1",instance=~".*:9610"} == 0
+        expr: up{host_priority="P1",instance=~".*:9647"} == 0
         for: 2m
         annotations:
           summary: "docker_exporter down"
@@ -52,7 +52,7 @@ groups:
           priority: "P1"
 
       - alert: "docker_exporter down"
-        expr: up{host_priority!~"P[1-5]",instance=~".*:9610"} == 0
+        expr: up{host_priority!~"P[1-5]",instance=~".*:9647"} == 0
         for: 4m
         annotations:
           summary: "docker_exporter down"

@@ -3,3 +3,14 @@ modules:
     prober: http
     http:
       preferred_ip_protocol: "ip4"
+# Personal check in case of access via IP and ignore certificate check
+# wget -O - 'http://blackbox-exporter:9115/probe?module=https_example_com&target=https://192.168.1.1'
+# https_example_com:
+#   prober: http
+#   http:
+#     headers:
+#       Host: "example.com"
+#     tls_config:
+#       insecure_skip_verify: true
+#     preferred_ip_protocol: "ip4"
+
