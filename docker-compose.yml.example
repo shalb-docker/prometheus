@@ -6,6 +6,7 @@ services:
     volumes:
       - ./prometheus-prod/configs:/etc/prometheus/
       - ./prometheus-prod/storage:/prometheus
+      - ./prometheus-prod/secrets:/etc/prometheus/secrets
     restart: always
 #   ports:
 #     - "127.0.0.1:9090:9090"
@@ -22,16 +23,35 @@ services:
     volumes:
       - ./prometheus-dev/configs:/etc/prometheus/
       - ./prometheus-dev/storage:/prometheus
+      - ./prometheus-dev/secrets:/etc/prometheus/secrets
     restart: always
 #   ports:
 #     - "127.0.0.1:9090:9090"
     command: ["--log.level=debug",
-              "--web.external-url=https://prometheus.{{ REMOTE_HOST }}/",
+              "--web.external-url=https://prometheus-dev.{{ REMOTE_HOST }}/",
               "--config.file=/etc/prometheus/prometheus.yml",
               "--storage.tsdb.path=/prometheus",
               "--web.console.libraries=/usr/share/prometheus/console_libraries",
               "--web.console.templates=/usr/share/prometheus/consoles",
               "--storage.tsdb.retention=1d"]
+
+# Example prometheus which get data from kuber
+# prometheus-prod2:
+#   image: prom/prometheus:v2.4.2
+#   volumes:
+#     - ./prometheus-prod2/configs:/etc/prometheus/
+#     - ./prometheus-prod2/storage:/prometheus
+#     - ./prometheus-prod2/secrets:/etc/prometheus/secrets
+#   restart: always
+##  ports:
+##    - "127.0.0.1:9090:9090"
+#   command: ["--log.level=debug",
+#             "--web.external-url=https://prometheus-prod2.{{ REMOTE_HOST }}/",
+#             "--config.file=/etc/prometheus/prometheus.yml",
+#             "--storage.tsdb.path=/prometheus",
+#             "--web.console.libraries=/usr/share/prometheus/console_libraries",
+#             "--web.console.templates=/usr/share/prometheus/consoles",
+#             "--storage.tsdb.retention=1d"]
 
   alertmanager:
     image: prom/alertmanager:v0.15.2

@@ -197,6 +197,10 @@ cp private.key fullchain.pem nginx/ssl/prometheus.${REMOTE_HOST}/
 rm private.key fullchain.pem
 ~~~~
 
+# Setup kubernetes monitoring
+
+See 'kubernetes example' in 'add_variables.sh.example'
+
 # Info
 
 ## Our public repo with usefull code

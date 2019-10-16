@@ -18,6 +18,14 @@ sed -e "s@{{ REMOTE_HOST }}@$REMOTE_HOST@g" \
 > ./docker-compose.yml
 
 bash ./add_prometheus_alerts.sh.example
+
+# add dev prometheus
+cat ./prometheus-dev/configs/prometheus.yml.example | \
+sed -e "s@{{ REMOTE_HOST }}@$REMOTE_HOST@g" | \
+sed -e "s@{{ LOCAL_IP }}@$LOCAL_IP@g" | \
+sed -e "s@{{ PROJECT_NAME }}@$PROJECT_NAME@g" \
+> ./prometheus-dev/configs/prometheus.yml
+
 rsync -a --delete --exclude="*.md" ./prometheus-prod/configs/alert_rules.d/ prometheus-dev/configs/alert_rules.d/
 
 cat ./nginx/conf.d/default.conf.example | \
@@ -44,6 +52,24 @@ cat ./grafana/env.example | \
 sed -e "s@{{ REMOTE_HOST }}@$REMOTE_HOST@g" \
 > ./grafana/env
 
+
+# Example prometheus which get data from kuber
+#HTTP_AUTH=$(htpasswd -b -n $PROMETHEUS_FEDERATE_KUBER_PROD2_USER $PROMETHEUS_FEDERATE_KUBER_PROD2_PASSWORD)
+#cat examples/kubernetes_cluster/05_prometheus_secret.yml.example | \
+#sed -e "s@{{ HTTP_AUTH }}@$HTTP_AUTH@g" \
+#> examples/kubernetes_cluster/05_prometheus_secret.yml
+#
+#echo $PROMETHEUS_FEDERATE_KUBER_PROD2_PASSWORD > ./prometheus-prod2/secrets/federate_kuber_prod2
+#
+#cat ./prometheus-prod2/configs/prometheus.yml.example | \
+#sed -e "s@{{ REMOTE_HOST }}@$REMOTE_HOST@g" | \
+#sed -e "s@{{ LOCAL_IP }}@$LOCAL_IP@g" | \
+#sed -e "s@{{ PROJECT_NAME }}@$PROJECT_NAME@g" \
+#> ./prometheus-prod2/configs/prometheus.yml
+
+#rsync -a --delete --exclude="*.md" ./prometheus-prod/configs/alert_rules.d/ prometheus-prod2/configs/alert_rules.d/
+
+ 
 #echo "AWS_ACCESS_KEY_ID=${prod_AWS_ACCESS_KEY_ID}
 #AWS_SECRET_ACCESS_KEY=${prod_AWS_SECRET_ACCESS_KEY}" \
 #> ./cloudwatch-exporter_prod/env_secrets

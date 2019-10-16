@@ -1,0 +1,70 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: node-exporter
+  namespace: monitoring
+  labels:
+    role: monitoring
+spec:
+  selector:
+    matchLabels:
+      app: node-exporter
+  template:
+    metadata:
+      labels:
+        role: monitoring
+        app: node-exporter
+      annotations:
+        monitoring: "true"
+    spec:
+      containers:
+      - args:
+        - --web.listen-address=0.0.0.0:9100
+        - --path.procfs=/host/proc
+        - --path.sysfs=/host/sys
+       #- --path.rootfs=/host/root
+        - --collector.filesystem.ignored-mount-points=(/run/|/etc/|/dev/|/proc/|/sys/|/var/lib/docker/)
+        - --collector.filesystem.ignored-fs-types=^(autofs|binfmt_misc|cgroup|configfs|debugfs|devpts|devtmpfs|fusectl|hugetlbfs|mqueue|overlay|proc|pocfs|pstore|rpc_pipefs|securityfs|sysfs|tracefs)$
+        name: node-exporter
+        image: prom/node-exporter:v0.18.1
+        resources:
+          limits:
+            memory: 200Mi
+#         requests:
+#           cpu: 100m
+#           memory: 200Mi
+        volumeMounts:
+        - mountPath: /host/proc
+          name: proc
+          readOnly: false
+        - mountPath: /host/sys
+          name: sys
+          readOnly: false
+       #- mountPath: /host/root
+       #  mountPropagation: HostToContainer
+       #  name: root
+          readOnly: true
+        ports:
+        - containerPort: 9100
+          hostPort: 9100
+      terminationGracePeriodSeconds: 10
+#     hostNetwork: true
+#     hostPID: true
+#     nodeSelector:
+#       kubernetes.io/os: linux
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65534
+      tolerations:
+      - operator: Exists
+      volumes:
+      - hostPath:
+          path: /proc
+        name: proc
+      - hostPath:
+          path: /sys
+        name: sys
+      - hostPath:
+          path: /
+        name: root
+

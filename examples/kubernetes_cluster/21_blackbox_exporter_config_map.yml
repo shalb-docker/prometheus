@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: blackbox-exporter-config
+  namespace: monitoring
+  labels:
+    app: blackbox-exporter
+data:
+  config.yml: |+
+    modules:
+      http_2xx:
+        prober: http
+        http:
+          preferred_ip_protocol: "ip4"
+

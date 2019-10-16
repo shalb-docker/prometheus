@@ -1,0 +1,23 @@
+groups:
+  - name: time sync
+    rules:
+      - alert: "no time syncronization P4-5"
+        expr: node_timex_sync_status{host_priority=~"P[4-5]"} == 0
+        for: 60m
+        annotations:
+          summary: "no time syncronization"
+          description: 'Go to host: "{{ $labels.hostname }}" and check if any time sync soft working properly by command "ntpq -pn" or timedatectl status'
+          grafana: "{{ GRAFANA_NODE_EXPORTER_TIME_SYNC_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
+          priority: "P5"
+
+      - alert: "no time syncronization P1-3"
+        expr: node_timex_sync_status{host_priority=~"P[1-3]"} == 0
+        for: 15m
+        annotations:
+          summary: "no time syncronization"
+          description: 'Go to host: "{{ $labels.hostname }}" and check if any time sync soft working properly by command "ntpq -pn" or timedatectl status'
+          grafana: "{{ GRAFANA_NODE_EXPORTER_TIME_SYNC_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
+          priority: "P3"
+

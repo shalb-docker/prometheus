@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kubernetes-exporter
+  namespace: monitoring
+  labels:
+    role: kubernetes-exporter
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kubernetes-exporter
+  template:
+    metadata:
+      labels:
+        role: monitoring
+        app: kubernetes-exporter
+      annotations:
+        monitoring: "true"
+    spec:
+      serviceAccountName: kubernetes-exporter
+      containers:
+      - name: kubernetes-exporter
+      # args:
+      # - "360000"
+      # command: ["sleep"]
+        image: shalb/kubernetes_exporter:0.0.1
+        ports:
+        - containerPort: 9610
+     #  volumeMounts:
+     #  - mountPath: /data
+     #    name: data
+     #  - mountPath: /etc/prometheus
+     #    name: config-main
+     #volumes:
+     #  - name: data
+     #    emptyDir: {}
+     #  - name: config-main
+     #    configMap:
+     #      name: prometheus-main-config
+     #      items:
+     #      - key: prometheus.yml
+     #        path: prometheus.yml

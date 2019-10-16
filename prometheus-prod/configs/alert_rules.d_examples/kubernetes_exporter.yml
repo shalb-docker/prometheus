@@ -1,0 +1,266 @@
+groups:
+  - name: "record rules"
+    rules:
+    - record: service:http_status:minimal
+      expr: min(probe_success{job!="kubernetes-services-port"}) by (server_env)
+
+
+  - name: "kubernetes_exporter down alerts"
+    rules:
+      - alert: "kubernetes_exporter down P5"
+        expr: up{host_priority="P5",instance=~".*:9610"} == 0
+        for: 10m
+        annotations:
+          summary: "kubernetes_exporter down"
+          description: 'Go to instance: "{{ $labels.instance }}" and check if service: "kubernetes_exporter" is running'
+          grafana: "{{ GRAFANA_KUBERNETES_EXPORTER_UP_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
+          priority: "P3"
+
+      - alert: "kubernetes_exporter down P4"
+        expr: up{host_priority="P4",instance=~".*:9610"} == 0
+        for: 5m
+        annotations:
+          summary: "kubernetes_exporter down"
+          description: 'Go to instance: "{{ $labels.instance }}" and check if service: "kubernetes_exporter" is running'
+          grafana: "{{ GRAFANA_KUBERNETES_EXPORTER_UP_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
+          priority: "P3"
+
+      - alert: "kubernetes_exporter down P3"
+        expr: up{host_priority="P3",instance=~".*:9610"} == 0
+        for: 4m
+        annotations:
+          summary: "kubernetes_exporter down"
+          description: 'Go to instance: "{{ $labels.instance }}" and check if service: "kubernetes_exporter" is running'
+          grafana: "{{ GRAFANA_KUBERNETES_EXPORTER_UP_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
+          priority: "P2"
+
+      - alert: "kubernetes_exporter down P2"
+        expr: up{host_priority="P2",instance=~".*:9610"} == 0
+        for: 3m
+        annotations:
+          summary: "kubernetes_exporter down"
+          description: 'Go to instance: "{{ $labels.instance }}" and check if service: "kubernetes_exporter" is running'
+          grafana: "{{ GRAFANA_KUBERNETES_EXPORTER_UP_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
+          priority: "P2"
+
+      - alert: "kubernetes_exporter down P1"
+        expr: up{host_priority="P1",instance=~".*:9610"} == 0
+        for: 2m
+        annotations:
+          summary: "kubernetes_exporter down"
+          description: 'Go to instance: "{{ $labels.instance }}" and check if service: "kubernetes_exporter" is running'
+          grafana: "{{ GRAFANA_KUBERNETES_EXPORTER_UP_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
+          priority: "P1"
+
+      - alert: "kubernetes_exporter down"
+        expr: up{host_priority!~"P[1-5]",instance=~".*:9610"} == 0
+        for: 4m
+        annotations:
+          summary: "kubernetes_exporter down"
+          description: 'Go to instance: "{{ $labels.instance }}" and check if service: "kubernetes_exporter" is running'
+          grafana: "{{ GRAFANA_KUBERNETES_EXPORTER_UP_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
+          priority: "P3"
+
+
+  - name: "parse errors - kubernetes_exporter"
+    rules:
+      - alert: "kubernetes_exporter has new errors P1-3"
+        expr: kubernetes_exporter_up{host_priority=~"P[1-3]"} != 1
+        for: 5m
+        annotations:
+          summary: "kubernetes_exporter has new errors"
+          description: 'Go to instance: "{{ $labels.instance }}" and check log for kubernetes_exporter'
+          grafana: "{{ GRAFANA_KUBERNETES_EXPORTER_SCRAPE_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
+          priority: "P2"
+
+      - alert: "kubernetes_exporter has new errors P4-5"
+        expr: kubernetes_exporter_up{host_priority=~"P[4-5]"} != 1
+        for: 15m
+        annotations:
+          summary: "kubernetes_exporter has new errors"
+          description: 'Go to instance: "{{ $labels.instance }}" and check log for kubernetes_exporter'
+          grafana: "{{ GRAFANA_KUBERNETES_EXPORTER_SCRAPE_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
+          priority: "P3"
+
+      - alert: "kubernetes_exporter has new errors"
+        expr: kubernetes_exporter_up{host_priority!~"P[1-5]"} != 1
+        for: 10m
+        annotations:
+          summary: "kubernetes_exporter has new errors"
+          description: 'Go to instance: "{{ $labels.instance }}" and check log for kubernetes_exporter'
+          grafana: "{{ GRAFANA_KUBERNETES_EXPORTER_SCRAPE_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
+          priority: "P3"
+
+
+  - name: "nodes alerts - kubernetes_exporter"
+    rules:
+      - alert: "kubernetes_exporter - node is not ready P1-2"
+        expr: kubernetes_node_condition{condition="Ready",host_priority=~"P[1-2]"} != 1
+        for: 2m
+        annotations:
+          summary: "node is not ready"
+          description: 'Connect to {{ $labels.server_env }} cluster and check why node: "{{ $labels.node_name }}" is not ready'
+          grafana: "{{ GRAFANA_KUBERNETES_EXPORTER_NODE_CONDITION_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
+          priority: "P3"
+
+      - alert: "kubernetes_exporter - node is not ready P4-5"
+        expr: kubernetes_node_condition{condition="Ready",host_priority=~"P[4-5]"} != 1
+        for: 10m
+        annotations:
+          summary: "node is not ready"
+          description: 'Connect to {{ $labels.server_env }} cluster and check why node: "{{ $labels.node_name }}" is not ready'
+          grafana: "{{ GRAFANA_KUBERNETES_EXPORTER_NODE_CONDITION_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
+          priority: "P3"
+
+      - alert: "kubernetes_exporter - node is not ready"
+        expr: kubernetes_node_condition{condition="Ready",host_priority!~"P[1245]"} != 1
+        for: 5m
+        annotations:
+          summary: "node is not ready"
+          description: 'Connect to {{ $labels.server_env }} cluster and check why node: "{{ $labels.node_name }}" is not ready'
+          grafana: "{{ GRAFANA_KUBERNETES_EXPORTER_NODE_CONDITION_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
+          priority: "P3"
+
+
+  - name: "pod alerts - kubernetes_exporter"
+    rules:
+      - alert: "kubernetes_exporter - pod is not running P1-2"
+        expr: kubernetes_pod_phase{host_priority=~"P[1-2]"} != 1
+        for: 2m
+        annotations:
+          summary: "pod is not running"
+          description: 'Connect to {{ $labels.server_env }} cluster and check why pod: "{{ $labels.pod_name }}" is not running'
+          grafana: "{{ GRAFANA_KUBERNETES_EXPORTER_POD_PHASE_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
+          priority: "P3"
+
+      - alert: "kubernetes_exporter - pod is not running P4-5"
+        expr: kubernetes_pod_phase{host_priority=~"P[4-5]"} != 1
+        for: 10m
+        annotations:
+          summary: "pod is not running"
+          description: 'Connect to {{ $labels.server_env }} cluster and check why pod: "{{ $labels.pod_name }}" is not running'
+          grafana: "{{ GRAFANA_KUBERNETES_EXPORTER_POD_PHASE_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
+          priority: "P3"
+
+      - alert: "kubernetes_exporter - pod is not running"
+        expr: kubernetes_pod_phase{host_priority!~"P[1245]"} != 1
+        for: 5m
+        annotations:
+          summary: "pod is not running"
+          description: 'Connect to {{ $labels.server_env }} cluster and check why pod: "{{ $labels.pod_name }}" is not running'
+          grafana: "{{ GRAFANA_KUBERNETES_EXPORTER_POD_PHASE_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
+          priority: "P3"
+
+
+  - name: "containers alerts - kubernetes_exporter"
+    rules:
+      - alert: "kubernetes_exporter - container restarts to often P1-2"
+        expr: delta(kubernetes_container_restarts_total{host_priority=~"P[1-2]"}[1h]) > 10
+        for: 2m
+        annotations:
+          summary: "container restarts to often"
+          description: 'Connect to {{ $labels.server_env }} cluster and check why container: "{{ $labels.container_name }}" restarts to often'
+          grafana: "{{ GRAFANA_KUBERNETES_EXPORTER_CONTAINER_RESTARTS_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
+          priority: "P3"
+
+      - alert: "kubernetes_exporter - container restarts to often P4-5"
+        expr: delta(kubernetes_container_restarts_total{host_priority=~"P[4-5]"}[1h]) > 10
+        for: 10m
+        annotations:
+          summary: "container restarts to often"
+          description: 'Connect to {{ $labels.server_env }} cluster and check why container: "{{ $labels.container_name }}" restarts to often'
+          grafana: "{{ GRAFANA_KUBERNETES_EXPORTER_CONTAINER_RESTARTS_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
+          priority: "P3"
+
+      - alert: "kubernetes_exporter - container restarts to often"
+        expr: delta(kubernetes_container_restarts_total{host_priority!~"P[1245]"}[1h]) > 10
+        for: 5m
+        annotations:
+          summary: "container restarts to often"
+          description: 'Connect to {{ $labels.server_env }} cluster and check why container: "{{ $labels.container_name }}" restarts to often'
+          grafana: "{{ GRAFANA_KUBERNETES_EXPORTER_CONTAINER_RESTARTS_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
+          priority: "P3"
+
+
+      - alert: "kubernetes_exporter - container is not running P1-2"
+        expr: kubernetes_container_ready{host_priority=~"P[1-2]"} != 1
+        for: 2m
+        annotations:
+          summary: "container is not running"
+          description: 'Connect to {{ $labels.server_env }} cluster and check why container: "{{ $labels.container_name }}" is not running'
+          grafana: "{{ GRAFANA_KUBERNETES_EXPORTER_CONTAINER_READY_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
+          priority: "P3"
+
+      - alert: "kubernetes_exporter - container is not running P4-5"
+        expr: kubernetes_container_ready{host_priority=~"P[4-5]"} != 1
+        for: 10m
+        annotations:
+          summary: "container is not running"
+          description: 'Connect to {{ $labels.server_env }} cluster and check why container: "{{ $labels.container_name }}" is not running'
+          grafana: "{{ GRAFANA_KUBERNETES_EXPORTER_CONTAINER_READY_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
+          priority: "P3"
+
+      - alert: "kubernetes_exporter - container is not running"
+        expr: kubernetes_container_ready{host_priority!~"P[1245]"} != 1
+        for: 5m
+        annotations:
+          summary: "container is not running"
+          description: 'Connect to {{ $labels.server_env }} cluster and check why container: "{{ $labels.container_name }}" is not running'
+          grafana: "{{ GRAFANA_KUBERNETES_EXPORTER_CONTAINER_READY_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
+          priority: "P3"
+
+
+  - name: "http service alerts - kubernetes_exporter"
+    rules:
+      - alert: "kubernetes_exporter - service http check fails P1-2"
+        expr: probe_success{host_priority=~"P[1-2]",job!="kubernetes-services-port"} != 1
+        for: 2m
+        annotations:
+          summary: "service http check fails"
+          description: 'Connect to {{ $labels.server_env }} cluster and check why request to: "http://{{ $labels.instance }}{{ $labels.request }}" fails for service: "{{ $labels.service_name_http }}"'
+          grafana: "{{ GRAFANA_KUBERNETES_EXPORTER_HTTP_CHECK_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
+          priority: "P3"
+
+      - alert: "kubernetes_exporter - service http check fails P4-5"
+        expr: probe_success{host_priority=~"P[4-5]",job!="kubernetes-services-port"} != 1
+        for: 10m
+        annotations:
+          summary: "service http check fails"
+          description: 'Connect to {{ $labels.server_env }} cluster and check why request to: "http://{{ $labels.instance }}{{ $labels.request }}" fails for service: "{{ $labels.service_name_http }}"'
+          grafana: "{{ GRAFANA_KUBERNETES_EXPORTER_HTTP_CHECK_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
+          priority: "P3"
+
+      - alert: "kubernetes_exporter - service http check fails"
+        expr: probe_success{host_priority!~"P[1245]",job!="kubernetes-services-port"} != 1
+        for: 5m
+        annotations:
+          summary: "service http check fails"
+          description: 'Connect to {{ $labels.server_env }} cluster and check why request to: "http://{{ $labels.instance }}{{ $labels.request }}" fails for service: "{{ $labels.service_name_http }}"'
+          grafana: "{{ GRAFANA_KUBERNETES_EXPORTER_HTTP_CHECK_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
+          priority: "P3"
+
+

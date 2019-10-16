@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: kubernetes-exporter
+  namespace: monitoring
+spec:
+  selector:
+    app: kubernetes-exporter
+  ports:
+    - protocol: TCP
+      port: 9610
+      targetPort: 9610
+
