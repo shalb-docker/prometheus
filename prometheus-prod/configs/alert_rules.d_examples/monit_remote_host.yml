@@ -7,7 +7,7 @@ groups:
         annotations:
           summary: 'remote host: "{{ $labels.name }}" check failed'
           description: 'Go to host: "{{ $labels.hostname }}" and find more info in monit config (grep -r {{ $labels.name }} /etc/monit.d/); see monit log: /var/log/monit/monit.log'
-          grafana: "{{ GRAFANA_ALL_ALERTS_DASHBOARD }}"
+          grafana: "{{ GRAFANA_MONIT_CHECK_STATUS_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P5"
 
@@ -17,7 +17,7 @@ groups:
         annotations:
           summary: 'remote host: "{{ $labels.name }}" check failed'
           description: 'Go to host: "{{ $labels.hostname }}" and find more info in monit config (grep -r {{ $labels.name }} /etc/monit.d/); see monit log: /var/log/monit/monit.log'
-          grafana: "{{ GRAFANA_ALL_ALERTS_DASHBOARD }}"
+          grafana: "{{ GRAFANA_MONIT_CHECK_STATUS_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P5"
 
@@ -27,7 +27,7 @@ groups:
         annotations:
           summary: 'remote host: "{{ $labels.name }}" check failed'
           description: 'Go to host: "{{ $labels.hostname }}" and find more info in monit config (grep -r {{ $labels.name }} /etc/monit.d/); see monit log: /var/log/monit/monit.log'
-          grafana: "{{ GRAFANA_ALL_ALERTS_DASHBOARD }}"
+          grafana: "{{ GRAFANA_MONIT_CHECK_STATUS_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P4"
 
@@ -37,7 +37,7 @@ groups:
         annotations:
           summary: 'remote host: "{{ $labels.name }}" check failed'
           description: 'Go to host: "{{ $labels.hostname }}" and find more info in monit config (grep -r {{ $labels.name }} /etc/monit.d/); see monit log: /var/log/monit/monit.log'
-          grafana: "{{ GRAFANA_ALL_ALERTS_DASHBOARD }}"
+          grafana: "{{ GRAFANA_MONIT_CHECK_STATUS_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P3"
 
@@ -47,7 +47,7 @@ groups:
         annotations:
           summary: 'remote host: "{{ $labels.name }}" check failed'
           description: 'Go to host: "{{ $labels.hostname }}" and find more info in monit config (grep -r {{ $labels.name }} /etc/monit.d/); see monit log: /var/log/monit/monit.log'
-          grafana: "{{ GRAFANA_ALL_ALERTS_DASHBOARD }}"
+          grafana: "{{ GRAFANA_MONIT_CHECK_STATUS_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P2"
 
@@ -57,7 +57,7 @@ groups:
         annotations:
           summary: 'remote host: "{{ $labels.name }}" check failed'
           description: 'Go to host: "{{ $labels.hostname }}" and find more info in monit config (grep -r {{ $labels.name }} /etc/monit.d/); see monit log: /var/log/monit/monit.log'
-          grafana: "{{ GRAFANA_ALL_ALERTS_DASHBOARD }}"
+          grafana: "{{ GRAFANA_MONIT_CHECK_STATUS_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P1"
 
