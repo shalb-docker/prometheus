@@ -46,7 +46,7 @@ scrape_configs:
       'match[]':
         - '{job=~"[a-z].*"}'
     static_configs:
-      - targets: ['prometheus.prod2.{{ REMOTE_HOST }}']
+      - targets: ['prometheus.prod2.{{ REMOTE_HOST }}:443']
         labels:
           host_priority: 'P5'
           server_env: 'prod2'

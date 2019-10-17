@@ -59,6 +59,10 @@ sed -e "s@{{ REMOTE_HOST }}@$REMOTE_HOST@g" \
 #sed -e "s@{{ HTTP_AUTH }}@$HTTP_AUTH@g" \
 #> examples/kubernetes_cluster/05_prometheus_secret.yml
 #
+#cat examples/kubernetes_cluster/06_prometheus_ingress.yml.example | \
+#sed -e "s@{{ REMOTE_HOST }}@$REMOTE_HOST@g" \
+#> examples/kubernetes_cluster/06_prometheus_ingress.yml
+#
 #echo $PROMETHEUS_FEDERATE_KUBER_PROD2_PASSWORD > ./prometheus-prod2/secrets/federate_kuber_prod2
 #
 #cat ./prometheus-prod2/configs/prometheus.yml.example | \

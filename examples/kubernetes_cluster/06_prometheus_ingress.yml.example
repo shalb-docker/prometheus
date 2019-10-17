@@ -18,10 +18,10 @@ metadata:
 spec:
   tls:
   - hosts:
-    - prometheus.prod1.payop.com
+    - prometheus.prod2.{{ REMOTE_HOST }}
     secretName: prometheus
   rules:
-    - host: prometheus.prod1.payop.com
+    - host: prometheus.prod2.{{ REMOTE_HOST }}
       http:
         paths:
         - path: /
