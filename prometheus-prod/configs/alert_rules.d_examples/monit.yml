@@ -2,62 +2,52 @@ groups:
   - name: monit alerts
     rules:
       - alert: "monit not running P5"
-        expr: node_monit{host_priority="P5",type="monit",name="monit_not_running"} == 1
+        expr: node_number_of_monit_processes{host_priority="P5"} != 1
         for: 12m
         annotations:
           summary: "monit not running"
-          description: "Go to instance and check if service 'monit' is running"
-          grafana: "{{ GRAFANA_ALL_ALERTS_DASHBOARD }}"
+          description: 'Go to host: "{{ $labels.hostname }}" and check if service "monit" is running'
+          grafana: "{{ GRAFANA_MONIT_RUNNING_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P3"
 
       - alert: "monit not running P4"
-        expr: node_monit{host_priority="P4",type="monit",name="monit_not_running"} == 1
+        expr: node_number_of_monit_processes{host_priority="P5"} != 1
         for: 7m
         annotations:
           summary: "monit not running"
-          description: "Go to instance and check if service 'monit' is running"
-          grafana: "{{ GRAFANA_ALL_ALERTS_DASHBOARD }}"
+          description: 'Go to host: "{{ $labels.hostname }}" and check if service "monit" is running'
+          grafana: "{{ GRAFANA_MONIT_RUNNING_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P3"
 
       - alert: "monit not running P3"
-        expr: node_monit{host_priority="P3",type="monit",name="monit_not_running"} == 1
+        expr: node_number_of_monit_processes{host_priority="P5"} != 1
         for: 5m
         annotations:
           summary: "monit not running"
-          description: "Go to instance and check if service 'monit' is running"
-          grafana: "{{ GRAFANA_ALL_ALERTS_DASHBOARD }}"
+          description: 'Go to host: "{{ $labels.hostname }}" and check if service "monit" is running'
+          grafana: "{{ GRAFANA_MONIT_RUNNING_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P2"
 
       - alert: "monit not running P2"
-        expr: node_monit{host_priority="P2",type="monit",name="monit_not_running"} == 1
+        expr: node_number_of_monit_processes{host_priority="P5"} != 1
         for: 3m
         annotations:
           summary: "monit not running"
-          description: "Go to instance and check if service 'monit' is running"
-          grafana: "{{ GRAFANA_ALL_ALERTS_DASHBOARD }}"
+          description: 'Go to host: "{{ $labels.hostname }}" and check if service "monit" is running'
+          grafana: "{{ GRAFANA_MONIT_RUNNING_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P2"
 
       - alert: "monit not running P1"
-        expr: node_monit{host_priority="P1",type="monit",name="monit_not_running"} == 1
-        for: 3m
+        expr: node_number_of_monit_processes{host_priority="P5"} != 1
+        for: 2m
         annotations:
           summary: "monit not running"
-          description: "Go to instance and check if service 'monit' is running"
-          grafana: "{{ GRAFANA_ALL_ALERTS_DASHBOARD }}"
+          description: 'Go to host: "{{ $labels.hostname }}" and check if service "monit" is running'
+          grafana: "{{ GRAFANA_MONIT_RUNNING_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P1"
-
-      - alert: "monit not running"
-        expr: node_monit{host_priority!~"P[1-5]",type="monit",name="monit_not_running"} == 1
-        for: 5m
-        annotations:
-          summary: "monit not running"
-          description: "Go to instance and check if service 'monit' is running"
-          grafana: "{{ GRAFANA_ALL_ALERTS_DASHBOARD }}"
-          access: "{{ WIKI_MONITORING_ACCESS }}"
-          priority: "P3"
 

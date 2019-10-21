@@ -170,7 +170,7 @@ data:
      #    action: replace
      #    target_label: kubernetes_name
 
-     #- job_name: 'kubernetes-services'
+     #- job_name: 'blackbox-exporter kubernetes services'
      #  metrics_path: /probe
      #  params:
      #    module: [http_2xx]

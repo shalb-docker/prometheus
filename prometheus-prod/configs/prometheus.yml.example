@@ -15,9 +15,9 @@ rule_files:
   - "/etc/prometheus/alert_rules.d/time_sync.yml"
   - "/etc/prometheus/alert_rules.d/la.yml"
   - "/etc/prometheus/alert_rules.d/http.yml"
-##- "/etc/prometheus/alert_rules.d/monit.yml"
-##- "/etc/prometheus/alert_rules.d/monit_http.yml"
-##- "/etc/prometheus/alert_rules.d/monit_mail.yml"
+# - "/etc/prometheus/alert_rules.d/monit.yml"
+# - "/etc/prometheus/alert_rules.d/monit_http.yml"
+# - "/etc/prometheus/alert_rules.d/monit_mail.yml"
 # - "/etc/prometheus/alert_rules.d/monit_cron.yml"
 # - "/etc/prometheus/alert_rules.d/monit_collector.yml"
 ##- "/etc/prometheus/alert_rules.d/monit_program.yml"
@@ -28,6 +28,9 @@ rule_files:
 ##- "/etc/prometheus/alert_rules.d/elasticsearch.yml"
 ##- "/etc/prometheus/alert_rules.d/postgres_exporter.yml"
 ##- "/etc/prometheus/alert_rules.d/proxysql_exporter.yml"
+# - "/etc/prometheus/alert_rules.d/kubernetes_exporter.yml"
+# - "/etc/prometheus/alert_rules.d/kubernetes_node_exporter.yml"
+# - "/etc/prometheus/alert_rules.d/kubernetes_http.yml"
 
 scrape_configs:
   - job_name: 'prometheus prod local'
@@ -48,14 +51,14 @@ scrape_configs:
           hostname: 'grafana.{{ REMOTE_HOST }}'
           project: '{{ PROJECT_NAME }}'
 
-  - job_name: 'prometheus prod2 local'
-    static_configs:
-      - targets: ['prometheus-prod2:9090']
-        labels:
-          host_priority: 'P5'
-          server_env: 'prod2'
-          hostname: 'grafana.{{ REMOTE_HOST }}'
-          project: '{{ PROJECT_NAME }}'
+# - job_name: 'prometheus prod2 local'
+#   static_configs:
+#     - targets: ['prometheus-prod2:9090']
+#       labels:
+#         host_priority: 'P5'
+#         server_env: 'prod2'
+#         hostname: 'grafana.{{ REMOTE_HOST }}'
+#         project: '{{ PROJECT_NAME }}'
 
   - job_name: 'grafana local'
     static_configs:

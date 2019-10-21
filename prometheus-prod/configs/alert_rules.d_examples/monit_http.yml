@@ -5,9 +5,9 @@ groups:
         expr: node_monit{key="port_certificate_valid"} < 10
         for: 10m
         annotations:
-          summary: "ssl will be expired in next 10 days"
-          description: 'Renew certificate of domain: "{{ $labels.name }}" if it managed by us or ask customer to get new one and install it'
-          grafana: "{{ GRAFANA_MONIT_DASHBOARD }}"
+          summary: '{{ $labels.name }}: ssl will be expired in next 10 days'
+          description: 'Renew certificate for domain: "{{ $labels.name }}" if it managed by us or ask customer to get new one and install it'
+          grafana: "{{ GRAFANA_MONIT_CHECK_STATUS_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P5"
 
@@ -15,10 +15,9 @@ groups:
         expr: node_monit{key="port_certificate_valid"} < 2
         for: 10m
         annotations:
-          summary: "ssl will be expired in next 2 days"
-          description: 'Renew certificate of domain: "{{ $labels.name }}" if it managed by us or ask customer to get new one and install it'
-          grafana: "{{ GRAFANA_MONIT_DASHBOARD }}"
+          summary: '{{ $labels.name }}: ssl will be expired in next 2 days for domain: "{{ $labels.name }}"'
+          description: 'Renew certificate for domain: "{{ $labels.name }}" if it managed by us or ask customer to get new one and install it'
+          grafana: "{{ GRAFANA_MONIT_CHECK_STATUS_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P3"
-
 

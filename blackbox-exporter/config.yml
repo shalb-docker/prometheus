@@ -8,9 +8,14 @@ modules:
 # https_example_com:
 #   prober: http
 #   http:
+#     preferred_ip_protocol: "ip4"
 #     headers:
 #       Host: "example.com"
 #     tls_config:
 #       insecure_skip_verify: true
-#     preferred_ip_protocol: "ip4"
+#     valid_status_codes:
+#       - 400
+#     fail_if_header_not_matches:
+#       - header: "content-type"
+#         regexp: "application/json"
 

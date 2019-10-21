@@ -54,7 +54,7 @@ sed -e "s@{{ REMOTE_HOST }}@$REMOTE_HOST@g" \
 
 
 # Example prometheus which get data from kuber
-#HTTP_AUTH=$(htpasswd -b -n $PROMETHEUS_FEDERATE_KUBER_PROD2_USER $PROMETHEUS_FEDERATE_KUBER_PROD2_PASSWORD)
+#HTTP_AUTH=$(htpasswd -b -n $PROMETHEUS_FEDERATE_KUBER_PROD2_USER $PROMETHEUS_FEDERATE_KUBER_PROD2_PASSWORD | base64)
 #cat examples/kubernetes_cluster/05_prometheus_secret.yml.example | \
 #sed -e "s@{{ HTTP_AUTH }}@$HTTP_AUTH@g" \
 #> examples/kubernetes_cluster/05_prometheus_secret.yml
@@ -70,7 +70,7 @@ sed -e "s@{{ REMOTE_HOST }}@$REMOTE_HOST@g" \
 #sed -e "s@{{ LOCAL_IP }}@$LOCAL_IP@g" | \
 #sed -e "s@{{ PROJECT_NAME }}@$PROJECT_NAME@g" \
 #> ./prometheus-prod2/configs/prometheus.yml
-
+#
 #rsync -a --delete --exclude="*.md" ./prometheus-prod/configs/alert_rules.d/ prometheus-prod2/configs/alert_rules.d/
 
  
