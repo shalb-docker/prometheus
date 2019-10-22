@@ -2,7 +2,7 @@ groups:
   - name: monit alerts
     rules:
       - alert: "monit not running P5"
-        expr: node_number_of_monit_processes{host_priority="P5"} <= 1
+        expr: node_number_of_monit_processes{host_priority="P5"} == 0
         for: 12m
         annotations:
           summary: "monit not running"
@@ -12,7 +12,7 @@ groups:
           priority: "P3"
 
       - alert: "monit not running P4"
-        expr: node_number_of_monit_processes{host_priority="P4"} <= 1
+        expr: node_number_of_monit_processes{host_priority="P4"} == 0
         for: 7m
         annotations:
           summary: "monit not running"
@@ -22,7 +22,7 @@ groups:
           priority: "P3"
 
       - alert: "monit not running P3"
-        expr: node_number_of_monit_processes{host_priority="P3"} <= 1
+        expr: node_number_of_monit_processes{host_priority="P3"} == 0
         for: 5m
         annotations:
           summary: "monit not running"
@@ -32,7 +32,7 @@ groups:
           priority: "P2"
 
       - alert: "monit not running P2"
-        expr: node_number_of_monit_processes{host_priority="P2"} <= 1
+        expr: node_number_of_monit_processes{host_priority="P2"} == 0
         for: 3m
         annotations:
           summary: "monit not running"
@@ -42,7 +42,7 @@ groups:
           priority: "P2"
 
       - alert: "monit not running P1"
-        expr: node_number_of_monit_processes{host_priority="P1"} <= 1
+        expr: node_number_of_monit_processes{host_priority="P1"} == 0
         for: 2m
         annotations:
           summary: "monit not running"

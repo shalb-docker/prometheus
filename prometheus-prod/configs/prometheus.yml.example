@@ -20,7 +20,7 @@ rule_files:
 # - "/etc/prometheus/alert_rules.d/monit_mail.yml"
 # - "/etc/prometheus/alert_rules.d/monit_cron.yml"
 # - "/etc/prometheus/alert_rules.d/monit_collector.yml"
-##- "/etc/prometheus/alert_rules.d/monit_program.yml"
+# - "/etc/prometheus/alert_rules.d/monit_program.yml"
 # - "/etc/prometheus/alert_rules.d/monit_process.yml"
 # - "/etc/prometheus/alert_rules.d/monit_remote_host.yml"
   - "/etc/prometheus/alert_rules.d/node_exporter.yml"
@@ -115,7 +115,7 @@ scrape_configs:
         regex: '/run/.*|/run|/snap/.*|.*/var/lib/docker/.*|/var/lib/docker/.*|/var/snap/microk8s/.*|/var/lib/kubelet|/var/lib/lxcfs|/var/lib/rancher/volumes|/data/glusterfs/vol2|/var/lib/nova'
         action: drop
       - source_labels: [ __name__ ]
-        regex: 'up|node_boot_time_seconds|node_memory_MemAvailable_bytes|node_time_seconds|node_memory_MemTotal_bytes|node_network_receive_bytes_total|node_network_transmit_bytes_total|node_disk_read_bytes_total|node_disk_written_bytes_total|node_network_receive_packets_total|node_network_transmit_packets_total|node_disk_writes_completed_total|node_disk_reads_completed_total|node_filesystem_size_bytes|node_filesystem_free_bytes|node_condition|node_cpu|node_cpu_seconds_total|node_cpus|node_filesystem_avail_bytes|node_filesystem_files|node_filesystem_files_free|node_filesystem_readonly|node_load1|node_mail_queue|node_monit|node_name|node_scrape_collector_success|node_stats_up|node_textfile_scrape_error|node_timex_sync_status'
+        regex: 'up|node_boot_time_seconds|node_memory_MemAvailable_bytes|node_time_seconds|node_memory_MemTotal_bytes|node_network_receive_bytes_total|node_network_transmit_bytes_total|node_disk_read_bytes_total|node_disk_written_bytes_total|node_network_receive_packets_total|node_network_transmit_packets_total|node_disk_writes_completed_total|node_disk_reads_completed_total|node_filesystem_size_bytes|node_filesystem_free_bytes|node_condition|node_cpu|node_cpu_seconds_total|node_cpus|node_filesystem_avail_bytes|node_filesystem_files|node_filesystem_files_free|node_filesystem_readonly|node_load1|node_mail_queue|node_monit|node_name|node_scrape_collector_success|node_stats_up|node_textfile_scrape_error|node_timex_sync_status|node_number_of_monit_processes|node_memory_MemFree_bytes|node_memory_Buffers_bytes|node_memory_Cached_bytes|node_memory_Slab_bytes|node_memory_PageTables_bytes|node_memory_SwapCached_bytes|node_memory_SwapTotal_bytes|node_memory_SwapFree_bytes|node_memory_HardwareCorrupted_bytes'
         action: keep
     static_configs:
       - targets: ['node-exporter:9100']
