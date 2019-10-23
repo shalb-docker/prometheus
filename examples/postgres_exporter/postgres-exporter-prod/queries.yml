@@ -1,7 +1,7 @@
 count_on_tables:
-  query: "SELECT format('stage-rds-main-1.aws.revelator.tech') AS db_host, current_database() AS database, nspname AS schemaname, relname AS table, reltuples AS count FROM pg_class C LEFT JOIN pg_namespace N ON (N.oid = C.relnamespace) WHERE nspname NOT IN ('pg_catalog', 'information_schema') AND relkind='r'"
+  query: "SELECT format('postgres-test') AS dbinstance_identifier, current_database() AS database, nspname AS schemaname, relname AS table, reltuples AS count FROM pg_class C LEFT JOIN pg_namespace N ON (N.oid = C.relnamespace) WHERE nspname NOT IN ('pg_catalog', 'information_schema') AND relkind='r'"
   metrics:
-    - db_host:
+    - dbinstance_identifier:
         usage: "LABEL"
         description: "Host name"
     - database:
@@ -19,4 +19,4 @@ count_on_tables:
 
 # schemaname |              table               | count 
 # ------------+----------------------------------+-------
-#  public     | silk_profile                     |     0
+#  public     | test_table                      |     0
