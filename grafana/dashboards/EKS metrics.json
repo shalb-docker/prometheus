@@ -7,14 +7,6 @@
       "type": "datasource",
       "pluginId": "prometheus",
       "pluginName": "Prometheus"
-    },
-    {
-      "name": "DS_PROMETHEUS",
-      "label": "prometheus",
-      "description": "",
-      "type": "datasource",
-      "pluginId": "prometheus",
-      "pluginName": "Prometheus"
     }
   ],
   "__requires": [
@@ -54,7 +46,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1570537990266,
+  "iteration": 1571735456944,
   "links": [],
   "panels": [
     {
@@ -1233,7 +1225,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": "$data_source",
-          "description": "Ready == 1",
+          "description": "Ready = 1",
           "fill": 1,
           "gridPos": {
             "h": 8,
@@ -1546,7 +1538,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": "$data_source",
-          "description": "",
+          "description": "OK = 0",
           "fill": 1,
           "gridPos": {
             "h": 6,
@@ -2606,7 +2598,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": "$data_source",
-          "description": "Up = 1\nDown = 0",
+          "description": "Ok = 1",
           "fill": 1,
           "gridPos": {
             "h": 6,
@@ -2642,7 +2634,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "up{server_env=~\"$server_env\"}",
+              "expr": "up{instance=~\".*:9610\",server_env=~\"$server_env\",node_name=~\"$node_name\"}",
               "format": "time_series",
               "hide": false,
               "interval": "",
@@ -2654,7 +2646,280 @@
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Exporters status",
+          "title": "Kubernetes exporter status",
+          "tooltip": {
+            "shared": false,
+            "sort": 2,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "$data_source",
+          "description": "Ok = 1",
+          "fill": 1,
+          "gridPos": {
+            "h": 6,
+            "w": 24,
+            "x": 0,
+            "y": 15
+          },
+          "id": 145,
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": true,
+            "max": true,
+            "min": false,
+            "rightSide": true,
+            "show": true,
+            "sort": "current",
+            "sortDesc": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": true,
+          "steppedLine": false,
+          "targets": [
+            {
+              "expr": "kubernetes_exporter_up{instance=~\".*:9610\",server_env=~\"$server_env\",node_name=~\"$node_name\"}",
+              "format": "time_series",
+              "hide": false,
+              "interval": "",
+              "intervalFactor": 2,
+              "legendFormat": "{{instance}}",
+              "refId": "B"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Kubernetes exporter scrape status",
+          "tooltip": {
+            "shared": false,
+            "sort": 2,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "$data_source",
+          "description": "Ok = 1",
+          "fill": 1,
+          "gridPos": {
+            "h": 6,
+            "w": 24,
+            "x": 0,
+            "y": 21
+          },
+          "id": 146,
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": true,
+            "max": true,
+            "min": false,
+            "rightSide": true,
+            "show": true,
+            "sort": "current",
+            "sortDesc": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": true,
+          "steppedLine": false,
+          "targets": [
+            {
+              "expr": "up{job=\"node_exporter kubernetes\",instance=~\".*:9100\",server_env=~\"$server_env\",node_name=~\"$node_name\"}",
+              "format": "time_series",
+              "hide": false,
+              "interval": "",
+              "intervalFactor": 2,
+              "legendFormat": "{{pod_name}}",
+              "refId": "B"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Node exporter status",
+          "tooltip": {
+            "shared": false,
+            "sort": 2,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "$data_source",
+          "description": "Ok = 1",
+          "fill": 1,
+          "gridPos": {
+            "h": 6,
+            "w": 24,
+            "x": 0,
+            "y": 27
+          },
+          "id": 147,
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": true,
+            "max": true,
+            "min": false,
+            "rightSide": true,
+            "show": true,
+            "sort": "current",
+            "sortDesc": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": true,
+          "steppedLine": false,
+          "targets": [
+            {
+              "expr": "node_scrape_collector_success{job=\"node_exporter kubernetes\",instance=~\".*:9100\",server_env=~\"$server_env\",node_name=~\"$node_name\"}",
+              "format": "time_series",
+              "hide": false,
+              "interval": "",
+              "intervalFactor": 2,
+              "legendFormat": "{{pod_name}} {{collector}}",
+              "refId": "B"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Node exporter scrape status",
           "tooltip": {
             "shared": false,
             "sort": 2,
@@ -4647,13 +4912,11 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "1 - avg by (node_name) (irate(node_cpu_seconds_total{mode=\"idle\",server_env=~\"$server_env\",node_name=~\"$node_name\",pod_name=~\"node-exporter.*\"}[5m]))",
+              "expr": "topk($limit, 1 - sum(irate(node_cpu_seconds_total{job=\"node_exporter kubernetes\",mode=\"idle\",server_env=~\"$server_env\",node_name=~\"$node_name\",pod_name=~\"node-exporter.*\"}[5m])) without (cpu,mode) / instance:node_cpus:count)",
               "format": "time_series",
-              "hide": false,
-              "interval": "",
               "intervalFactor": 1,
               "legendFormat": "{{node_name}}",
-              "refId": "B"
+              "refId": "A"
             }
           ],
           "thresholds": [],
@@ -4723,7 +4986,7 @@
             "h": 6,
             "w": 24,
             "x": 0,
-            "y": 15
+            "y": 21
           },
           "id": 21,
           "legend": {
@@ -4759,7 +5022,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "node_load1{server_env=~\"$server_env\",node_name=~\"$node_name\"}",
+              "expr": "node_load1{job=\"node_exporter kubernetes\",server_env=~\"$server_env\",node_name=~\"$node_name\"}",
               "format": "time_series",
               "hide": false,
               "interval": "",
@@ -4768,7 +5031,7 @@
               "refId": "A"
             },
             {
-              "expr": "max(instance:node_cpus:count{server_env=~\"$server_env\",node_name=~\"$node_name\"})",
+              "expr": "max(instance:node_cpus:count{job=\"node_exporter kubernetes\",server_env=~\"$server_env\",node_name=~\"$node_name\"})",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 1,
@@ -4828,7 +5091,7 @@
             "h": 6,
             "w": 24,
             "x": 0,
-            "y": 21
+            "y": 27
           },
           "id": 40,
           "legend": {
@@ -4864,7 +5127,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "node_time_seconds{server_env=~\"$server_env\",node_name=~\"$node_name\",pod_name=~\"node-exporter.*\"} - node_boot_time_seconds",
+              "expr": "node_time_seconds{job=\"node_exporter kubernetes\",server_env=~\"$server_env\",node_name=~\"$node_name\",pod_name=~\"node-exporter.*\"} - node_boot_time_seconds",
               "format": "time_series",
               "hide": false,
               "interval": "",
@@ -4968,7 +5231,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "(node_memory_MemTotal_bytes{server_env=~\"$server_env\",node_name=~\"$node_name\",pod_name=~\"node-exporter.*\"} - node_memory_MemAvailable_bytes) / node_memory_MemTotal_bytes",
+              "expr": "(node_memory_MemTotal_bytes{job=\"node_exporter kubernetes\",server_env=~\"$server_env\",node_name=~\"$node_name\",pod_name=~\"node-exporter.*\"} - node_memory_MemAvailable_bytes) / node_memory_MemTotal_bytes",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 1,
@@ -5064,7 +5327,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "node_memory_MemTotal_bytes{server_env=~\"$server_env\",node_name=~\"$node_name\",pod_name=~\"node-exporter.*\"} - node_memory_MemAvailable_bytes",
+              "expr": "node_memory_MemTotal_bytes{job=\"node_exporter kubernetes\",server_env=~\"$server_env\",node_name=~\"$node_name\",pod_name=~\"node-exporter.*\"} - node_memory_MemAvailable_bytes",
               "format": "time_series",
               "hide": false,
               "interval": "",
@@ -5073,7 +5336,7 @@
               "refId": "B"
             },
             {
-              "expr": "max(node_memory_MemTotal_bytes{server_env=~\"$server_env\",node_name=~\"$node_name\",pod_name=~\"node-exporter.*\"})",
+              "expr": "max(node_memory_MemTotal_bytes{job=\"node_exporter kubernetes\",server_env=~\"$server_env\",node_name=~\"$node_name\",pod_name=~\"node-exporter.*\"})",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 1,
@@ -5182,7 +5445,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(node_network_receive_bytes_total{server_env=~\"$server_env\",node_name=~\"$node_name\",pod_name=~\"node-exporter.*\"}[5m])",
+              "expr": "irate(node_network_receive_bytes_total{job=\"node_exporter kubernetes\",server_env=~\"$server_env\",node_name=~\"$node_name\",pod_name=~\"node-exporter.*\"}[5m])",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 1,
@@ -5190,7 +5453,7 @@
               "refId": "C"
             },
             {
-              "expr": "irate(node_network_transmit_bytes_total{server_env=~\"$server_env\",node_name=~\"$node_name\",pod_name=~\"node-exporter.*\"}[5m])",
+              "expr": "irate(node_network_transmit_bytes_total{job=\"node_exporter kubernetes\",server_env=~\"$server_env\",node_name=~\"$node_name\",pod_name=~\"node-exporter.*\"}[5m])",
               "format": "time_series",
               "hide": false,
               "interval": "",
@@ -5286,7 +5549,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(node_network_receive_packets_total{server_env=~\"$server_env\",node_name=~\"$node_name\",pod_name=~\"node-exporter.*\"}[5m])",
+              "expr": "irate(node_network_receive_packets_total{job=\"node_exporter kubernetes\",server_env=~\"$server_env\",node_name=~\"$node_name\",pod_name=~\"node-exporter.*\"}[5m])",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 1,
@@ -5294,7 +5557,7 @@
               "refId": "C"
             },
             {
-              "expr": "irate(node_network_transmit_packets_total{server_env=~\"$server_env\",node_name=~\"$node_name\",pod_name=~\"node-exporter.*\"}[5m])",
+              "expr": "irate(node_network_transmit_packets_total{job=\"node_exporter kubernetes\",server_env=~\"$server_env\",node_name=~\"$node_name\",pod_name=~\"node-exporter.*\"}[5m])",
               "format": "time_series",
               "hide": false,
               "interval": "",
@@ -5399,7 +5662,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "100 * ( node_filesystem_avail_bytes{mountpoint=\"/\",server_env=~\"$server_env\",node_name=~\"$node_name\",pod_name=~\"node-exporter.*\"} / (node_filesystem_size_bytes - ( node_filesystem_free_bytes - node_filesystem_avail_bytes)))",
+              "expr": "100 * ( node_filesystem_avail_bytes{job=\"node_exporter kubernetes\",mountpoint=\"/\",server_env=~\"$server_env\",node_name=~\"$node_name\",pod_name=~\"node-exporter.*\"} / (node_filesystem_size_bytes - ( node_filesystem_free_bytes - node_filesystem_avail_bytes)))",
               "format": "time_series",
               "hide": false,
               "interval": "",
@@ -5490,7 +5753,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "node_filesystem_free_bytes{mountpoint=\"/\",server_env=~\"$server_env\",node_name=~\"$node_name\",pod_name=~\"node-exporter.*\"}",
+              "expr": "node_filesystem_free_bytes{job=\"node_exporter kubernetes\",mountpoint=\"/\",server_env=~\"$server_env\",node_name=~\"$node_name\",pod_name=~\"node-exporter.*\"}",
               "format": "time_series",
               "hide": false,
               "interval": "",
@@ -5669,7 +5932,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(node_disk_reads_completed_total{server_env=~\"$server_env\",node_name=~\"$node_name\",pod_name=~\"node-exporter.*\"}[5m])",
+              "expr": "irate(node_disk_reads_completed_total{job=\"node_exporter kubernetes\",server_env=~\"$server_env\",node_name=~\"$node_name\",pod_name=~\"node-exporter.*\"}[5m])",
               "format": "time_series",
               "hide": false,
               "interval": "",
@@ -5678,7 +5941,7 @@
               "refId": "C"
             },
             {
-              "expr": "irate(node_disk_writes_completed_total{server_env=~\"$server_env\",node_name=~\"$node_name\",pod_name=~\"node-exporter.*\"}[5m])",
+              "expr": "irate(node_disk_writes_completed_total{job=\"node_exporter kubernetes\",server_env=~\"$server_env\",node_name=~\"$node_name\",pod_name=~\"node-exporter.*\"}[5m])",
               "format": "time_series",
               "hide": false,
               "interval": "",
@@ -5856,7 +6119,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(node_disk_read_bytes_total{server_env=~\"$server_env\",node_name=~\"$node_name\",pod_name=~\"node-exporter.*\"}[5m])",
+              "expr": "irate(node_disk_read_bytes_total{job=\"node_exporter kubernetes\",server_env=~\"$server_env\",node_name=~\"$node_name\",pod_name=~\"node-exporter.*\"}[5m])",
               "format": "time_series",
               "hide": false,
               "intervalFactor": 1,
@@ -5864,7 +6127,7 @@
               "refId": "C"
             },
             {
-              "expr": "irate(node_disk_written_bytes_total{server_env=~\"$server_env\",node_name=~\"$node_name\",pod_name=~\"node-exporter.*\"}[5m])",
+              "expr": "irate(node_disk_written_bytes_total{job=\"node_exporter kubernetes\",server_env=~\"$server_env\",node_name=~\"$node_name\",pod_name=~\"node-exporter.*\"}[5m])",
               "format": "time_series",
               "hide": false,
               "interval": "",
@@ -6509,9 +6772,45 @@
         "useTags": false
       },
       {
+        "current": {
+          "text": "prometheus-prod1",
+          "value": "prometheus-prod1"
+        },
+        "hide": 2,
+        "label": "Data source",
+        "name": "data_source",
+        "options": [],
+        "query": "prometheus",
+        "refresh": 1,
+        "regex": "prometheus-$server_env",
+        "skipUrlSync": false,
+        "type": "datasource"
+      },
+      {
         "allValue": ".*",
         "current": {},
-        "datasource": "${DS_PROMETHEUS}",
+        "datasource": "$data_source",
+        "hide": 0,
+        "includeAll": true,
+        "label": "Node name",
+        "multi": true,
+        "name": "node_name",
+        "options": [],
+        "query": "label_values(node_load1{server_env=~\".*$server_env.*\"},node_name)",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": ".*",
+        "current": {},
+        "datasource": "$data_source",
         "hide": 0,
         "includeAll": true,
         "label": null,
@@ -6532,7 +6831,7 @@
       {
         "allValue": ".*",
         "current": {},
-        "datasource": "${DS_PROMETHEUS}",
+        "datasource": "$data_source",
         "hide": 0,
         "includeAll": true,
         "label": null,
@@ -6540,6 +6839,69 @@
         "name": "pod_name",
         "options": [],
         "query": "label_values(container_cpu_system_seconds_total{server_env=~\".*$server_env.*\",namespace=~\"$namespace\"},pod_name)",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": ".*",
+        "current": {},
+        "datasource": "$data_source",
+        "hide": 0,
+        "includeAll": true,
+        "label": null,
+        "multi": true,
+        "name": "service_name",
+        "options": [],
+        "query": "label_values(container_cpu_system_seconds_total{server_env=~\".*$server_env.*\",namespace=~\"$namespace\"},pod_name)",
+        "refresh": 1,
+        "regex": "/(.*)\\-[0-9a-z]{4}/",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": ".*",
+        "current": {},
+        "datasource": "$data_source",
+        "hide": 0,
+        "includeAll": true,
+        "label": null,
+        "multi": true,
+        "name": "container_name",
+        "options": [],
+        "query": "label_values(container_start_time_seconds{server_env=~\".*$server_env.*\",namespace=~\"$namespace\"},container_name)",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": ".*",
+        "current": {},
+        "datasource": "$data_source",
+        "hide": 0,
+        "includeAll": true,
+        "label": null,
+        "multi": true,
+        "name": "service_name_http",
+        "options": [],
+        "query": "label_values(probe_success{server_env=~\".*$server_env.*\"}, service_name)",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -6662,105 +7024,6 @@
         "query": "1,2,3,4,5,6,7,8,9,10,15,20,25,30,40,50,70,100,9999",
         "skipUrlSync": false,
         "type": "custom"
-      },
-      {
-        "allValue": ".*",
-        "current": {},
-        "datasource": "${DS_PROMETHEUS}",
-        "hide": 0,
-        "includeAll": true,
-        "label": null,
-        "multi": true,
-        "name": "service_name",
-        "options": [],
-        "query": "label_values(container_cpu_system_seconds_total{server_env=~\".*$server_env.*\",namespace=~\"$namespace\"},pod_name)",
-        "refresh": 1,
-        "regex": "/(.*)\\-[0-9a-z]{4}/",
-        "skipUrlSync": false,
-        "sort": 0,
-        "tagValuesQuery": "",
-        "tags": [],
-        "tagsQuery": "",
-        "type": "query",
-        "useTags": false
-      },
-      {
-        "allValue": ".*",
-        "current": {},
-        "datasource": "${DS_PROMETHEUS}",
-        "hide": 0,
-        "includeAll": true,
-        "label": null,
-        "multi": true,
-        "name": "container_name",
-        "options": [],
-        "query": "label_values(container_start_time_seconds{server_env=~\".*$server_env.*\",namespace=~\"$namespace\"},container_name)",
-        "refresh": 1,
-        "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
-        "tagValuesQuery": "",
-        "tags": [],
-        "tagsQuery": "",
-        "type": "query",
-        "useTags": false
-      },
-      {
-        "allValue": ".*",
-        "current": {},
-        "datasource": "${DS_PROMETHEUS}",
-        "hide": 0,
-        "includeAll": true,
-        "label": "Node name",
-        "multi": true,
-        "name": "node_name",
-        "options": [],
-        "query": "label_values(node_load1{server_env=~\".*$server_env.*\"},node_name)",
-        "refresh": 1,
-        "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
-        "tagValuesQuery": "",
-        "tags": [],
-        "tagsQuery": "",
-        "type": "query",
-        "useTags": false
-      },
-      {
-        "allValue": ".*",
-        "current": {},
-        "datasource": "${DS_PROMETHEUS}",
-        "hide": 0,
-        "includeAll": true,
-        "label": null,
-        "multi": true,
-        "name": "service_name_http",
-        "options": [],
-        "query": "label_values(probe_success{server_env=~\".*$server_env.*\"}, service_name)",
-        "refresh": 1,
-        "regex": "",
-        "skipUrlSync": false,
-        "sort": 0,
-        "tagValuesQuery": "",
-        "tags": [],
-        "tagsQuery": "",
-        "type": "query",
-        "useTags": false
-      },
-      {
-        "current": {
-          "text": "prometheus-prod",
-          "value": "prometheus-prod"
-        },
-        "hide": 2,
-        "label": "Data source",
-        "name": "data_source",
-        "options": [],
-        "query": "prometheus",
-        "refresh": 1,
-        "regex": "prometheus-$server_env",
-        "skipUrlSync": false,
-        "type": "datasource"
       }
     ]
   },
@@ -6797,5 +7060,5 @@
   "timezone": "",
   "title": "EKS metrics",
   "uid": "1xIGyoZZz",
-  "version": 106
+  "version": 3
 }
