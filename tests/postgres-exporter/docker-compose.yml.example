@@ -3,7 +3,7 @@
     volumes:
       - ./tests/postgres-exporter/postgres-test/data:/var/lib/postgresql/data
       - ./tests/postgres-exporter/postgres-test/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
-    env:
+    environment:
       POSTGRES_PASSWORD: "test_password"
    #  POSTGRES_USER: "postgres"
    #  POSTGRES_DB: "test_db"

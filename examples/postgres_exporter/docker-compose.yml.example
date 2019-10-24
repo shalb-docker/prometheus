@@ -1,11 +1,11 @@
   postgres-exporter-prod:
     image: wrouesnel/postgres_exporter:v0.4.7
     volumes:
-      - ./postgres-exporter-prod/queries.yml:/queries.yml
+      - ./examples/postgres_exporter/postgres-exporter-prod/queries.yml:/queries.yml
     restart: always
    #ports:
    #  - "127.0.0.1:9187:9187"
     env_file:
-      - ./postgres-exporter-prod/env
-      - ./postgres-exporter-prod/env_secrets
+      - ./examples/postgres_exporter/postgres-exporter-prod/env
+      - ./examples/postgres_exporter/postgres-exporter-prod/env_secrets
 
