@@ -1,0 +1,22 @@
+count_on_tables:
+  query: "SELECT format('postgres-test') AS dbinstance_identifier, current_database() AS database, nspname AS schemaname, relname AS table, reltuples AS count FROM pg_class C LEFT JOIN pg_namespace N ON (N.oid = C.relnamespace) WHERE nspname NOT IN ('pg_catalog', 'information_schema') AND relkind='r'"
+  metrics:
+    - dbinstance_identifier:
+        usage: "LABEL"
+        description: "Host name"
+    - database:
+        usage: "LABEL"
+        description: "Name of current database"
+    - schema:
+        usage: "LABEL"
+        description: "Name of the schema that this table is in"
+    - table:
+        usage: "LABEL"
+        description: "Name of the table"
+    - count:
+        usage: "GAUGE"
+        description: "Number of records in table"
+
+# schemaname |              table               | count 
+# ------------+----------------------------------+-------
+#  public     | test_table                      |     0
