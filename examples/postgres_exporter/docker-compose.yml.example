@@ -1,7 +1,7 @@
   postgres-exporter-prod:
     image: wrouesnel/postgres_exporter:v0.4.7
-    volumes:
-      - ./examples/postgres_exporter/postgres-exporter-prod/queries.yml:/queries.yml
+   #volumes:
+   #  - ./examples/postgres_exporter/postgres-exporter-prod/queries.yml:/queries.yml
     restart: always
    #ports:
    #  - "127.0.0.1:9187:9187"
