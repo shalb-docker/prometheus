@@ -17,6 +17,10 @@ cat ./docker-compose.yml.example | \
 sed -e "s@{{ REMOTE_HOST }}@$REMOTE_HOST@g" \
 > ./docker-compose.yml
 
+echo "PROJECT=${PROJECT_NAME}
+OPSGENIE_API_KEY=${OPSGENIE_API_KEY}" \
+> ./opsgenie-heartbeat/env_secrets
+
 bash ./add_prometheus_alerts.sh.example
 
 # add dev prometheus

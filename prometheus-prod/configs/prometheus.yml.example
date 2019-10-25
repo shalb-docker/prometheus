@@ -33,6 +33,19 @@ rule_files:
 # - "/etc/prometheus/alert_rules.d/kubernetes_http.yml"
 
 scrape_configs:
+  - job_name: 'opsgenie-heartbeat local'
+    static_configs:
+      - targets: ['opsgenie-heartbeat:8000']
+        labels:
+          host_priority: 'P5'
+          server_env: 'prod'
+          hostname: 'grafana.{{ REMOTE_HOST }}'
+          project: '{{ PROJECT_NAME }}'
+    metric_relabel_configs:
+      - source_labels: [ __name__ ]
+        regex: 'opsgenie_heartbeat_up|opsgenie_heartbeat_errors_total|opsgenie_heartbeat_prometheus_status'
+        action: keep
+
   - job_name: 'prometheus prod local'
     static_configs:
       - targets: ['prometheus-prod:9090']
@@ -115,7 +128,7 @@ scrape_configs:
         regex: '/run/.*|/run|/snap/.*|.*/var/lib/docker/.*|/var/lib/docker/.*|/var/snap/microk8s/.*|/var/lib/kubelet|/var/lib/lxcfs|/var/lib/rancher/volumes|/data/glusterfs/vol2|/var/lib/nova'
         action: drop
       - source_labels: [ __name__ ]
-        regex: 'up|node_boot_time_seconds|node_memory_MemAvailable_bytes|node_time_seconds|node_memory_MemTotal_bytes|node_network_receive_bytes_total|node_network_transmit_bytes_total|node_disk_read_bytes_total|node_disk_written_bytes_total|node_network_receive_packets_total|node_network_transmit_packets_total|node_disk_writes_completed_total|node_disk_reads_completed_total|node_filesystem_size_bytes|node_filesystem_free_bytes|node_condition|node_cpu|node_cpu_seconds_total|node_cpus|node_filesystem_avail_bytes|node_filesystem_files|node_filesystem_files_free|node_filesystem_readonly|node_load1|node_mail_queue|node_monit|node_name|node_scrape_collector_success|node_stats_up|node_textfile_scrape_error|node_timex_sync_status|node_number_of_monit_processes|node_memory_MemFree_bytes|node_memory_Buffers_bytes|node_memory_Cached_bytes|node_memory_Slab_bytes|node_memory_PageTables_bytes|node_memory_SwapCached_bytes|node_memory_SwapTotal_bytes|node_memory_SwapFree_bytes|node_memory_HardwareCorrupted_bytes'
+        regex: 'node_boot_time_seconds|node_memory_MemAvailable_bytes|node_time_seconds|node_memory_MemTotal_bytes|node_network_receive_bytes_total|node_network_transmit_bytes_total|node_disk_read_bytes_total|node_disk_written_bytes_total|node_network_receive_packets_total|node_network_transmit_packets_total|node_disk_writes_completed_total|node_disk_reads_completed_total|node_filesystem_size_bytes|node_filesystem_free_bytes|node_condition|node_cpu|node_cpu_seconds_total|node_cpus|node_filesystem_avail_bytes|node_filesystem_files|node_filesystem_files_free|node_filesystem_readonly|node_load1|node_mail_queue|node_monit|node_name|node_scrape_collector_success|node_stats_up|node_textfile_scrape_error|node_timex_sync_status|node_number_of_monit_processes|node_memory_MemFree_bytes|node_memory_Buffers_bytes|node_memory_Cached_bytes|node_memory_Slab_bytes|node_memory_PageTables_bytes|node_memory_SwapCached_bytes|node_memory_SwapTotal_bytes|node_memory_SwapFree_bytes|node_memory_HardwareCorrupted_bytes'
         action: keep
     static_configs:
       - targets: ['node-exporter:9100']
@@ -211,7 +224,7 @@ scrape_configs:
 #         project: '{{ PROJECT_NAME }}'
 #   metric_relabel_configs:
 #     - source_labels: [ __name__ ]
-#       regex: 'up|pg_up|pg_exporter_last_scrape_error|pg_stat_activity_count|pg_settings_max_connections|pg_locks_count|pg_stat_activity_max_tx_duration|pg_stat_database_blks_hit|pg_stat_database_conflicts|pg_stat_database_deadlocks|pg_stat_database_temp_bytes|pg_stat_database_temp_files|pg_stat_database_tup_deleted|pg_stat_database_tup_fetched|pg_stat_database_tup_inserted|pg_stat_database_tup_returned|pg_stat_database_tup_updated|pg_stat_database_xact_commit|pg_stat_database_xact_rollback'
+#       regex: 'pg_up|pg_exporter_last_scrape_error|pg_stat_activity_count|pg_settings_max_connections|pg_locks_count|pg_stat_activity_max_tx_duration|pg_stat_database_blks_hit|pg_stat_database_conflicts|pg_stat_database_deadlocks|pg_stat_database_temp_bytes|pg_stat_database_temp_files|pg_stat_database_tup_deleted|pg_stat_database_tup_fetched|pg_stat_database_tup_inserted|pg_stat_database_tup_returned|pg_stat_database_tup_updated|pg_stat_database_xact_commit|pg_stat_database_xact_rollback'
 #       action: keep
 
 # AWS EC2 autodiscovery example
