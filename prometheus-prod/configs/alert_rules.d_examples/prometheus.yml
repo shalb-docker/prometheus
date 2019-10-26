@@ -1,26 +1,38 @@
 groups:
   - name: "prometheus exporter alerts"
     rules:
-      - alert: "prometheus exporter has new errors (config reload)"
-        expr: prometheus_config_last_reload_successful != 1
+      - alert: "prometheus exporter has new errors (config reload) P4-5"
+        expr: prometheus_config_last_reload_successful{host_priority=~"P[4-5]|^$"} != 1
         for: 10m
         annotations:
           summary: "prometheus config reload fails"
           description: 'Go to host: "{{ $labels.hostname }}" and check why instance: "{{ $labels.instance }}" cannot reload config'
-          grafana: "{{ GRAFANA_ALL_ALERTS_DASHBOARD }}"
+          grafana: "{{ GRAFANA_PROMETHEUS_RELOAD_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
+          priority: "P5"
+          team: "monitoring"
+
+      - alert: "prometheus exporter has new errors (config reload) P1-3"
+        expr: prometheus_config_last_reload_successful{host_priority=~"P[1-3]"} != 1
+        for: 10m
+        annotations:
+          summary: "prometheus config reload fails"
+          description: 'Go to host: "{{ $labels.hostname }}" and check why instance: "{{ $labels.instance }}" cannot reload config'
+          grafana: "{{ GRAFANA_PROMETHEUS_RELOAD_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P3"
           team: "monitoring"
 
+
   - name: "prometheus down alerts"
     rules:
       - alert: "prometheus down P4-5"
-        expr: up{host_priority=~"P[4-5]",instance=~".*:9090"} == 0
+        expr: up{host_priority=~"P[4-5]|^$",instance=~".*:9090"} == 0
         for: 15m
         annotations:
-          summary: "Exporter: {{ $labels.instance }} have new errors"
-          description: "Go to monitoring instance and check log for Exporter: {{ $labels.instance }}"
-          grafana: "{{ GRAFANA_ALL_ALERTS_DASHBOARD }}"
+          summary: "Exporter: {{ $labels.instance }} has new errors"
+          description: 'Go to monitoring host: "{{ $labels.hostname }}"  and check log for exporter: "{{ $labels.instance }}"'
+          grafana: "{{ GRAFANA_PROMETHEUS_UP_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P5"
 
@@ -28,9 +40,9 @@ groups:
         expr: up{host_priority=~"P[1-3]",instance=~".*:9090"} == 0
         for: 5m
         annotations:
-          summary: "Exporter: {{ $labels.instance }} have new errors"
-          description: "Go to monitoring instance and check log for Exporter: {{ $labels.instance }}"
-          grafana: "{{ GRAFANA_ALL_ALERTS_DASHBOARD }}"
+          summary: "Exporter: {{ $labels.instance }} has new errors"
+          description: 'Go to monitoring host: "{{ $labels.hostname }}"  and check log for exporter: "{{ $labels.instance }}"'
+          grafana: "{{ GRAFANA_PROMETHEUS_UP_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P2"
 
@@ -38,12 +50,12 @@ groups:
   - name: "prometheus federate alerts"
     rules:
       - alert: "prometheus federate down P4-5"
-        expr: up{host_priority=~"P[4-5]",instance=~".*:443",job=~"prometheus_federate.*"} == 0
+        expr: up{host_priority=~"P[4-5]|^$",instance=~".*:443",job=~"prometheus_federate.*"} == 0
         for: 15m
         annotations:
-          summary: "Exporter: {{ $labels.instance }} have new errors"
-          description: "Go to monitoring instance and check log for Exporter: {{ $labels.instance }}"
-          grafana: "{{ GRAFANA_ALL_ALERTS_DASHBOARD }}"
+          summary: "Exporter: {{ $labels.instance }} has new errors"
+          description: 'Go to monitoring host: "{{ $labels.hostname }}" and check log for exporter: "{{ $labels.instance }}"'
+          grafana: "{{ GRAFANA_PROMETHEUS_UP_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P5"
 
@@ -51,9 +63,32 @@ groups:
         expr: up{host_priority=~"P[1-3]",instance=~".*:443",job=~"prometheus_federate.*"} == 0
         for: 5m
         annotations:
-          summary: "Exporter: {{ $labels.instance }} have new errors"
-          description: "Go to monitoring instance and check log for Exporter: {{ $labels.instance }}"
-          grafana: "{{ GRAFANA_ALL_ALERTS_DASHBOARD }}"
+          summary: "Exporter: {{ $labels.instance }} has new errors"
+          description: 'Go to monitoring host: "{{ $labels.hostname }}" and check log for exporter: "{{ $labels.instance }}"'
+          grafana: "{{ GRAFANA_PROMETHEUS_UP_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P2"
+
+
+  - name: "prometheus connections alerts"
+    rules:
+      - alert: "prometheus dialer has to many connection errors P4-5"
+        expr: sum(delta(net_conntrack_dialer_conn_failed_total{host_priority=~"P[4-5]|^$"}[5m])) without (reason) > 0
+        for: 3h
+        annotations:
+          summary: "prometheus dialer has to many connection errors"
+          description: 'Go to monitoring host: "{{ $labels.hostname }}" and check why to many errors for dialer: "{{ $labels.dialer_name }}"'
+          grafana: "{{ GRAFANA_PROMETHEUS_DIALER_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
+          priority: "P5"
+
+      - alert: "prometheus dialer has to many connection errors P1-3"
+        expr: sum(delta(net_conntrack_dialer_conn_failed_total{host_priority=~"P[1-3]"}[5m])) without (reason) > 0
+        for: 1h
+        annotations:
+          summary: "prometheus dialer has to many connection errors"
+          description: 'Go to monitoring host: "{{ $labels.hostname }}" and check why to many errors for dialer: "{{ $labels.dialer_name }}"'
+          grafana: "{{ GRAFANA_PROMETHEUS_DIALER_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
+          priority: "P3"
 
