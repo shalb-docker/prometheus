@@ -10,7 +10,8 @@ groups:
           grafana: "{{ GRAFANA_PROMETHEUS_RELOAD_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P5"
-          team: "monitoring"
+        labels:
+          team: monitoring
 
       - alert: "prometheus exporter has new errors (config reload) P1-3"
         expr: prometheus_config_last_reload_successful{host_priority=~"P[1-3]"} != 1
@@ -21,7 +22,8 @@ groups:
           grafana: "{{ GRAFANA_PROMETHEUS_RELOAD_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P3"
-          team: "monitoring"
+        labels:
+          team: monitoring
 
 
   - name: "prometheus down alerts"
@@ -35,6 +37,8 @@ groups:
           grafana: "{{ GRAFANA_PROMETHEUS_UP_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P5"
+        labels:
+          team: monitoring
 
       - alert: "prometheus down P1-3"
         expr: up{host_priority=~"P[1-3]",instance=~".*:9090"} == 0
@@ -45,6 +49,8 @@ groups:
           grafana: "{{ GRAFANA_PROMETHEUS_UP_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P2"
+        labels:
+          team: monitoring
 
 
   - name: "prometheus federate alerts"
@@ -58,6 +64,8 @@ groups:
           grafana: "{{ GRAFANA_PROMETHEUS_UP_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P5"
+        labels:
+          team: monitoring
 
       - alert: "prometheus federate down P1-3"
         expr: up{host_priority=~"P[1-3]",instance=~".*:443",job=~"prometheus_federate.*"} == 0
@@ -68,6 +76,8 @@ groups:
           grafana: "{{ GRAFANA_PROMETHEUS_UP_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P2"
+        labels:
+          team: monitoring
 
 
   - name: "prometheus connections alerts"
@@ -81,6 +91,8 @@ groups:
           grafana: "{{ GRAFANA_PROMETHEUS_DIALER_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P5"
+        labels:
+          team: monitoring
 
       - alert: "prometheus dialer has to many connection errors P1-3"
         expr: sum(delta(net_conntrack_dialer_conn_failed_total{host_priority=~"P[1-3]"}[5m])) without (reason) > 0
@@ -91,6 +103,8 @@ groups:
           grafana: "{{ GRAFANA_PROMETHEUS_DIALER_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P3"
+        labels:
+          team: monitoring
 
 
   - name: "prometheus dropped notifications alerts"
@@ -104,6 +118,8 @@ groups:
           grafana: "{{ GRAFANA_PROMETHEUS_DROPPED_NOTIFICATIONS_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P5"
+        labels:
+          team: monitoring
 
       - alert: "prometheus: to many dropped notifications P1-3"
         expr: delta(prometheus_notifications_dropped_total{host_priority=~"P[1-3]"}[5m]) > 0
@@ -114,4 +130,6 @@ groups:
           grafana: "{{ GRAFANA_PROMETHEUS_DROPPED_NOTIFICATIONS_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P3"
+        labels:
+          team: monitoring
 

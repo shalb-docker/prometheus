@@ -10,6 +10,8 @@ groups:
           grafana: "{{ GRAFANA_MONIT_CHECK_STATUS_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P3"
+        labels:
+          team: monitoring
 
       - alert: "monit_collector has new errors P1-3"
         expr: node_monit{host_priority=~"P[1-3]", name="check_monit_collector_exception", key="status"} > 0
@@ -20,4 +22,6 @@ groups:
           grafana: "{{ GRAFANA_MONIT_CHECK_STATUS_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P2"
+        labels:
+          team: monitoring
 

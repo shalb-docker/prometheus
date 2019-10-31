@@ -14,12 +14,9 @@ rule_files:
   - "/etc/prometheus/alert_rules.d/memory.yml"
   - "/etc/prometheus/alert_rules.d/time_sync.yml"
   - "/etc/prometheus/alert_rules.d/la.yml"
-  - "/etc/prometheus/alert_rules.d/http.yml"
-  - "/etc/prometheus/alert_rules.d/node_exporter.yml"
-##- "/etc/prometheus/alert_rules.d/redis_exporter.yml"
-##- "/etc/prometheus/alert_rules.d/elasticsearch.yml"
-##- "/etc/prometheus/alert_rules.d/postgres_exporter.yml"
-##- "/etc/prometheus/alert_rules.d/proxysql_exporter.yml"
+  - "/etc/prometheus/alert_rules.d/kubernetes_exporter.yml"
+  - "/etc/prometheus/alert_rules.d/kubernetes_http.yml"
+  - "/etc/prometheus/alert_rules.d/kubernetes_node_exporter.yml"
 
 scrape_configs:
   - job_name: 'prometheus prod2 local'

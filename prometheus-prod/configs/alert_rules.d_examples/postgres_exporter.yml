@@ -63,6 +63,8 @@ groups:
           grafana: "{{ GRAFANA_POSTGRES_EXPORTER_CONNECT_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P2"
+        labels:
+          team: monitoring
 
       - alert: "postgres_exporter has db connection errors P4-5"
         expr: pg_up{host_priority=~"P[4-5]|^$"} != 1
@@ -73,6 +75,8 @@ groups:
           grafana: "{{ GRAFANA_POSTGRES_EXPORTER_CONNECT_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P5"
+        labels:
+          team: monitoring
 
 
   - name: "parse errors - postgres_exporter"
@@ -86,6 +90,8 @@ groups:
           grafana: "{{ GRAFANA_POSTGRES_EXPORTER_SCRAPE_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P2"
+        labels:
+          team: monitoring
 
       - alert: "postgres_exporter has new errors P4-5"
         expr: pg_exporter_last_scrape_error{host_priority=~"P[4-5]|^$"} != 0
@@ -96,6 +102,8 @@ groups:
           grafana: "{{ GRAFANA_POSTGRES_EXPORTER_SCRAPE_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P5"
+        labels:
+          team: monitoring
 
 
   - name: "used connections errors - postgres_exporter"

@@ -9,25 +9,28 @@ route:
   receiver: blackhole
 
   routes:
+# - receiver: blackhole
+#   group_by: {{ ALERTMANAGER_GROUP_BY }}
+#   match_re:
+#     server_env: "prod[2-3]"
+#   repeat_interval: 8737h
+
   - receiver: opsgenie_monitoring_team
     group_by: {{ ALERTMANAGER_GROUP_BY }}
     match_re:
       team: "monitoring"
-      server_env: "prod[0-9]*"
     repeat_interval: 8737h
 
   - receiver: opsgenie_backup_team
     group_by: {{ ALERTMANAGER_GROUP_BY }}
     match_re:
       team: "backup"
-      server_env: "prod[0-9]*"
     repeat_interval: 8737h
 
   - receiver: opsgenie
     group_by: {{ ALERTMANAGER_GROUP_BY }}
     continue: true
     match_re:
-      server_env: "prod[0-9]*"
     repeat_interval: 8737h
 
 # - receiver: example_mail
