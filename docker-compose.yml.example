@@ -8,8 +8,8 @@ services:
       - ./prometheus-prod/storage:/prometheus
       - ./prometheus-prod/secrets:/etc/prometheus/secrets
     restart: always
-#   ports:
-#     - "127.0.0.1:9090:9090"
+   #ports:
+   #  - "127.0.0.1:9090:9090"
     command: ["--log.level=debug",
               "--web.external-url=https://prometheus.{{ REMOTE_HOST }}/",
               "--config.file=/etc/prometheus/prometheus.yml",
@@ -25,8 +25,8 @@ services:
       - ./prometheus-dev/storage:/prometheus
       - ./prometheus-dev/secrets:/etc/prometheus/secrets
     restart: always
-#   ports:
-#     - "127.0.0.1:9090:9090"
+   #ports:
+   #  - "127.0.0.1:9090:9090"
     command: ["--log.level=debug",
               "--web.external-url=https://prometheus-dev.{{ REMOTE_HOST }}/",
               "--config.file=/etc/prometheus/prometheus.yml",
@@ -43,8 +43,8 @@ services:
 #     - ./prometheus-prod2/storage:/prometheus
 #     - ./prometheus-prod2/secrets:/etc/prometheus/secrets
 #   restart: always
-##  ports:
-##    - "127.0.0.1:9090:9090"
+#  #ports:
+#  #  - "127.0.0.1:9090:9090"
 #   command: ["--log.level=debug",
 #             "--web.external-url=https://prometheus-prod2.{{ REMOTE_HOST }}/",
 #             "--config.file=/etc/prometheus/prometheus.yml",
@@ -59,8 +59,8 @@ services:
       - ./alertmanager/config.yml:/etc/alertmanager/config.yml
       - ./alertmanager/storage:/alertmanager
     restart: always
-#   ports:
-#     - "127.0.0.1:9093:9093"
+   #ports:
+   #  - "127.0.0.1:9093:9093"
     command: ["--log.level=debug",
               "--web.external-url=https://alertmanager.{{ REMOTE_HOST }}/",
               "--config.file=/etc/alertmanager/config.yml"]
@@ -70,8 +70,8 @@ services:
     volumes:
       - ./grafana/storage:/var/lib/grafana
     restart: always
-#   ports:
-#     - "127.0.0.1:3000:3000"
+   #ports:
+   #  - "127.0.0.1:3000:3000"
     env_file:
       - ./grafana/env
       - ./grafana/env_secrets
@@ -81,23 +81,25 @@ services:
     volumes:
       - /proc:/host/proc
       - /sys:/host/sys
-#     - /home/monitoring/node_exporter/textfile_directory:/textfile_directory
+      - /:/host:ro,rslave
+   #  - /home/monitoring/node_exporter/textfile_directory:/textfile_directory
     restart: always
-#   ports:
-#     - "127.0.0.1:9100:9100"
+   #ports:
+   #  - "127.0.0.1:9100:9100"
     command: ["--web.listen-address=0.0.0.0:9100",
-#             "--collector.textfile.directory=/textfile_directory",
+   #          "--collector.textfile.directory=/textfile_directory",
               "--path.procfs=/host/proc",
               "--path.sysfs=/host/sys",
+              "--path.rootfs=/host",
               "--collector.filesystem.ignored-mount-points=(/run/|/etc/|/dev/|/proc/|/sys/|/var/lib/docker/)",
               "--collector.filesystem.ignored-fs-types=(autofs|binfmt_misc|cgroup|configfs|debugfs|devpts|devtmpfs|fusectl|hugetlbfs|mqueue|overlay|proc|pocfs|pstore|rpc_pipefs|securityfs|sysfs|tracefs)"]
 
   nginx:
     image: artiloop/nginx-le-ssl
-#   image: nginx:1.15
+   #image: nginx:1.15
     volumes:
       - ./nginx/conf.d:/etc/nginx/conf.d/configs
-#     - ./nginx/conf.d:/etc/nginx/conf.d/
+   #  - ./nginx/conf.d:/etc/nginx/conf.d/
       - ./nginx/ssl:/etc/nginx/ssl
     environment:
         DOMAINS_LIST: "alertmanager.{{ REMOTE_HOST }},prometheus.{{ REMOTE_HOST }},grafana.{{ REMOTE_HOST }}"
@@ -125,17 +127,17 @@ services:
     volumes:
       - ./blackbox-exporter:/etc/blackbox_exporter
     restart: always
-#   ports:
-#     - "127.0.0.1:9115:9115"
+   #ports:
+   #  - "127.0.0.1:9115:9115"
 
   docker-exporter:
     image: shalb/docker_exporter:0.0.1
     volumes:
-#     - ./docker-exporter/exporter:/opt/exporter
+   #  - ./docker-exporter/exporter:/opt/exporter
       - /var/run/docker.sock:/var/run/docker.sock
     restart: always
-#   ports:
-#     - "127.0.0.1:9647:9647"
+   #ports:
+   #  - "127.0.0.1:9647:9647"
 
   opsgenie-heartbeat:
     image: shalb/opsgenie-heartbeat:0.0.1

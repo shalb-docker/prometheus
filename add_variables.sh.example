@@ -1,10 +1,12 @@
 source ./secrets
 
+
 cat ./prometheus-prod/configs/prometheus.yml.example | \
 sed -e "s@{{ REMOTE_HOST }}@$REMOTE_HOST@g" | \
 sed -e "s@{{ LOCAL_IP }}@$LOCAL_IP@g" | \
 sed -e "s@{{ PROJECT_NAME }}@$PROJECT_NAME@g" \
 > ./prometheus-prod/configs/prometheus.yml
+
 
 cat ./alertmanager/config.yml.example | \
 sed -e "s@{{ OPSGENIE_API_KEY }}@$OPSGENIE_API_KEY@g" | \
@@ -13,15 +15,19 @@ sed -e "s@{{ ALERTMANAGER_GROUP_BY }}@$ALERTMANAGER_GROUP_BY@g" | \
 sed -e "s@{{ REMOTE_HOST }}@$REMOTE_HOST@g" \
 > ./alertmanager/config.yml
 
+
 cat ./docker-compose.yml.example | \
 sed -e "s@{{ REMOTE_HOST }}@$REMOTE_HOST@g" \
 > ./docker-compose.yml
+
 
 echo "PROJECT=${PROJECT_NAME}
 OPSGENIE_API_KEY=${OPSGENIE_API_KEY}" \
 > ./opsgenie-heartbeat/env_secrets
 
+
 bash ./add_prometheus_alerts.sh.example
+
 
 # add dev prometheus
 cat ./prometheus-dev/configs/prometheus.yml.example | \
@@ -32,29 +38,34 @@ sed -e "s@{{ PROJECT_NAME }}@$PROJECT_NAME@g" \
 
 rsync -a --delete --exclude="*.md" ./prometheus-prod/configs/alert_rules.d/ prometheus-dev/configs/alert_rules.d/
 
+
 cat ./nginx/conf.d/default.conf.example | \
 sed -e "s@{{ REMOTE_HOST }}@$REMOTE_HOST@g" \
 > nginx/conf.d/default.conf
+
 
 cat ./postfix-relay/main.cf.example | \
 sed -e "s@{{ REMOTE_HOST }}@$REMOTE_HOST@g" \
 > postfix-relay/main.cf
 
+
 echo "GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_ADMIN_PASSWORD}" > ./grafana/env_secrets
+
+cat ./grafana/env.example | \
+sed -e "s@{{ REMOTE_HOST }}@$REMOTE_HOST@g" \
+> ./grafana/env
 
 #echo "GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_ADMIN_PASSWORD}
 #GF_METRICS_BASIC_AUTH_USERNAME=${GRAFANA_METRICS_BASIC_AUTH_USERNAME}
 #GF_METRICS_BASIC_AUTH_PASSWORD=${GRAFANA_METRICS_BASIC_AUTH_PASSWORD}
 #" > ./grafana/env_secrets
 
+
 if [ -f "./nginx/conf.d/htpasswd admin" ]
     then htpasswd -b ./nginx/conf.d/htpasswd admin $GRAFANA_ADMIN_PASSWORD
     else htpasswd -b -c ./nginx/conf.d/htpasswd admin $GRAFANA_ADMIN_PASSWORD
-fi
 
-cat ./grafana/env.example | \
-sed -e "s@{{ REMOTE_HOST }}@$REMOTE_HOST@g" \
-> ./grafana/env
+fi
 
 
 # Example prometheus which get data from kuber
@@ -82,8 +93,10 @@ sed -e "s@{{ REMOTE_HOST }}@$REMOTE_HOST@g" \
 #AWS_SECRET_ACCESS_KEY=${prod_AWS_SECRET_ACCESS_KEY}" \
 #> ./cloudwatch-exporter_prod/env_secrets
 
+
 #echo "DATA_SOURCE_NAME=${postgres_exporter_prod_SECRET}" \
 #> ./postgres_exporter_prod/env_secrets
+
 
 #echo "REDIS_ADDR=${redis_exporter_prod_SECRET}" \
 #> ./redis_exporter_prod/env_secrets
