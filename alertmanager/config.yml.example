@@ -30,7 +30,6 @@ route:
   - receiver: opsgenie
     group_by: {{ ALERTMANAGER_GROUP_BY }}
     continue: true
-    match_re:
     repeat_interval: 8737h
 
 # - receiver: example_mail
