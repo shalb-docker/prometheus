@@ -47,6 +47,7 @@ scrape_configs:
         labels:
           host_priority: 'P5'
           server_env: 'prod2'
+          cluster_name: 'my-cluster-name'
     metric_relabel_configs:
     - source_labels: [pod_name]
       regex: '(.*)-[0-9a-z]+'
