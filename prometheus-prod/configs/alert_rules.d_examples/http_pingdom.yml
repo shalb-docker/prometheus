@@ -1,0 +1,132 @@
+groups:
+  - name: pingdom_exporter http checks host up
+    rules:
+      - alert: "pingdom_exporter down P5"
+        expr: up{host_priority="P5",instance=~".*:9158"} == 0
+        for: 10m
+        annotations:
+          summary: "pingdom_exporter down"
+          description: 'Go to host: "{{ $labels.hostname }}" and check if service: "pingdom-exporter" is running'
+          grafana: "{{ GRAFANA_PINGDOM_EXPORTER_UP_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
+          priority: "P3"
+
+      - alert: "pingdom_exporter down P4"
+        expr: up{host_priority="P4",instance=~".*:9158"} == 0
+        for: 5m
+        annotations:
+          summary: "pingdom_exporter down"
+          description: 'Go to host: "{{ $labels.hostname }}" and check if service: "pingdom-exporter" is running'
+          grafana: "{{ GRAFANA_PINGDOM_EXPORTER_UP_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
+          priority: "P3"
+
+      - alert: "pingdom_exporter down P3"
+        expr: up{host_priority=~"P3|^$",instance=~".*:9158"} == 0
+        for: 4m
+        annotations:
+          summary: "pingdom_exporter down"
+          description: 'Go to host: "{{ $labels.hostname }}" and check if service: "pingdom-exporter" is running'
+          grafana: "{{ GRAFANA_PINGDOM_EXPORTER_UP_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
+          priority: "P2"
+
+      - alert: "pingdom_exporter down P2"
+        expr: up{host_priority="P2",instance=~".*:9158"} == 0
+        for: 3m
+        annotations:
+          summary: "pingdom_exporter down"
+          description: 'Go to host: "{{ $labels.hostname }}" and check if service: "pingdom-exporter" is running'
+          grafana: "{{ GRAFANA_PINGDOM_EXPORTER_UP_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
+          priority: "P2"
+
+      - alert: "pingdom_exporter down P1"
+        expr: up{host_priority="P1",instance=~".*:9158"} == 0
+        for: 2m
+        annotations:
+          summary: "pingdom_exporter down"
+          description: 'Go to host: "{{ $labels.hostname }}" and check if service: "pingdom-exporter" is running'
+          grafana: "{{ GRAFANA_PINGDOM_EXPORTER_UP_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
+          priority: "P1"
+
+
+  - name: "parse errors - pingdom_exporter"
+    rules:
+      - alert: "pingdom_exporter has new errors P1-3"
+        expr: pingdom_exporter_up{host_priority=~"P[1-3]"} != 1
+        for: 5m
+        annotations:
+          summary: "pingdom_exporter has new errors"
+          description: 'Go to host: "{{ $labels.hostname }}" and check logs for service: "pingdom-exporter"'
+          grafana: "{{ GRAFANA_PINGDOM_EXPORTER_SCRAPE_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
+          priority: "P2"
+        labels:
+          team: monitoring
+
+      - alert: "pingdom_exporter has new errors P4-5"
+        expr: pingdom_exporter_up{host_priority=~"P[4-5]|^$"} != 1
+        for: 15m
+        annotations:
+          summary: "pingdom_exporter has new errors"
+          description: 'Go to host: "{{ $labels.hostname }}" and check logs for service: "pingdom-exporter"'
+          grafana: "{{ GRAFANA_PINGDOM_EXPORTER_SCRAPE_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
+          priority: "P3"
+        labels:
+          team: monitoring
+
+
+      - alert: "Http check(pingdom) fails P1"
+        expr: pingdom_exporter_check_status{host_priority="P1"} == 0
+        for: 1m
+        annotations:
+          summary: "Http check fails"
+          description: 'Check host: "{{ $labels.hostname }}" and find appropriate servers, which serving it to fix the problem.'
+          grafana: "{{ GRAFANA_PINGDOM_EXPORTER_HTTP_STATUS_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
+          priority: "P1"
+
+      - alert: "Http check(pingdom) fails P2"
+        expr: pingdom_exporter_check_status{host_priority="P2"} == 0
+        for: 2m
+        annotations:
+          summary: "Http check fails"
+          description: 'Check host: "{{ $labels.instance }}" and find appropriate servers, which serving it to fix the problem.'
+          grafana: "{{ GRAFANA_PINGDOM_EXPORTER_HTTP_STATUS_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
+          priority: "P2"
+
+      - alert: "Http check(pingdom) fails P3"
+        expr: pingdom_exporter_check_status{host_priority="P3"} == 0
+        for: 5m
+        annotations:
+          summary: "Http check fails"
+          description: 'Check host: "{{ $labels.instance }}" and find appropriate servers, which serving it to fix the problem.'
+          grafana: "{{ GRAFANA_PINGDOM_EXPORTER_HTTP_STATUS_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
+          priority: "P3"
+
+      - alert: "Http check(pingdom) fails P4"
+        expr: pingdom_exporter_check_status{host_priority="P4"} == 0
+        for: 10m
+        annotations:
+          summary: "Http check fails"
+          description: 'Check host: "{{ $labels.instance }}" and find appropriate servers, which serving it to fix the problem.'
+          grafana: "{{ GRAFANA_PINGDOM_EXPORTER_HTTP_STATUS_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
+          priority: "P4"
+
+      - alert: "Http check(pingdom) fails P5"
+        expr: pingdom_exporter_check_status{host_priority="P5"} == 0
+        for: 20m
+        annotations:
+          summary: "Http check fails"
+          description: 'Check host: "{{ $labels.instance }}" and find appropriate servers, which serving it to fix the problem.'
+          grafana: "{{ GRAFANA_PINGDOM_EXPORTER_HTTP_STATUS_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
+          priority: "P5"
+
+

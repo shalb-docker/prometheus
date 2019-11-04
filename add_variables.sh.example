@@ -64,7 +64,6 @@ sed -e "s@{{ REMOTE_HOST }}@$REMOTE_HOST@g" \
 if [ -f "./nginx/conf.d/htpasswd admin" ]
     then htpasswd -b ./nginx/conf.d/htpasswd admin $GRAFANA_ADMIN_PASSWORD
     else htpasswd -b -c ./nginx/conf.d/htpasswd admin $GRAFANA_ADMIN_PASSWORD
-
 fi
 
 
@@ -100,4 +99,7 @@ fi
 
 #echo "REDIS_ADDR=${redis_exporter_prod_SECRET}" \
 #> ./redis_exporter_prod/env_secrets
+
+
+#echo "PINGDOM_EXPORTER_TOKEN=${PINGDOM_EXPORTER_TOKEN}" > ./pingdom-exporter/env_secrets
 

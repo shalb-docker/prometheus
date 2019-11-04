@@ -1,0 +1,3 @@
+# provide list of domains to exclude/include separated by space: ' '
+#DOMAINS_TO_EXCLUDE=e1-example.com e2-example.com
+#DOMAINS_TO_INCLUDE=i1-example.com i2-example.com

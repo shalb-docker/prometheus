@@ -1,9 +1,12 @@
+
   pingdom-exporter:
     image: shalb/pingdom-exporter:0.0.1
    #volumes:
    #  - ./pingdom-exporter/pingdom_exporter.py.yml:/opt/pingdom/pingdom_exporter.py.yml
+    restart: always
    #ports:
    #  - "9158:9158"
     env_file:
-      - ./examples/pingdom-exporter/pingdom-exporter-prod/env_secrets
+      - ./pingdom-exporter/env
+      - ./pingdom-exporter/env_secrets
 

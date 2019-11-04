@@ -31,6 +31,7 @@ rule_files:
 # - "/etc/prometheus/alert_rules.d/kubernetes_exporter.yml"
 # - "/etc/prometheus/alert_rules.d/kubernetes_node_exporter.yml"
 # - "/etc/prometheus/alert_rules.d/kubernetes_http.yml"
+# - "/etc/prometheus/alert_rules.d/http_pingdom.yml"
 
 scrape_configs:
   - job_name: 'opsgenie-heartbeat local'
@@ -178,6 +179,21 @@ scrape_configs:
 #         hostname: 'test-inventory.prod.local.lan'
 #         ip: '192.168.1.10'
 #         project: '{{ PROJECT_NAME }}'
+
+
+# - job_name: 'pingdom-exporter prod'
+#   honor_labels: true
+#   static_configs:
+#     - targets: ['pingdom-exporter:9158']
+#       labels:
+#         host_priority: 'P2'
+#         server_env: 'prod'
+#         project: '{{ PROJECT_NAME }}'
+#         hostname: 'grafana.{{ REMOTE_HOST }}'
+#   metric_relabel_configs:
+#     - source_labels: [ __name__ ]
+#       regex: 'pingdom_exporter_.*'
+#       action: keep
 
 
 # mysqld_exporter with limited collectors and metrics, "hostname" and "host_priority" labels
