@@ -46,7 +46,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1571765738374,
+  "iteration": 1572516292500,
   "links": [],
   "panels": [
     {
@@ -261,7 +261,7 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": "${DS_PROMETHEUS-PROD}",
+      "datasource": "$data_source",
       "description": "Conainer state: {'running': 1, 'created': 0, 'exited': -1, 'restarting': -2, 'removing': -3, 'paused': -4, 'dead': -5}",
       "fill": 1,
       "gridPos": {
@@ -439,7 +439,7 @@
       }
     },
     {
-      "collapsed": false,
+      "collapsed": true,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -447,100 +447,101 @@
         "y": 15
       },
       "id": 44,
-      "panels": [],
+      "panels": [
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "${DS_PROMETHEUS-PROD}",
+          "description": "CPU time consumed in seconds",
+          "fill": 1,
+          "gridPos": {
+            "h": 6,
+            "w": 24,
+            "x": 0,
+            "y": 3
+          },
+          "id": 79,
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": true,
+            "max": true,
+            "min": false,
+            "rightSide": true,
+            "show": true,
+            "sort": "avg",
+            "sortDesc": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "expr": "topk($limit, rate(docker_exporter_container_cpu_usage_total{server_env=~\"$server_env\",hostname=~\"$hostname\",project=~\"$project\",container_name=~\"$container_name\"}[5m]))",
+              "format": "time_series",
+              "hide": false,
+              "interval": "",
+              "intervalFactor": 2,
+              "legendFormat": "{{container_name}}",
+              "refId": "A"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "CPU time total (top $limit)",
+          "tooltip": {
+            "shared": false,
+            "sort": 2,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "none",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        }
+      ],
       "title": "Containers CPU",
       "type": "row"
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "${DS_PROMETHEUS-PROD}",
-      "description": "CPU time consumed in seconds",
-      "fill": 1,
-      "gridPos": {
-        "h": 6,
-        "w": 24,
-        "x": 0,
-        "y": 16
-      },
-      "id": 79,
-      "legend": {
-        "alignAsTable": true,
-        "avg": true,
-        "current": true,
-        "max": true,
-        "min": false,
-        "rightSide": true,
-        "show": true,
-        "sort": "avg",
-        "sortDesc": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
-      "links": [],
-      "nullPointMode": "null",
-      "percentage": false,
-      "pointradius": 5,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "expr": "topk($limit, rate(docker_exporter_container_cpu_usage_total{server_env=~\"$server_env\",hostname=~\"$hostname\",project=~\"$project\",container_name=~\"$container_name\"}[5m]))",
-          "format": "time_series",
-          "hide": false,
-          "interval": "",
-          "intervalFactor": 2,
-          "legendFormat": "{{container_name}}",
-          "refId": "A"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "CPU time total (top $limit)",
-      "tooltip": {
-        "shared": false,
-        "sort": 2,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "none",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
     },
     {
       "collapsed": true,
@@ -548,7 +549,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 22
+        "y": 16
       },
       "id": 59,
       "panels": [
@@ -557,14 +558,14 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "${DS_PROMETHEUS-PROD}",
+          "datasource": "$data_source",
           "description": "",
           "fill": 1,
           "gridPos": {
             "h": 6,
             "w": 24,
             "x": 0,
-            "y": 3
+            "y": 10
           },
           "id": 55,
           "legend": {
@@ -654,7 +655,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 23
+        "y": 17
       },
       "id": 57,
       "panels": [
@@ -663,14 +664,14 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "${DS_PROMETHEUS-PROD}",
+          "datasource": "$data_source",
           "description": "",
           "fill": 1,
           "gridPos": {
             "h": 6,
             "w": 24,
             "x": 0,
-            "y": 4
+            "y": 11
           },
           "id": 52,
           "legend": {
@@ -755,14 +756,14 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "${DS_PROMETHEUS-PROD}",
+          "datasource": "$data_source",
           "description": "",
           "fill": 1,
           "gridPos": {
             "h": 6,
             "w": 24,
             "x": 0,
-            "y": 10
+            "y": 17
           },
           "id": 102,
           "legend": {
@@ -853,7 +854,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 24
+        "y": 18
       },
       "id": 61,
       "panels": [
@@ -869,7 +870,7 @@
             "h": 6,
             "w": 24,
             "x": 0,
-            "y": 5
+            "y": 12
           },
           "id": 62,
           "legend": {
@@ -976,7 +977,7 @@
             "h": 6,
             "w": 24,
             "x": 0,
-            "y": 11
+            "y": 18
           },
           "id": 63,
           "legend": {
@@ -1083,7 +1084,7 @@
             "h": 6,
             "w": 24,
             "x": 0,
-            "y": 17
+            "y": 24
           },
           "id": 64,
           "legend": {
@@ -1191,7 +1192,7 @@
             "h": 6,
             "w": 24,
             "x": 0,
-            "y": 23
+            "y": 30
           },
           "id": 65,
           "legend": {
@@ -1297,7 +1298,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 25
+        "y": 19
       },
       "id": 104,
       "panels": [
@@ -1313,7 +1314,7 @@
             "h": 6,
             "w": 24,
             "x": 0,
-            "y": 30
+            "y": 13
           },
           "id": 106,
           "legend": {
@@ -1420,7 +1421,7 @@
             "h": 6,
             "w": 24,
             "x": 0,
-            "y": 36
+            "y": 19
           },
           "id": 107,
           "legend": {
@@ -1552,7 +1553,6 @@
       },
       {
         "current": {
-          "selected": true,
           "text": "prometheus-prod",
           "value": "prometheus-prod"
         },
@@ -1776,5 +1776,5 @@
   "timezone": "",
   "title": "Containers metrics (docker_exporter)",
   "uid": "Y6Pw9sNWz",
-  "version": 9
+  "version": 5
 }
