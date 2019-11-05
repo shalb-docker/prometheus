@@ -1,9 +1,0 @@
-GF_SERVER_ROOT_URL=https://grafana.monitoring-test.shalb.com
-GF_SMTP_ENABLED=true
-GF_SMTP_HOST=postfix-relay:25
-GF_SMTP_FROM_ADDRESS=grafana@grafana.monitoring-test.shalb.com
-GF_SMTP_SKIP_VERIFY=true
-GF_METRICS_ENABLED=true
-#GF_SMTP_USER=
-#GF_SMTP_PASSWORD=
-#AWS SES EXAMPLE# GF_SMTP_HOST=email-smtp.us-east-1.amazonaws.com:587
