@@ -1,0 +1,23 @@
+groups:
+  - name: cron alerts
+    rules:
+      - alert: "cron daemon not working P4-5"
+        expr: node_monit{host_priority=~"P[4-5]", name="cron_working_file", key="status"} > 0
+        for: 10m
+        annotations:
+          summary: "cron daemon not working"
+          description: 'Go to hostname: "{{ $labels.hostname }}" and check why test cron job not working: "grep monit_cron_test /etc/crontab"'
+          grafana: "https://grafana.monitoring-test.shalb.com/d/RGx4RH-ik/monit-exporter?panelId=4&fullscreen&orgId=1&var-server_env={{ $labels.server_env }}&var-project={{ $labels.project }}&var-hostname={{ $labels.hostname }}"
+          access: "https://confluence.shalb.com/display/TEST/Access#Access-Grafana,Prometheus,Alertmanager"
+          priority: "P3"
+
+      - alert: "cron daemon not working P1-3"
+        expr: node_monit{host_priority=~"P[1-3]", name="cron_working_file", key="status"} > 0
+        for: 2m
+        annotations:
+          summary: "cron daemon not working"
+          description: 'Go to hostname: "{{ $labels.hostname }}" and check why test cron job not working: "grep monit_cron_test /etc/crontab"'
+          grafana: "https://grafana.monitoring-test.shalb.com/d/RGx4RH-ik/monit-exporter?panelId=4&fullscreen&orgId=1&var-server_env={{ $labels.server_env }}&var-project={{ $labels.project }}&var-hostname={{ $labels.hostname }}"
+          access: "https://confluence.shalb.com/display/TEST/Access#Access-Grafana,Prometheus,Alertmanager"
+          priority: "P2"
+

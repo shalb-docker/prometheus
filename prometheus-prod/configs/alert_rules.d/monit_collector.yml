@@ -1,0 +1,27 @@
+groups:
+  - name: monit_collector alerts
+    rules:
+      - alert: "monit_collector has new errors P4-5"
+        expr: node_monit{host_priority=~"P[4-5]", name="check_monit_collector_exception", key="status"} > 0
+        for: 11m
+        annotations:
+          summary: "monit_collector has new errors"
+          description: 'Go to host: "{{ $labels.hostname }}" and check log: /var/log/monit_collector.log'
+          grafana: "https://grafana.monitoring-test.shalb.com/d/RGx4RH-ik/monit-exporter?panelId=4&fullscreen&orgId=1&var-server_env={{ $labels.server_env }}&var-project={{ $labels.project }}&var-hostname={{ $labels.hostname }}"
+          access: "https://confluence.shalb.com/display/TEST/Access#Access-Grafana,Prometheus,Alertmanager"
+          priority: "P3"
+        labels:
+          team: monitoring
+
+      - alert: "monit_collector has new errors P1-3"
+        expr: node_monit{host_priority=~"P[1-3]", name="check_monit_collector_exception", key="status"} > 0
+        for: 11m
+        annotations:
+          summary: "monit_collector has new errors"
+          description: 'Go to host: "{{ $labels.hostname }}" and check log: /var/log/monit_collector.log'
+          grafana: "https://grafana.monitoring-test.shalb.com/d/RGx4RH-ik/monit-exporter?panelId=4&fullscreen&orgId=1&var-server_env={{ $labels.server_env }}&var-project={{ $labels.project }}&var-hostname={{ $labels.hostname }}"
+          access: "https://confluence.shalb.com/display/TEST/Access#Access-Grafana,Prometheus,Alertmanager"
+          priority: "P2"
+        labels:
+          team: monitoring
+

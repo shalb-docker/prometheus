@@ -1,0 +1,63 @@
+groups:
+  - name: "monit type=program alerts"
+    rules:
+      - alert: "custom check failed P5-1"
+        expr: node_monit{host_priority=~"P[4-5]",type="program",key="status",name!~"check_monit_collector_exception"} > 0
+        for: 15m
+        annotations:
+          summary: 'custom check: "{{ $labels.name }}" failed'
+          description: 'Go to host: "{{ $labels.hostname }}"; find more info in monit config (grep -r {{ $labels.name }} /etc/monit.d/); monit log: /var/log/monit.log'
+          grafana: "https://grafana.monitoring-test.shalb.com/d/RGx4RH-ik/monit-exporter?panelId=4&fullscreen&orgId=1&var-server_env={{ $labels.server_env }}&var-project={{ $labels.project }}&var-hostname={{ $labels.hostname }}"
+          access: "https://confluence.shalb.com/display/TEST/Access#Access-Grafana,Prometheus,Alertmanager"
+          priority: "P5"
+
+      - alert: "custom check failed P5-2"
+        expr: node_monit{host_priority=~"P[1-3]",priority="P5",type="program",key="status",name!~"check_monit_collector_exception"} > 0
+        for: 15m
+        annotations:
+          summary: 'custom check: "{{ $labels.name }}" failed'
+          description: 'Go to host: "{{ $labels.hostname }}"; find more info in monit config (grep -r {{ $labels.name }} /etc/monit.d/); monit log: /var/log/monit.log'
+          grafana: "https://grafana.monitoring-test.shalb.com/d/RGx4RH-ik/monit-exporter?panelId=4&fullscreen&orgId=1&var-server_env={{ $labels.server_env }}&var-project={{ $labels.project }}&var-hostname={{ $labels.hostname }}"
+          access: "https://confluence.shalb.com/display/TEST/Access#Access-Grafana,Prometheus,Alertmanager"
+          priority: "P5"
+
+      - alert: "custom check failed P4"
+        expr: node_monit{host_priority=~"P[1-3]",priority="P4",type="program",key="status",name!~"check_monit_collector_exception"} > 0
+        for: 10m
+        annotations:
+          summary: 'custom check: "{{ $labels.name }}" failed'
+          description: 'Go to host: "{{ $labels.hostname }}"; find more info in monit config (grep -r {{ $labels.name }} /etc/monit.d/); monit log: /var/log/monit.log'
+          grafana: "https://grafana.monitoring-test.shalb.com/d/RGx4RH-ik/monit-exporter?panelId=4&fullscreen&orgId=1&var-server_env={{ $labels.server_env }}&var-project={{ $labels.project }}&var-hostname={{ $labels.hostname }}"
+          access: "https://confluence.shalb.com/display/TEST/Access#Access-Grafana,Prometheus,Alertmanager"
+          priority: "P4"
+
+      - alert: "custom check failed P3"
+        expr: node_monit{host_priority=~"P[1-3]",priority="P3",type="program",key="status",name!~"check_monit_collector_exception"} > 0
+        for: 5m
+        annotations:
+          summary: 'custom check: "{{ $labels.name }}" failed'
+          description: 'Go to host: "{{ $labels.hostname }}"; find more info in monit config (grep -r {{ $labels.name }} /etc/monit.d/); monit log: /var/log/monit.log'
+          grafana: "https://grafana.monitoring-test.shalb.com/d/RGx4RH-ik/monit-exporter?panelId=4&fullscreen&orgId=1&var-server_env={{ $labels.server_env }}&var-project={{ $labels.project }}&var-hostname={{ $labels.hostname }}"
+          access: "https://confluence.shalb.com/display/TEST/Access#Access-Grafana,Prometheus,Alertmanager"
+          priority: "P3"
+
+      - alert: "custom check failed P2"
+        expr: node_monit{host_priority=~"P[1-3]",priority="P2",type="program",key="status",name!~"check_monit_collector_exception"} > 0
+        for: 3m
+        annotations:
+          summary: 'custom check: "{{ $labels.name }}" failed'
+          description: 'Go to host: "{{ $labels.hostname }}"; find more info in monit config (grep -r {{ $labels.name }} /etc/monit.d/); monit log: /var/log/monit.log'
+          grafana: "https://grafana.monitoring-test.shalb.com/d/RGx4RH-ik/monit-exporter?panelId=4&fullscreen&orgId=1&var-server_env={{ $labels.server_env }}&var-project={{ $labels.project }}&var-hostname={{ $labels.hostname }}"
+          access: "https://confluence.shalb.com/display/TEST/Access#Access-Grafana,Prometheus,Alertmanager"
+          priority: "P2"
+
+      - alert: "custom check failed P1"
+        expr: node_monit{host_priority=~"P[1-3]",priority="P1",type="program",key="status",name!~"check_monit_collector_exception"} > 0
+        for: 2m
+        annotations:
+          summary: 'custom check: "{{ $labels.name }}" failed'
+          description: 'Go to host: "{{ $labels.hostname }}"; find more info in monit config (grep -r {{ $labels.name }} /etc/monit.d/); monit log: /var/log/monit.log'
+          grafana: "https://grafana.monitoring-test.shalb.com/d/RGx4RH-ik/monit-exporter?panelId=4&fullscreen&orgId=1&var-server_env={{ $labels.server_env }}&var-project={{ $labels.project }}&var-hostname={{ $labels.hostname }}"
+          access: "https://confluence.shalb.com/display/TEST/Access#Access-Grafana,Prometheus,Alertmanager"
+          priority: "P1"
+

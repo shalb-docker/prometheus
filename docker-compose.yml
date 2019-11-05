@@ -1,0 +1,168 @@
+version: '3'
+
+services:
+  prometheus-prod:
+    image: prom/prometheus:v2.4.2
+    volumes:
+      - ./prometheus-prod/configs:/etc/prometheus/
+      - ./prometheus-prod/storage:/prometheus
+      - ./prometheus-prod/secrets:/etc/prometheus/secrets
+    restart: always
+   #ports:
+   #  - "127.0.0.1:9090:9090"
+    command: ["--log.level=debug",
+              "--web.external-url=https://prometheus.monitoring-test.shalb.com/",
+              "--config.file=/etc/prometheus/prometheus.yml",
+              "--storage.tsdb.path=/prometheus",
+              "--web.console.libraries=/usr/share/prometheus/console_libraries",
+              "--web.console.templates=/usr/share/prometheus/consoles",
+              "--storage.tsdb.retention=30d"]
+
+  prometheus-dev:
+    image: prom/prometheus:v2.4.2
+    volumes:
+      - ./prometheus-dev/configs:/etc/prometheus/
+      - ./prometheus-dev/storage:/prometheus
+      - ./prometheus-dev/secrets:/etc/prometheus/secrets
+    restart: always
+   #ports:
+   #  - "127.0.0.1:9090:9090"
+    command: ["--log.level=debug",
+              "--web.external-url=https://prometheus-dev.monitoring-test.shalb.com/",
+              "--config.file=/etc/prometheus/prometheus.yml",
+              "--storage.tsdb.path=/prometheus",
+              "--web.console.libraries=/usr/share/prometheus/console_libraries",
+              "--web.console.templates=/usr/share/prometheus/consoles",
+              "--storage.tsdb.retention=1d"]
+
+# Example prometheus which get data from kuber
+# prometheus-prod2:
+#   image: prom/prometheus:v2.4.2
+#   volumes:
+#     - ./prometheus-prod2/configs:/etc/prometheus/
+#     - ./prometheus-prod2/storage:/prometheus
+#     - ./prometheus-prod2/secrets:/etc/prometheus/secrets
+#   restart: always
+#  #ports:
+#  #  - "127.0.0.1:9090:9090"
+#   command: ["--log.level=debug",
+#             "--web.external-url=https://prometheus-prod2.monitoring-test.shalb.com/",
+#             "--config.file=/etc/prometheus/prometheus.yml",
+#             "--storage.tsdb.path=/prometheus",
+#             "--web.console.libraries=/usr/share/prometheus/console_libraries",
+#             "--web.console.templates=/usr/share/prometheus/consoles",
+#             "--storage.tsdb.retention=1d"]
+
+  alertmanager:
+    image: prom/alertmanager:v0.15.2
+    volumes:
+      - ./alertmanager/config.yml:/etc/alertmanager/config.yml
+      - ./alertmanager/storage:/alertmanager
+    restart: always
+   #ports:
+   #  - "127.0.0.1:9093:9093"
+    command: ["--log.level=debug",
+              "--storage.path=/alertmanager/",
+              "--web.external-url=https://alertmanager.monitoring-test.shalb.com/",
+              "--config.file=/etc/alertmanager/config.yml"]
+
+  grafana:
+    image: grafana/grafana:5.3.0
+    volumes:
+      - ./grafana/storage:/var/lib/grafana
+    restart: always
+   #ports:
+   #  - "127.0.0.1:3000:3000"
+    env_file:
+      - ./grafana/env
+      - ./grafana/env_secrets
+
+  node-exporter:
+    image: prom/node-exporter:v0.18.1
+    volumes:
+      - /proc:/host/proc
+      - /sys:/host/sys
+      - /:/host:ro,rslave
+   #  - /home/monitoring/node_exporter/textfile_directory:/textfile_directory
+    restart: always
+   #ports:
+   #  - "127.0.0.1:9100:9100"
+    command: ["--web.listen-address=0.0.0.0:9100",
+   #          "--collector.textfile.directory=/textfile_directory",
+              "--path.procfs=/host/proc",
+              "--path.sysfs=/host/sys",
+              "--path.rootfs=/host",
+              "--collector.filesystem.ignored-mount-points=(/run/|/etc/|/dev/|/proc/|/sys/|/var/lib/docker/)",
+              "--collector.filesystem.ignored-fs-types=(autofs|binfmt_misc|cgroup|configfs|debugfs|devpts|devtmpfs|fusectl|hugetlbfs|mqueue|overlay|proc|pocfs|pstore|rpc_pipefs|securityfs|sysfs|tracefs)"]
+
+  nginx:
+    image: artiloop/nginx-le-ssl
+   #image: nginx:1.15
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d/configs
+   #  - ./nginx/conf.d:/etc/nginx/conf.d/
+      - ./nginx/ssl:/etc/nginx/ssl
+    environment:
+        DOMAINS_LIST: "alertmanager.monitoring-test.shalb.com,prometheus.monitoring-test.shalb.com,grafana.monitoring-test.shalb.com"
+    depends_on:
+      - prometheus-prod
+      - alertmanager
+      - grafana
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+
+  postfix-relay:
+    image: shalb/postfix-relay:0.0.1
+    volumes:
+      - ./postfix-relay/main.cf:/etc/postfix/main.cf
+   #  - ./postfix-relay/var/spool/postfix:/var/spool/postfix
+   #  - ./postfix-relay/var/spool/mail:/var/spool/mail
+    restart: always
+    ports:
+      - "127.0.0.1:25:25"
+
+  blackbox-exporter:
+    image: prom/blackbox-exporter:v0.14.0
+    volumes:
+      - ./blackbox-exporter:/etc/blackbox_exporter
+    restart: always
+   #ports:
+   #  - "127.0.0.1:9115:9115"
+
+  docker-exporter:
+    image: shalb/docker_exporter:0.0.1
+    volumes:
+   #  - ./docker-exporter/exporter:/opt/exporter
+      - /var/run/docker.sock:/var/run/docker.sock
+    restart: always
+   #ports:
+   #  - "127.0.0.1:9647:9647"
+
+  opsgenie-heartbeat:
+    image: shalb/opsgenie-heartbeat:0.0.1
+   #volumes:
+   #  - ./entrypoint:/opt/entrypoint
+    restart: always
+   #ports:
+   #  - "8000:8000"
+    env_file:
+      - ./opsgenie-heartbeat/env_secrets
+
+# cloudwatch-exporter_prod:
+#   image: prom/cloudwatch-exporter:cloudwatch_exporter-0.5.0
+#   volumes:
+#     - ./cloudwatch-exporter_prod/config.yml:/config/config.yml
+#   restart: always
+#  #ports:
+#  #  - "9106:9106"
+#   env_file:
+#     - ./cloudwatch-exporter_prod/env_secrets
+
+# redis_exporter_prod:
+#   image: oliver006/redis_exporter:v0.33.0
+#   restart: always
+#   env_file:
+#     - ./redis_exporter_prod/env_secrets
+

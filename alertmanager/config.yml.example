@@ -99,7 +99,7 @@ receivers:
 
 #- name: example_slack
 #  slack_configs:
-#    - api_url: https://hooks.slack.com/services/MY_ID
+#    - api_url: {{ SLACK_API_URL }}
 #      username: prometheus
 #      title: "host: '{{ .GroupLabels.hostname }}' | alert: '{{ .CommonAnnotations.summary }}'"
 #      text: "{{ .CommonAnnotations.description }}"
