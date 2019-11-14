@@ -106,7 +106,7 @@ groups:
     rules:
       - alert: "kubernetes_exporter - pod is not running P1-2"
         expr: kubernetes_pod_phase{host_priority=~"P[1-2]"} != 1
-        for: 2m
+        for: 30m
         annotations:
           summary: "pod is not running"
           description: 'Connect to cluster: "{{ $labels.cluster_name }}" in env: "{{ $labels.server_env }}" and check why pod: "{{ $labels.pod_name }}" is not running'
@@ -116,7 +116,7 @@ groups:
 
       - alert: "kubernetes_exporter - pod is not running P4-5"
         expr: kubernetes_pod_phase{host_priority=~"P[4-5]|^$"} != 1
-        for: 10m
+        for: 30m
         annotations:
           summary: "pod is not running"
           description: 'Connect to cluster: "{{ $labels.cluster_name }}" in env: "{{ $labels.server_env }}" and check why pod: "{{ $labels.pod_name }}" is not running'
@@ -150,7 +150,7 @@ groups:
 
       - alert: "kubernetes_exporter - container is not running P1-2"
         expr: kubernetes_container_ready{host_priority=~"P[1-2]"} != 1
-        for: 2m
+        for: 30m
         annotations:
           summary: "container is not running"
           description: 'Connect to cluster: "{{ $labels.cluster_name }}" in env: "{{ $labels.server_env }}" and check why container: "{{ $labels.container_name }}" is not running'
@@ -160,7 +160,7 @@ groups:
 
       - alert: "kubernetes_exporter - container is not running P4-5"
         expr: kubernetes_container_ready{host_priority=~"P[4-5]|^$"} != 1
-        for: 10m
+        for: 30m
         annotations:
           summary: "container is not running"
           description: 'Connect to cluster: "{{ $labels.cluster_name }}" in env: "{{ $labels.server_env }}" and check why container: "{{ $labels.container_name }}" is not running'

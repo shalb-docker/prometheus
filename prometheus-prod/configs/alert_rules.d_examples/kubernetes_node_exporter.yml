@@ -13,7 +13,7 @@ groups:
 
       - alert: "kubernetes node down P1-3"
         expr: up{job="node_exporter kubernetes",host_priority=~"P[1-3]",instance=~".*:9100"} == 0
-        for: 20m
+        for: 30m
         annotations:
           summary: "kubernetes node down"
           description: 'Connect to cluster: "{{ $labels.cluster_name }}" in env: "{{ $labels.server_env }}" and check if node: "{{ $labels.node_name }}" is running or pod: "{{ $labels.pod_name }}" is running on node'
