@@ -18,4 +18,7 @@ modules:
 #     fail_if_header_not_matches:
 #       - header: "content-type"
 #         regexp: "application/json"
+  tcp_connect:
+    prober: tcp
+    timeout: 5s
 
