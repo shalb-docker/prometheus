@@ -48,8 +48,8 @@ spec:
         - containerPort: 9100
           hostPort: 9100
       terminationGracePeriodSeconds: 10
-#     hostNetwork: true
-#     hostPID: true
+      hostNetwork: true
+      hostPID: true
 #     nodeSelector:
 #       kubernetes.io/os: linux
       securityContext:
