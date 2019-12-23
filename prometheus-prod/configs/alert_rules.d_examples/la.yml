@@ -8,7 +8,7 @@ groups:
   - name: "load alerts"
     rules:
       - alert: "LA > 110% P5"
-        expr: node_load1{host_priority="P5"} > (instance:node_cpus:count + 1)
+        expr: node_load1{host_priority="P5",job!="node_exporter kubernetes"} > (instance:node_cpus:count + 1)
         for: 60m
         annotations:
           summary: "LA > 110%: {{ $value }}"
@@ -18,7 +18,7 @@ groups:
           priority: "P3"
 
       - alert: "LA > 110% P4"
-        expr: node_load1{host_priority="P4"} > (instance:node_cpus:count + 1)
+        expr: node_load1{host_priority="P4",job!="node_exporter kubernetes"} > (instance:node_cpus:count + 1)
         for: 30m
         annotations:
           summary: "LA > 110%: {{ $value }}"
@@ -28,7 +28,7 @@ groups:
           priority: "P3"
 
       - alert: "LA > 110% P3"
-        expr: node_load1{host_priority="P3"} > (instance:node_cpus:count + 1)
+        expr: node_load1{host_priority="P3",job!="node_exporter kubernetes"} > (instance:node_cpus:count + 1)
         for: 15m
         annotations:
           summary: "LA > 110%: {{ $value }}"
@@ -38,7 +38,7 @@ groups:
           priority: "P3"
 
       - alert: "LA > 110% P2"
-        expr: node_load1{host_priority="P2"} > (instance:node_cpus:count + 1)
+        expr: node_load1{host_priority="P2",job!="node_exporter kubernetes"} > (instance:node_cpus:count + 1)
         for: 7m
         annotations:
           summary: "LA > 110%: {{ $value }}"
@@ -48,7 +48,7 @@ groups:
           priority: "P3"
 
       - alert: "LA > 110% P1"
-        expr: node_load1{host_priority="P1"} > (instance:node_cpus:count + 1)
+        expr: node_load1{host_priority="P1",job!="node_exporter kubernetes"} > (instance:node_cpus:count + 1)
         for: 3m
         annotations:
           summary: "LA > 110%: {{ $value }}"
