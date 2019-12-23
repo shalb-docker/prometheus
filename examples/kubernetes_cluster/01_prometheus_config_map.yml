@@ -55,10 +55,8 @@ data:
         - source_labels: [__address__]
           regex: ".*:9100"
           action: keep
-        - source_labels: [__address__]
-          regex: '(.*):[0-9]+'
+        - source_labels: [__meta_kubernetes_pod_node_name]
           target_label: hostname
-          replacement: '$1'
         - source_labels: [__meta_kubernetes_namespace]
           target_label: namespace
         - source_labels: [__meta_kubernetes_pod_node_name]

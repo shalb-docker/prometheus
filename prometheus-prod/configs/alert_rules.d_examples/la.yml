@@ -1,11 +1,11 @@
 groups:
-  - name: get number of cores
+  - name: "get number of cores"
     rules:
     - record: instance:node_cpus:count
       expr: count(node_cpu_seconds_total{mode="idle"}) without (cpu,mode)
 
 
-  - name: load alerts
+  - name: "load alerts"
     rules:
       - alert: "LA > 110% P5"
         expr: node_load1{host_priority="P5"} > (instance:node_cpus:count + 1)

@@ -1,5 +1,5 @@
 groups:
-  - name: blackbox_exporter http checks host up
+  - name: "blackbox_exporter http checks host up"
     rules:
       - alert: "Http check fails P1"
         expr: probe_success{host_priority="P1",job!="blackbox-exporter kubernetes services"} != 1
