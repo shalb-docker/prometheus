@@ -13,7 +13,7 @@ groups:
         annotations:
           summary: "LA > 110%: {{ $value }}"
           description: 'Check why LA is to high on node: "{{ $labels.node_name }}" in cluster: "{{ $labels.cluster_name }}"'
-          grafana: "{{ GRAFANA_NODE_EXPORTER_LA_DASHBOARD }}"
+          grafana: "{{ GRAFANA_KUBERNETES_NODE_EXPORTER_LA_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P3"
 
@@ -23,7 +23,7 @@ groups:
         annotations:
           summary: "LA > 110%: {{ $value }}"
           description: 'Check why LA is to high on node: "{{ $labels.node_name }}" in cluster: "{{ $labels.cluster_name }}"'
-          grafana: "{{ GRAFANA_NODE_EXPORTER_LA_DASHBOARD }}"
+          grafana: "{{ GRAFANA_KUBERNETES_NODE_EXPORTER_LA_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P5"
 
