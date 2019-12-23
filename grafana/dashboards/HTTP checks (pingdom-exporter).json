@@ -46,7 +46,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1572852464141,
+  "iteration": 1572880939383,
   "links": [],
   "panels": [
     {
@@ -485,7 +485,7 @@
       "renderer": "flot",
       "seriesOverrides": [],
       "spaceLength": 10,
-      "stack": true,
+      "stack": false,
       "steppedLine": false,
       "targets": [
         {
@@ -958,7 +958,7 @@
       {
         "allValue": null,
         "current": {
-          "selected": false,
+          "selected": true,
           "text": "30",
           "value": "30"
         },
@@ -1102,5 +1102,5 @@
   "timezone": "",
   "title": "HTTP checks (pingdom-exporter)",
   "uid": "4wUYbE0Zz",
-  "version": 6
+  "version": 7
 }

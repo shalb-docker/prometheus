@@ -24,7 +24,7 @@ spec:
       # args:
       # - "360000"
       # command: ["sleep"]
-        image: shalb/kubernetes_exporter:0.0.1
+        image: shalb/kubernetes_exporter:0.0.4
         ports:
         - containerPort: 9610
      #  volumeMounts:

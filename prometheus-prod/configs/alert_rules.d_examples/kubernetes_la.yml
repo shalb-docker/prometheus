@@ -7,7 +7,7 @@ groups:
 
   - name: "load alerts kubernetes"
     rules:
-      - alert: "LA > 110% P4"
+      - alert: "kubernetes node LA > 110% P1-3"
         expr: node_load1{host_priority=~"P[1-3]",job="node_exporter kubernetes"} > (instance:node_cpus:count + 1)
         for: 30m
         annotations:
@@ -17,7 +17,7 @@ groups:
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P3"
 
-      - alert: "LA > 110% P4-5"
+      - alert: "kubernetes node LA > 110% P4-5"
         expr: node_load1{host_priority=~"P[4-5]|^$",job="node_exporter kubernetes"} > (instance:node_cpus:count + 1)
         for: 60m
         annotations:

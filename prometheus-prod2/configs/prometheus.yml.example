@@ -53,7 +53,7 @@ scrape_configs:
       regex: '(.*)-[0-9a-z]+'
       target_label: service
       replacement: '$1'
-    - source_labels: [instance]
+    - source_labels: [node_name]
       regex: '(.*):[0-9]+'
       target_label: hostname
       replacement: '$1'
