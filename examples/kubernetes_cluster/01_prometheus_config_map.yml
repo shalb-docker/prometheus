@@ -66,12 +66,12 @@ data:
         - source_labels: [__meta_kubernetes_pod_container_name]
           target_label: container_name
         metric_relabel_configs:
-          - source_labels: [ mountpoint ]
-            regex: '/run'
-            action: drop
-          - source_labels: [ __name__ ]
-            regex: 'up|node_boot_time_seconds|node_memory_MemAvailable_bytes|node_time_seconds|node_memory_MemTotal_bytes|node_network_receive_bytes_total|node_network_transmit_bytes_total|node_disk_read_bytes_total|node_disk_written_bytes_total|node_network_receive_packets_total|node_network_transmit_packets_total|node_disk_writes_completed_total|node_disk_reads_completed_total|node_filesystem_size_bytes|node_filesystem_free_bytes|node_condition|node_cpu|node_cpu_seconds_total|node_cpus|node_filesystem_avail_bytes|node_filesystem_files|node_filesystem_files_free|node_filesystem_readonly|node_load1|node_mail_queue|node_monit|node_name|node_scrape_collector_success|node_stats_up|node_textfile_scrape_error|node_timex_sync_status'
-            action: keep
+        - source_labels: [ mountpoint ]
+          regex: '/run'
+          action: drop
+        - source_labels: [ __name__ ]
+          regex: 'node_boot_time_seconds|node_memory_MemAvailable_bytes|node_time_seconds|node_memory_MemTotal_bytes|node_network_receive_bytes_total|node_network_transmit_bytes_total|node_disk_read_bytes_total|node_disk_written_bytes_total|node_network_receive_packets_total|node_network_transmit_packets_total|node_disk_writes_completed_total|node_disk_reads_completed_total|node_filesystem_size_bytes|node_filesystem_free_bytes|node_condition|node_cpu|node_cpu_seconds_total|node_cpus|node_filesystem_avail_bytes|node_filesystem_files|node_filesystem_files_free|node_filesystem_readonly|node_load1|node_mail_queue|node_monit|node_name|node_scrape_collector_success|node_stats_up|node_textfile_scrape_error|node_timex_sync_status|node_number_of_monit_processes|node_memory_MemFree_bytes|node_memory_Buffers_bytes|node_memory_Cached_bytes|node_memory_Slab_bytes|node_memory_PageTables_bytes|node_memory_SwapCached_bytes|node_memory_SwapTotal_bytes|node_memory_SwapFree_bytes|node_memory_HardwareCorrupted_bytes'
+          action: keep
 
 
       - job_name: "kubernetes_exporter kubernetes"
@@ -114,6 +114,10 @@ data:
           regex: (.+)
           target_label: __metrics_path__
           replacement: /api/v1/nodes/${1}/proxy/metrics/cadvisor
+        metric_relabel_configs:
+          - source_labels: [ __name__ ]
+            regex: 'container_last_seen|container_start_time_seconds|container_scrape_error|container_cpu_usage_seconds_total|container_cpu_system_seconds_total|container_cpu_user_seconds_total|container_memory_rss|container_spec_memory_limit_bytes|container_memory_failures_total|container_memory_failcnt|container_network_receive_bytes_total|container_network_transmit_bytes_total|container_network_receive_packets_total|container_network_transmit_packets_total|container_network_receive_errors_total|container_network_transmit_errors_total|container_network_receive_packets_dropped_total|container_network_transmit_packets_dropped_total'
+            action: keep
 
 
       - job_name: 'kubernetes-apiservers'
@@ -190,4 +194,8 @@ data:
      #    target_label: namespace
      #  - source_labels: [__meta_kubernetes_service_name]
      #    target_label: service_name
+     #  metric_relabel_configs:
+     #  - source_labels: [ __name__ ]
+     #    regex: 'probe_success|probe_http_status_code|probe_duration_seconds|probe_http_duration_seconds|probe_http_content_length'
+     #    action: keep
 
