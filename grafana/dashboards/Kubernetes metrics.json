@@ -46,7 +46,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1577102726763,
+  "iteration": 1577353239603,
   "links": [],
   "panels": [
     {
@@ -706,7 +706,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "bottomk($limit, probe_success{server_env=~\"$server_env\",service_name=~\"$service_name_http\"})",
+              "expr": "bottomk($limit, probe_success{server_env=~\"$server_env\",service_name=~\"$service_name_http\",job=\"blackbox-exporter kubernetes services\"})",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -796,7 +796,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "topk($limit, probe_http_status_code{server_env=~\"$server_env\",service_name=~\"$service_name_http\"})",
+              "expr": "topk($limit, probe_http_status_code{server_env=~\"$server_env\",service_name=~\"$service_name_http\",job=\"blackbox-exporter kubernetes services\"})",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -886,8 +886,9 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "topk($limit, probe_duration_seconds{server_env=~\"$server_env\",service_name=~\"$service_name_http\"})",
+              "expr": "topk($limit, probe_duration_seconds{server_env=~\"$server_env\",service_name=~\"$service_name_http\",job=\"blackbox-exporter kubernetes services\"})",
               "format": "time_series",
+              "interval": "",
               "intervalFactor": 1,
               "legendFormat": "{{instance}}{{request}}",
               "refId": "A"
@@ -975,7 +976,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "topk($limit, probe_http_duration_seconds{server_env=~\"$server_env\",service_name=~\"$service_name_http\"})",
+              "expr": "topk($limit, probe_http_duration_seconds{server_env=~\"$server_env\",service_name=~\"$service_name_http\",job=\"blackbox-exporter kubernetes services\"})",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -1066,7 +1067,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "bottomk($limit, probe_http_content_length{server_env=~\"$server_env\",service_name=~\"$service_name_http\"})",
+              "expr": "bottomk($limit, probe_http_content_length{server_env=~\"$server_env\",service_name=~\"$service_name_http\",job=\"blackbox-exporter kubernetes services\"})",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -1157,7 +1158,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "count(probe_success{server_env=~\"$server_env\",service_name=~\"$service_name_http\"})",
+              "expr": "count(probe_success{server_env=~\"$server_env\",service_name=~\"$service_name_http\",job=\"blackbox-exporter kubernetes services\"})",
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
@@ -4041,7 +4042,7 @@
             "h": 6,
             "w": 24,
             "x": 0,
-            "y": 12
+            "y": 19
           },
           "id": 121,
           "legend": {
@@ -4149,7 +4150,7 @@
             "h": 6,
             "w": 24,
             "x": 0,
-            "y": 18
+            "y": 25
           },
           "id": 52,
           "legend": {
@@ -4241,7 +4242,7 @@
             "h": 6,
             "w": 24,
             "x": 0,
-            "y": 24
+            "y": 31
           },
           "id": 53,
           "legend": {
@@ -4333,7 +4334,7 @@
             "h": 6,
             "w": 24,
             "x": 0,
-            "y": 30
+            "y": 37
           },
           "id": 54,
           "legend": {
@@ -4959,225 +4960,205 @@
             "align": false,
             "alignLevel": null
           }
+        },
+        {
+          "aliasColors": {
+            "Idle - Waiting for something to happen": "#052B51",
+            "guest": "#9AC48A",
+            "idle": "#052B51",
+            "iowait": "#EAB839",
+            "irq": "#BF1B00",
+            "nice": "#C15C17",
+            "softirq": "#E24D42",
+            "steal": "#FCE2DE",
+            "system": "#508642",
+            "user": "#5195CE"
+          },
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "$data_source",
+          "decimals": 2,
+          "description": "System - Processes executing in kernel mode\n\nUser - Normal processes executing in user mode\n\nNice - Niced processes executing in user mode\n\nIdle - Waiting for something to happen\n\nIowait - Waiting for I/O to complete\n\nIrq - Servicing interrupts\n\nSoftirq - Servicing softirqs\n\nSteal - Time spent in other operating systems when running in a virtualized environment\n\nGuest - Time spent running a virtual CPU for a guest operating system",
+          "fill": 4,
+          "gridPos": {
+            "h": 6,
+            "w": 24,
+            "x": 0,
+            "y": 20
+          },
+          "id": 151,
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": true,
+            "max": true,
+            "min": false,
+            "rightSide": true,
+            "show": true,
+            "sideWidth": null,
+            "sort": "current",
+            "sortDesc": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "minSpan": 4,
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "repeat": null,
+          "repeatDirection": "v",
+          "seriesOverrides": [
+            {
+              "alias": "/Idle/",
+              "color": "#511749"
+            }
+          ],
+          "spaceLength": 10,
+          "stack": true,
+          "steppedLine": false,
+          "targets": [
+            {
+              "expr": "avg(topk($limit, sum(irate(node_cpu_seconds_total{job=\"node_exporter kubernetes\",mode=\"system\",server_env=~\"$server_env\",node_name=~\"$node_name\",pod_name=~\"node-exporter.*\"}[5m])) without (cpu,mode) / instance:node_cpus:count))",
+              "format": "time_series",
+              "hide": false,
+              "instant": false,
+              "interval": "10s",
+              "intervalFactor": 2,
+              "legendFormat": "System",
+              "refId": "A",
+              "step": 20
+            },
+            {
+              "expr": "avg(topk($limit, sum(irate(node_cpu_seconds_total{job=\"node_exporter kubernetes\",mode='user',server_env=~\"$server_env\",node_name=~\"$node_name\",pod_name=~\"node-exporter.*\"}[5m])) without (cpu,mode) / instance:node_cpus:count))",
+              "format": "time_series",
+              "hide": false,
+              "interval": "",
+              "intervalFactor": 2,
+              "legendFormat": "User",
+              "refId": "B",
+              "step": 240
+            },
+            {
+              "expr": "avg(topk($limit, sum(irate(node_cpu_seconds_total{job=\"node_exporter kubernetes\",mode='nice',server_env=~\"$server_env\",node_name=~\"$node_name\",pod_name=~\"node-exporter.*\"}[5m])) without (cpu,mode) / instance:node_cpus:count))",
+              "format": "time_series",
+              "hide": false,
+              "interval": "",
+              "intervalFactor": 2,
+              "legendFormat": "Nice",
+              "refId": "C",
+              "step": 240
+            },
+            {
+              "expr": "avg(topk($limit, sum(irate(node_cpu_seconds_total{job=\"node_exporter kubernetes\",mode='idle',server_env=~\"$server_env\",node_name=~\"$node_name\",pod_name=~\"node-exporter.*\"}[5m])) without (cpu,mode) / instance:node_cpus:count))",
+              "format": "time_series",
+              "hide": false,
+              "interval": "",
+              "intervalFactor": 2,
+              "legendFormat": "Idle",
+              "refId": "F",
+              "step": 240
+            },
+            {
+              "expr": "avg(topk($limit, sum(irate(node_cpu_seconds_total{job=\"node_exporter kubernetes\",mode='iowait',server_env=~\"$server_env\",node_name=~\"$node_name\",pod_name=~\"node-exporter.*\"}[5m])) without (cpu,mode) / instance:node_cpus:count))",
+              "format": "time_series",
+              "hide": false,
+              "interval": "",
+              "intervalFactor": 2,
+              "legendFormat": "Iowait",
+              "refId": "D",
+              "step": 240
+            },
+            {
+              "expr": "avg(topk($limit, sum(irate(node_cpu_seconds_total{job=\"node_exporter kubernetes\",mode='irq',server_env=~\"$server_env\",node_name=~\"$node_name\",pod_name=~\"node-exporter.*\"}[5m])) without (cpu,mode) / instance:node_cpus:count))",
+              "format": "time_series",
+              "hide": false,
+              "interval": "",
+              "intervalFactor": 2,
+              "legendFormat": "Irq",
+              "refId": "G",
+              "step": 240
+            },
+            {
+              "expr": "avg(topk($limit, sum(irate(node_cpu_seconds_total{job=\"node_exporter kubernetes\",mode='softirq',server_env=~\"$server_env\",node_name=~\"$node_name\",pod_name=~\"node-exporter.*\"}[5m])) without (cpu,mode) / instance:node_cpus:count))",
+              "format": "time_series",
+              "hide": false,
+              "interval": "",
+              "intervalFactor": 2,
+              "legendFormat": "Softirq",
+              "refId": "H",
+              "step": 240
+            },
+            {
+              "expr": "avg(topk($limit, sum(irate(node_cpu_seconds_total{job=\"node_exporter kubernetes\",mode='steal',server_env=~\"$server_env\",node_name=~\"$node_name\",pod_name=~\"node-exporter.*\"}[5m])) without (cpu,mode) / instance:node_cpus:count))",
+              "format": "time_series",
+              "hide": false,
+              "interval": "",
+              "intervalFactor": 2,
+              "legendFormat": "Steal",
+              "refId": "E",
+              "step": 240
+            },
+            {
+              "expr": "avg(topk($limit, sum(irate(node_cpu_seconds_total{job=\"node_exporter kubernetes\",mode='guest',server_env=~\"$server_env\",node_name=~\"$node_name\",pod_name=~\"node-exporter.*\"}[5m])) without (cpu,mode) / instance:node_cpus:count))",
+              "format": "time_series",
+              "hide": false,
+              "interval": "",
+              "intervalFactor": 2,
+              "legendFormat": "Guest",
+              "refId": "I",
+              "step": 240
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "CPU stack  average",
+          "tooltip": {
+            "shared": false,
+            "sort": 2,
+            "value_type": "individual"
+          },
+          "transparent": false,
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "percentunit",
+              "label": "",
+              "logBase": 1,
+              "max": null,
+              "min": "0",
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": false
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
         }
       ],
       "title": "Host machines CPU",
       "type": "row"
-    },
-    {
-      "collapsed": false,
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 26
-      },
-      "id": 42,
-      "panels": [],
-      "title": "Host machines System",
-      "type": "row"
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "$data_source",
-      "description": "Load Averages",
-      "fill": 1,
-      "gridPos": {
-        "h": 6,
-        "w": 24,
-        "x": 0,
-        "y": 27
-      },
-      "id": 21,
-      "legend": {
-        "alignAsTable": true,
-        "avg": true,
-        "current": true,
-        "max": true,
-        "min": false,
-        "rightSide": true,
-        "show": true,
-        "sort": "current",
-        "sortDesc": true,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
-      "links": [],
-      "nullPointMode": "null",
-      "percentage": false,
-      "pointradius": 5,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [
-        {
-          "alias": "Max number of cores",
-          "color": "#e24d42",
-          "fill": 0
-        }
-      ],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "expr": "node_load1{job=\"node_exporter kubernetes\",server_env=~\"$server_env\",node_name=~\"$node_name\"}",
-          "format": "time_series",
-          "hide": false,
-          "interval": "",
-          "intervalFactor": 2,
-          "legendFormat": "{{node_name}}",
-          "refId": "A"
-        },
-        {
-          "expr": "max(instance:node_cpus:count{job=\"node_exporter kubernetes\",server_env=~\"$server_env\",node_name=~\"$node_name\"})",
-          "format": "time_series",
-          "hide": false,
-          "intervalFactor": 1,
-          "legendFormat": "Max number of cores",
-          "refId": "C"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "LA1",
-      "tooltip": {
-        "shared": true,
-        "sort": 2,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "$data_source",
-      "description": "",
-      "fill": 1,
-      "gridPos": {
-        "h": 6,
-        "w": 24,
-        "x": 0,
-        "y": 33
-      },
-      "id": 40,
-      "legend": {
-        "alignAsTable": true,
-        "avg": true,
-        "current": true,
-        "max": true,
-        "min": false,
-        "rightSide": true,
-        "show": true,
-        "sort": "current",
-        "sortDesc": false,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
-      "links": [],
-      "nullPointMode": "null",
-      "percentage": false,
-      "pointradius": 5,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [
-        {
-          "alias": "number of cores",
-          "color": "#e24d42",
-          "fill": 0
-        }
-      ],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "expr": "node_time_seconds{job=\"node_exporter kubernetes\",server_env=~\"$server_env\",node_name=~\"$node_name\",pod_name=~\"node-exporter.*\"} - node_boot_time_seconds",
-          "format": "time_series",
-          "hide": false,
-          "interval": "",
-          "intervalFactor": 2,
-          "legendFormat": "{{node_name}}",
-          "refId": "B"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Uptime",
-      "tooltip": {
-        "shared": true,
-        "sort": 1,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "s",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
     },
     {
       "collapsed": true,
@@ -5185,7 +5166,223 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 39
+        "y": 26
+      },
+      "id": 42,
+      "panels": [
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "$data_source",
+          "description": "Load Averages",
+          "fill": 1,
+          "gridPos": {
+            "h": 6,
+            "w": 24,
+            "x": 0,
+            "y": 15
+          },
+          "id": 21,
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": true,
+            "max": true,
+            "min": false,
+            "rightSide": true,
+            "show": true,
+            "sort": "current",
+            "sortDesc": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "alias": "Max number of cores",
+              "color": "#e24d42",
+              "fill": 0
+            }
+          ],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "expr": "node_load1{job=\"node_exporter kubernetes\",server_env=~\"$server_env\",node_name=~\"$node_name\"}",
+              "format": "time_series",
+              "hide": false,
+              "interval": "",
+              "intervalFactor": 2,
+              "legendFormat": "{{node_name}}",
+              "refId": "A"
+            },
+            {
+              "expr": "max(instance:node_cpus:count{job=\"node_exporter kubernetes\",server_env=~\"$server_env\",node_name=~\"$node_name\"})",
+              "format": "time_series",
+              "hide": false,
+              "intervalFactor": 1,
+              "legendFormat": "Max number of cores",
+              "refId": "C"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "LA1",
+          "tooltip": {
+            "shared": true,
+            "sort": 2,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "$data_source",
+          "description": "",
+          "fill": 1,
+          "gridPos": {
+            "h": 6,
+            "w": 24,
+            "x": 0,
+            "y": 21
+          },
+          "id": 40,
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": true,
+            "max": true,
+            "min": false,
+            "rightSide": true,
+            "show": true,
+            "sort": "current",
+            "sortDesc": false,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "alias": "number of cores",
+              "color": "#e24d42",
+              "fill": 0
+            }
+          ],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "expr": "node_time_seconds{job=\"node_exporter kubernetes\",server_env=~\"$server_env\",node_name=~\"$node_name\",pod_name=~\"node-exporter.*\"} - node_boot_time_seconds",
+              "format": "time_series",
+              "hide": false,
+              "interval": "",
+              "intervalFactor": 2,
+              "legendFormat": "{{node_name}}",
+              "refId": "B"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Uptime",
+          "tooltip": {
+            "shared": true,
+            "sort": 1,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "s",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        }
+      ],
+      "title": "Host machines System",
+      "type": "row"
+    },
+    {
+      "collapsed": true,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 27
       },
       "id": 74,
       "panels": [
@@ -5383,6 +5580,206 @@
             "align": false,
             "alignLevel": null
           }
+        },
+        {
+          "aliasColors": {
+            "Apps": "#629E51",
+            "Buffers": "#614D93",
+            "Cache": "#6D1F62",
+            "Cached": "#511749",
+            "Committed": "#508642",
+            "Free": "#0A437C",
+            "Harware Corrupted - Amount of RAM that the kernel identified as corrupted / not working": "#CFFAFF",
+            "Inactive": "#584477",
+            "PageTables": "#0A50A1",
+            "Page_Tables": "#0A50A1",
+            "RAM_Free": "#E0F9D7",
+            "Slab": "#806EB7",
+            "Slab_Cache": "#E0752D",
+            "Swap": "#BF1B00",
+            "Swap - Swap memory usage": "#BF1B00",
+            "Swap_Cache": "#C15C17",
+            "Swap_Free": "#2F575E",
+            "Unused": "#EAB839",
+            "Unused - Free memory unasigned": "#052B51"
+          },
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "$data_source",
+          "decimals": 2,
+          "description": "Apps - Memory used by user-space applications\n\nPageTables - Memory used to map between virtual and physical memory addresses\n\nSwapCache - Memory that keeps track of pages that have been fetched from swap but not yet been modified\n\nSlab - Memory used by the kernel to cache data structures for its own use (caches like inode, dentry, etc)\n\nCache - Parked file data (file content) cache\n\nBuffers - Block device (e.g. harddisk) cache\n\nUnused - Free memory unasigned\n\nSwap - Swap space used\n\nHarware Corrupted - Amount of RAM that the kernel identified as corrupted / not working",
+          "fill": 4,
+          "gridPos": {
+            "h": 6,
+            "w": 24,
+            "x": 0,
+            "y": 28
+          },
+          "id": 153,
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": true,
+            "max": true,
+            "min": false,
+            "rightSide": true,
+            "show": true,
+            "sideWidth": null,
+            "sort": "current",
+            "sortDesc": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "minSpan": 4,
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "repeat": null,
+          "repeatDirection": "v",
+          "seriesOverrides": [
+            {
+              "alias": "/.*Harware Corrupted - *./",
+              "stack": false
+            }
+          ],
+          "spaceLength": 10,
+          "stack": true,
+          "steppedLine": false,
+          "targets": [
+            {
+              "expr": "avg(topk($limit, node_memory_MemTotal_bytes{job=\"node_exporter kubernetes\",server_env=~\"$server_env\",node_name=~\"$node_name\",pod_name=~\"node-exporter.*\"} - node_memory_MemFree_bytes - node_memory_Buffers_bytes - node_memory_Cached_bytes - node_memory_Slab_bytes - node_memory_PageTables_bytes - node_memory_SwapCached_bytes))",
+              "format": "time_series",
+              "hide": false,
+              "interval": "",
+              "intervalFactor": 2,
+              "legendFormat": "Apps",
+              "refId": "Q",
+              "step": 240
+            },
+            {
+              "expr": "avg(topk($limit, node_memory_PageTables_bytes{job=\"node_exporter kubernetes\",server_env=~\"$server_env\",node_name=~\"$node_name\",pod_name=~\"node-exporter.*\"}))",
+              "format": "time_series",
+              "hide": false,
+              "intervalFactor": 2,
+              "legendFormat": "PageTables",
+              "refId": "G",
+              "step": 240
+            },
+            {
+              "expr": "avg(topk($limit, node_memory_SwapCached_bytes{job=\"node_exporter kubernetes\",server_env=~\"$server_env\",node_name=~\"$node_name\",pod_name=~\"node-exporter.*\"}))",
+              "format": "time_series",
+              "hide": false,
+              "interval": "",
+              "intervalFactor": 2,
+              "legendFormat": "SwapCache",
+              "refId": "F",
+              "step": 240
+            },
+            {
+              "expr": "avg(topk($limit, node_memory_Slab_bytes{job=\"node_exporter kubernetes\",server_env=~\"$server_env\",node_name=~\"$node_name\",pod_name=~\"node-exporter.*\"}))",
+              "format": "time_series",
+              "hide": false,
+              "interval": "",
+              "intervalFactor": 2,
+              "legendFormat": "Slab",
+              "refId": "E",
+              "step": 240
+            },
+            {
+              "expr": "avg(topk($limit, node_memory_Cached_bytes{job=\"node_exporter kubernetes\",server_env=~\"$server_env\",node_name=~\"$node_name\",pod_name=~\"node-exporter.*\"}))",
+              "format": "time_series",
+              "hide": false,
+              "interval": "",
+              "intervalFactor": 2,
+              "legendFormat": "Cache",
+              "refId": "C",
+              "step": 240
+            },
+            {
+              "expr": "avg(topk($limit, node_memory_Buffers_bytes{job=\"node_exporter kubernetes\",server_env=~\"$server_env\",node_name=~\"$node_name\",pod_name=~\"node-exporter.*\"}))",
+              "format": "time_series",
+              "hide": false,
+              "interval": "",
+              "intervalFactor": 2,
+              "legendFormat": "Buffers",
+              "refId": "B",
+              "step": 240
+            },
+            {
+              "expr": "avg(topk($limit, node_memory_MemFree_bytes{job=\"node_exporter kubernetes\",server_env=~\"$server_env\",node_name=~\"$node_name\",pod_name=~\"node-exporter.*\"}))",
+              "format": "time_series",
+              "hide": false,
+              "interval": "",
+              "intervalFactor": 2,
+              "legendFormat": "Unused",
+              "refId": "D",
+              "step": 240
+            },
+            {
+              "expr": "avg(topk($limit, node_memory_SwapTotal_bytes{job=\"node_exporter kubernetes\",server_env=~\"$server_env\",node_name=~\"$node_name\",pod_name=~\"node-exporter.*\"} - node_memory_SwapFree_bytes))",
+              "format": "time_series",
+              "hide": false,
+              "intervalFactor": 2,
+              "legendFormat": "Swap",
+              "refId": "I",
+              "step": 240
+            },
+            {
+              "expr": "avg(topk($limit, node_memory_HardwareCorrupted_bytes{job=\"node_exporter kubernetes\",server_env=~\"$server_env\",node_name=~\"$node_name\",pod_name=~\"node-exporter.*\"}))",
+              "format": "time_series",
+              "hide": false,
+              "interval": "",
+              "intervalFactor": 2,
+              "legendFormat": "Harware Corrupted",
+              "refId": "O",
+              "step": 240
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Memory stack average",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "bytes",
+              "label": "Bytes",
+              "logBase": 1,
+              "max": null,
+              "min": "0",
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": false
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
         }
       ],
       "title": "Host machines Memory",
@@ -5394,7 +5791,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 40
+        "y": 28
       },
       "id": 72,
       "panels": [
@@ -5616,7 +6013,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 41
+        "y": 29
       },
       "id": 70,
       "panels": [
@@ -6185,7 +6582,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 42
+        "y": 30
       },
       "id": 82,
       "panels": [
@@ -6753,7 +7150,7 @@
         "allValue": null,
         "current": {},
         "datasource": "${DS_PROMETHEUS-PROD}",
-        "hide": 0,
+        "hide": 2,
         "includeAll": false,
         "label": "",
         "multi": false,
@@ -6772,8 +7169,8 @@
       },
       {
         "current": {
-          "text": "prometheus-dev",
-          "value": "prometheus-dev"
+          "text": "prometheus-prod",
+          "value": "prometheus-prod"
         },
         "hide": 2,
         "label": "Data source",
@@ -6900,7 +7297,7 @@
         "multi": true,
         "name": "service_name_http",
         "options": [],
-        "query": "label_values(probe_success{server_env=~\".*$server_env.*\"}, service_name)",
+        "query": "label_values(probe_success{server_env=~\".*$server_env.*\",job=\"blackbox-exporter kubernetes services\"}, service_name)",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -7027,7 +7424,7 @@
     ]
   },
   "time": {
-    "from": "now-30m",
+    "from": "now-5m",
     "to": "now"
   },
   "timepicker": {
@@ -7059,5 +7456,5 @@
   "timezone": "",
   "title": "Kubernetes metrics",
   "uid": "1xIGyoZZz",
-  "version": 15
+  "version": 12
 }
