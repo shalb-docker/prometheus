@@ -29,7 +29,7 @@ groups:
           description: 'Go to instance: "{{ $labels.instance }}" and check if service: "nginx_exporter" is running'
           grafana: "{{ GRAFANA_NGINX_EXPORTER_UP_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
-          priority: "P2"
+          priority: "P3"
 
       - alert: "nginx_exporter down P2"
         expr: up{host_priority="P2",instance=~".*:9113"} == 0

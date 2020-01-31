@@ -1,0 +1,13 @@
+groups:
+  - name: "monit type=program alerts"
+    rules:
+      - alert: "backup check failed"
+        expr: node_monit{type="file",key="status",name=~".*rsnapshot.*|.*backup.*"} > 0
+        for: 2m
+        annotations:
+          summary: 'backup check: "{{ $labels.name }}" failed'
+          description: 'Go to host: "{{ $labels.hostname }}"; find more info in monit config (grep -r {{ $labels.name }} /etc/monit.d/); monit log: /var/log/monit.log'
+          grafana: "{{ GRAFANA_MONIT_CHECK_STATUS_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
+          priority: "P5"
+
