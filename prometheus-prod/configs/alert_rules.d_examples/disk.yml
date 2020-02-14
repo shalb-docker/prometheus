@@ -30,7 +30,7 @@ groups:
 
 
       - alert: "Mount point available space (critical mounts) < 1% P1-3"
-        expr: (node_filesystem_avail_bytes{host_priority=~"P[1-3]",project!~"hotline|realtor",mountpoint!~".*backup.*|.*home.*|.*boot.*|.*node_exporter.*"} / instance:node_filesystem_size_bytes:hdd_0p_200) * 100 < 1
+        expr: (node_filesystem_avail_bytes{host_priority=~"P[1-3]",mountpoint!~".*backup.*|.*home.*|.*boot.*|.*node_exporter.*"} / instance:node_filesystem_size_bytes:hdd_0p_200) * 100 < 1
         annotations:
           summary: "Mount point: {{ $labels.mountpoint }} available space < 1%"
           description: 'Go to host: "{{ $labels.hostname }}" and delete some unused data, notify customer about problems with free space, see {{ WIKI_DISK_AVAILABLE_SPACE }}'
@@ -39,7 +39,7 @@ groups:
           priority: "P2"
 
       - alert: "Mount point available space (critical mounts) < 1%"
-        expr: (node_filesystem_avail_bytes{host_priority!~"P[1-3]",project!~"hotline|realtor",mountpoint!~".*backup.*|.*home.*|.*boot.*|.*node_exporter.*"} / instance:node_filesystem_size_bytes:hdd_0p_200) * 100 < 1
+        expr: (node_filesystem_avail_bytes{host_priority!~"P[1-3]",mountpoint!~".*backup.*|.*home.*|.*boot.*|.*node_exporter.*"} / instance:node_filesystem_size_bytes:hdd_0p_200) * 100 < 1
         annotations:
           summary: "Mount point: {{ $labels.mountpoint }} available space < 1%"
           description: 'Go to host: "{{ $labels.hostname }}" and delete some unused data, notify customer about problems with free space, see {{ WIKI_DISK_AVAILABLE_SPACE }}'
@@ -51,7 +51,7 @@ groups:
   - name: disk usage alerts (not critical mounts) 0-200 Gib
     rules:
       - alert: "Mount point available space (not critical mounts) < 5%"
-        expr: (node_filesystem_avail_bytes{project!~"hotline|realtor",mountpoint=~".*backup.*|.*home.*|.*boot.*|.*node_exporter.*"} / instance:node_filesystem_size_bytes:hdd_0p_200) * 100 < 5
+        expr: (node_filesystem_avail_bytes{mountpoint=~".*backup.*|.*home.*|.*boot.*|.*node_exporter.*"} / instance:node_filesystem_size_bytes:hdd_0p_200) * 100 < 5
         annotations:
           summary: "Mount point: {{ $labels.mountpoint }} available space < 5%"
           description: 'Go to host: "{{ $labels.hostname }}" and delete some unused data, notify customer about problems with free space, see {{ WIKI_DISK_AVAILABLE_SPACE }}'
@@ -63,7 +63,7 @@ groups:
   - name: disk usage alerts (all mounts) 200+ Gib
     rules:
       - alert: "Mount point available space (all mounts) < 20 Gib"
-        expr: (node_filesystem_avail_bytes{project!~"hotline|realtor"} <= instance:node_filesystem_size_bytes:hdd_200_100p) / 1024 / 1024 / 1024 < 20
+        expr: (node_filesystem_avail_bytes{} <= instance:node_filesystem_size_bytes:hdd_200_100p) / 1024 / 1024 / 1024 < 20
         annotations:
           summary: "Mount point: {{ $labels.mountpoint }} available space < 20 Gib"
           description: 'Go to host: "{{ $labels.hostname }}" and delete some unused data, notify customer about problems with free space, see {{ WIKI_DISK_AVAILABLE_SPACE }}'
@@ -74,7 +74,7 @@ groups:
   - name: disk usage alerts (critical mounts) 200+ Gib
     rules:
       - alert: "Mount point available space (critical mounts) < 10 Gib"
-        expr: (node_filesystem_avail_bytes{project!~"hotline|realtor",mountpoint!~".*backup.*|.*home.*|.*boot.*|.*node_exporter.*"} <= instance:node_filesystem_size_bytes:hdd_200_100p) / 1024 / 1024 / 1024 < 10
+        expr: (node_filesystem_avail_bytes{mountpoint!~".*backup.*|.*home.*|.*boot.*|.*node_exporter.*"} <= instance:node_filesystem_size_bytes:hdd_200_100p) / 1024 / 1024 / 1024 < 10
         annotations:
           summary: "Mount point: {{ $labels.mountpoint }} available space < 10 Gib"
           description: 'Go to host: "{{ $labels.hostname }}" and delete some unused data, notify customer about problems with free space, see {{ WIKI_DISK_AVAILABLE_SPACE }}'
@@ -84,7 +84,7 @@ groups:
 
 
       - alert: "Mount point available space (critical mounts) < 2 Gib P1-3"
-        expr: (node_filesystem_avail_bytes{host_priority=~"P[1-3]",project!~"hotline|realtor",mountpoint!~".*backup.*|.*home.*|.*boot.*|.*node_exporter.*"} <= instance:node_filesystem_size_bytes:hdd_200_100p) / 1024 / 1024 / 1024 < 2
+        expr: (node_filesystem_avail_bytes{host_priority=~"P[1-3]",mountpoint!~".*backup.*|.*home.*|.*boot.*|.*node_exporter.*"} <= instance:node_filesystem_size_bytes:hdd_200_100p) / 1024 / 1024 / 1024 < 2
         annotations:
           summary: "Mount point: {{ $labels.mountpoint }} available space < 2 Gib"
           description: 'Go to host: "{{ $labels.hostname }}" and delete some unused data, notify customer about problems with free space, see {{ WIKI_DISK_AVAILABLE_SPACE }}'
@@ -93,7 +93,7 @@ groups:
           priority: "P2"
 
       - alert: "Mount point available space (critical mounts) < 2 Gib"
-        expr: (node_filesystem_avail_bytes{host_priority!~"P[1-3]",project!~"hotline|realtor",mountpoint!~".*backup.*|.*home.*|.*boot.*|.*node_exporter.*"} <= instance:node_filesystem_size_bytes:hdd_200_100p) / 1024 / 1024 / 1024 < 2
+        expr: (node_filesystem_avail_bytes{host_priority!~"P[1-3]",mountpoint!~".*backup.*|.*home.*|.*boot.*|.*node_exporter.*"} <= instance:node_filesystem_size_bytes:hdd_200_100p) / 1024 / 1024 / 1024 < 2
         annotations:
           summary: "Mount point: {{ $labels.mountpoint }} available space < 2 Gib"
           description: 'Go to host: "{{ $labels.hostname }}" and delete some unused data, notify customer about problems with free space, see {{ WIKI_DISK_AVAILABLE_SPACE }}'
@@ -105,7 +105,7 @@ groups:
   - name: disk usage alerts (not critical mounts) 200+ Gib
     rules:
       - alert: "Mount point available space (not critical mounts) < 2 Gib"
-        expr: (node_filesystem_avail_bytes{project!~"hotline|realtor",mountpoint=~".*backup.*|.*home.*|.*boot.*|.*node_exporter.*"} <= instance:node_filesystem_size_bytes:hdd_200_100p) / 1024 / 1024 / 1024 < 2
+        expr: (node_filesystem_avail_bytes{mountpoint=~".*backup.*|.*home.*|.*boot.*|.*node_exporter.*"} <= instance:node_filesystem_size_bytes:hdd_200_100p) / 1024 / 1024 / 1024 < 2
         annotations:
           summary: "Mount point: {{ $labels.mountpoint }} available space < 2 Gib"
           description: 'Go to host: "{{ $labels.hostname }}" and delete some unused data, notify customer about problems with free space, see {{ WIKI_DISK_AVAILABLE_SPACE }}'
