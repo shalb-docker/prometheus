@@ -53,6 +53,14 @@ inhibit_rules:
     target_match_re:
        alertname: '.*'
     equal: ['hostname']
+  - source_match_re:
+       alertname: '^host\s+down.*'
+    target_match_re:
+       alertname: '^prometheus\s+dialer\s+has\s+to\s+many\s+connection\s+errors.*'
+  - source_match_re:
+       alertname: '.*_exporter\s+down.*'
+    target_match_re:
+       alertname: '^prometheus\s+dialer\s+has\s+to\s+many\s+connection\s+errors.*'
 
 
 receivers:
