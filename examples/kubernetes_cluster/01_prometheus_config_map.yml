@@ -179,23 +179,23 @@ data:
      #  kubernetes_sd_configs:
      #  - role: service
      #  relabel_configs:
-     # #- source_labels: [__meta_kubernetes_service_name]
-     # #  regex: "certificates|learning-objective-maker|lti-service|pdf-converter|progress-storage"
-     # #  action: keep
-     #  - source_labels: [__address__]
-     #    target_label: instance
-     #  - source_labels: [__address__]
-     #    target_label: __param_target
-     #  - target_label: __address__
-     #    replacement: blackbox-exporter:9115
-     #  - target_label: request
-     #    replacement: '/'
-     #  - source_labels: [__meta_kubernetes_namespace]
-     #    target_label: namespace
-     #  - source_labels: [__meta_kubernetes_service_name]
-     #    target_label: service_name
+     #   #- source_labels: [__meta_kubernetes_service_name]
+     #   #  regex: "certificates|learning-objective-maker|lti-service|pdf-converter|progress-storage"
+     #   #  action: keep
+     #    - source_labels: [__address__]
+     #      target_label: instance
+     #    - source_labels: [__address__]
+     #      target_label: __param_target
+     #    - target_label: __address__
+     #      replacement: blackbox-exporter:9115
+     #    - target_label: request
+     #      replacement: '/'
+     #    - source_labels: [__meta_kubernetes_namespace]
+     #      target_label: namespace
+     #    - source_labels: [__meta_kubernetes_service_name]
+     #      target_label: service_name
      #  metric_relabel_configs:
-     #  - source_labels: [ __name__ ]
-     #    regex: 'probe_success|probe_http_status_code|probe_duration_seconds|probe_http_duration_seconds|probe_http_content_length'
-     #    action: keep
+     #    - source_labels: [ __name__ ]
+     #      regex: 'probe_success|probe_failed_due_to_regex|probe_http_status_code|probe_duration_seconds|probe_http_duration_seconds|probe_http_content_length|probe_ssl_earliest_cert_expiry'
+     #      action: keep
 
