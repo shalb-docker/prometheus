@@ -407,7 +407,7 @@ example playbook monit.yml:
 ### Todo
 
 ~~~~
-variables for 'username' and 'password'  - actual problem for h.shalb.com
+variables for 'username' and 'password'  - actual problem for shared hosting hosts
 set mailserver localhost port 25 username "MY_USERNAME" password "MY_PASSWORD"
 
 system.conf
@@ -426,7 +426,7 @@ check process lsyncd
   stop program = "/usr/bin/killall lsyncd"
   if 3 restarts within 3 cycles then alert
 
-CHECK PROGRAM lsync_file WITH PATH "/usr/bin/flock -xw 1 /tmp/lsync_file.lock -c '/usr/local/scripts/monit/lsync_file.sh gordon-prod2.shalb.com'" 
+CHECK PROGRAM lsync_file WITH PATH "/usr/bin/flock -xw 1 /tmp/lsync_file.lock -c '/usr/local/scripts/monit/lsync_file.sh example.com'" 
   IF STATUS != 0 FOR 1 CYCLES THEN ALERT
   depends on lsyncd
 ~~~~
@@ -438,4 +438,4 @@ BSD
 
 ### Author Information
 
-shalb.com
+shalb

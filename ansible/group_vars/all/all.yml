@@ -2,6 +2,6 @@ monit_collector_opsgenie_default_team: "SHALB Support"
 monit_collector_disable_own_alerting_code: "true"
 #monit_collector_alert_message: "monit | {host_name} | {service}"
 #monit_collector_alert_help:  "Go to host and check alert description in monit config: grep -r {service} /etc/monit*"
-#monit_collector_alert_access: 'https://confluence.shalb.com/display/MY_PROJECT/Access#Access-Grafana,Prometheus,Alertmanager'
+#monit_collector_alert_access: 'https://confluence.example.com/display/MY_PROJECT/Access#Access-Grafana,Prometheus,Alertmanager'
 #monit_collector_alert_grafana: "https://grafana.MY_DOMAIN/d/RGx4RH-ik/monit-exporter?&var-node={host_name}.MY_DOMAIN:9100"
 #monit_collector_alert_prometheus: "https://prometheus.MY_DOMAIN/graph?g0.range_input=1h&g0.expr=node_monit%7Binstance%3D%22{host_name}.MY_DOMAIN%3A9100%22%2Cname%3D%22{service}%22%2Ckey%3D%22status%22%7D%20!%3D%200&g0.tab=1"

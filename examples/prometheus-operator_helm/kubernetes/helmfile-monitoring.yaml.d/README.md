@@ -15,7 +15,7 @@ export PATH="~/bin:$PATH"
 
 Create 'secrets' file and apply if deploy first time.
 
-If stack configured already, then copy secrets from wiki and apply (see secrets here https://confluence.shalb.com/pages/viewpage.action?spaceKey={{ PROJECT }}&title=Access#Access-{{ ENV }})
+If stack configured already, then copy secrets from wiki and apply (see secrets here https://confluence.{{ WIKI_BASE_DOMAIN }}/pages/viewpage.action?spaceKey={{ PROJECT }}&title=Access#Access-{{ ENV }})
 
 ~~~~
 cp ./helmfile-monitoring.yaml.d/secrets.example ./helmfile-monitoring.yaml.d/secrets
