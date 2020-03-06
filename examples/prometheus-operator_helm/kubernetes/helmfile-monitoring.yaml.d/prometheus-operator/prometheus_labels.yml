@@ -1,0 +1,13 @@
+prometheus:
+  prometheusSpec:
+    externalLabels:
+      cluster_name: {{ CLUSTER_NAME }}
+      server_env: {{ ENV }}
+      project: {{ PROJECT }}
+
+#nodeExporter:
+#  serviceMonitor:
+#    relabelings:
+#      - sourceLabels: [__meta_kubernetes_endpoint_node_name]
+#        targetLabel: node
+

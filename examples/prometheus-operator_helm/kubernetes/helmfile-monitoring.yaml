@@ -1,0 +1,26 @@
+helmDefaults:
+  tillerless: true
+  kubeContext: {{ CLUSTER_NAME }}
+
+releases:
+### Prometheus stack
+  - name: prometheus-operator
+    installed: true
+    namespace: monitoring
+    chart: stable/prometheus-operator
+    version: 8.1.0
+    values:
+      - helmfile-monitoring.yaml.d/prometheus-operator/prometheus_storage.yml
+      - helmfile-monitoring.yaml.d/prometheus-operator/prometheus_labels.yml
+      - helmfile-monitoring.yaml.d/prometheus-operator/prometheus_ingress.yml
+      - helmfile-monitoring.yaml.d/prometheus-operator/prometheus_retention.yml
+      - helmfile-monitoring.yaml.d/prometheus-operator/alertmanager_configs.yml
+      - helmfile-monitoring.yaml.d/prometheus-operator/alertmanager_ingress.yml
+      - helmfile-monitoring.yaml.d/prometheus-operator/alertmanager_storage.yml
+      - helmfile-monitoring.yaml.d/prometheus-operator/grafana_ingress.yml
+      - helmfile-monitoring.yaml.d/prometheus-operator/grafana_password.yml
+      - helmfile-monitoring.yaml.d/prometheus-operator/grafana_storage.yml
+     #- helmfile-monitoring.yaml.d/prometheus-operator/disabled.yml
+      - helmfile-monitoring.yaml.d/prometheus-operator/prometheus_scrape_configs.yml
+     #- helmfile-monitoring.yaml.d/prometheus-operator/prometheus_alerts.yml
+

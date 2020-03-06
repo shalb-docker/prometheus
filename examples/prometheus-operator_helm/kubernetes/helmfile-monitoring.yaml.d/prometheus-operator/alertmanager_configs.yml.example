@@ -1,0 +1,60 @@
+alertmanager:
+  config:
+    global:
+      resolve_timeout: 5m
+    route:
+      group_by: [namespace, pod, container, cluster_name, instance, alertname, severity, name, master_host, mountpoint, node_name, service_name, service_name_http, container_name, pod_name, load_balancer, target_group, dbinstance_identifier]
+      group_wait: 9s
+      group_interval: 9s
+      repeat_interval: 8737h
+      receiver: blackhole
+      routes:
+     #- receiver: customer_slack
+     #  group_by: [namespace, pod, container, cluster_name, instance, alertname, severity, name, master_host, mountpoint, node_name, service_name, service_name_http, container_name, pod_name, load_balancer, target_group, dbinstance_identifier]
+     #  continue: true
+     #  repeat_interval: 8737h
+      - receiver: opsgenie_P5
+        group_by: [namespace, pod, container, cluster_name, instance, alertname, severity, name, master_host, mountpoint, node_name, service_name, service_name_http, container_name, pod_name, load_balancer, target_group, dbinstance_identifier]
+        match_re:
+          severity: "warning"
+        continue: true
+        repeat_interval: 8737h
+      - receiver: opsgenie_P3
+        group_by: [namespace, pod, container, cluster_name, instance, alertname, severity, name, master_host, mountpoint, node_name, service_name, service_name_http, container_name, pod_name, load_balancer, target_group, dbinstance_identifier]
+        match_re:
+          severity: "critical"
+        continue: true
+        repeat_interval: 8737h
+
+
+    receivers:
+    - name: blackhole
+
+    - name: opsgenie_P3
+      opsgenie_configs:
+        - api_key: {{ OPSGENIE_API_KEY }}
+          responders:
+            - name: SHALB Support
+              type: team
+          message: "{{ .GroupLabels.cluster_name }} | {{ .CommonAnnotations.message }}"
+          priority: "P3"
+
+    - name: opsgenie_P5
+      opsgenie_configs:
+        - api_key: {{ OPSGENIE_API_KEY }}
+          responders:
+            - name: SHALB Support
+              type: team
+          message: "{{ .GroupLabels.cluster_name }} | {{ .CommonAnnotations.message }}"
+          priority: "P5"
+
+   #- name: customer_slack
+   #  slack_configs:
+   #    - api_url: {{ SLACK_API_URL }}
+   #      username: prometheus
+   #      title: "cluster_name: '{{ .GroupLabels.cluster_name }}' | alert: '{{ .GroupLabels.alertname }}'"
+   #      text: "{{ .CommonAnnotations.message }}"
+   #      title_link: "https://{{ GRAFANA_DOMAIN }}"
+   #      send_resolved: true
+
+

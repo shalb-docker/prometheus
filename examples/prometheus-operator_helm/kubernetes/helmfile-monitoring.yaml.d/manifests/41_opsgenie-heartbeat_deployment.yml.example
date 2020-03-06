@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: opsgenie-heartbeat
+  namespace: monitoring
+  labels:
+    role: opsgenie-heartbeat
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: opsgenie-heartbeat
+  template:
+    metadata:
+      labels:
+        role: monitoring
+        app: opsgenie-heartbeat
+      annotations:
+        monitoring: "true"
+    spec:
+      containers:
+      - name: opsgenie-heartbeat
+        image: shalb/opsgenie-heartbeat:0.0.1
+        ports:
+        - containerPort: 8000
+        env:
+          - name: PROMETHEUS_TEST_URL
+            value: "http://prometheus-operator-prometheus:9090/metrics"
+          - name: ALERTMANAGER_TEST_URL
+            value: "http://prometheus-operator-alertmanager:9093/metrics"
+          - name: OPSGENIE_API_KEY
+            value: "{{ OPSGENIE_API_KEY }}"
+          - name: PROJECT
+            value: "{{ PROJECT }}"

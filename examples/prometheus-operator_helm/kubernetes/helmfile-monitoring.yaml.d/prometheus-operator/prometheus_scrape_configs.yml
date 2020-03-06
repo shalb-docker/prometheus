@@ -1,0 +1,17 @@
+#prometheus:
+#  prometheusSpec:
+#    additionalScrapeConfigs:
+#    - job_name: 'opsgenie-heartbeat local'
+#      scrape_interval: 1m
+#      static_configs:
+#        - targets: ['opsgenie-heartbeat:8000']
+#          labels:
+#            host_priority: 'P5'
+#            server_env: '{{ ENV }}'
+#            hostname: '{{ GRAFANA_DOMAIN }}'
+#            project: '{{ PROJECT }}'
+#      metric_relabel_configs:
+#        - source_labels: [ __name__ ]
+#          regex: 'opsgenie_heartbeat_up|opsgenie_heartbeat_errors_total|opsgenie_heartbeat_prometheus_status'
+#          action: keep
+

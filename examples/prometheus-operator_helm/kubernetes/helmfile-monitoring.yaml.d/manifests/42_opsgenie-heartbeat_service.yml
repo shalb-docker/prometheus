@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: opsgenie-heartbeat
+  namespace: monitoring
+spec:
+  selector:
+    app: opsgenie-heartbeat
+  ports:
+    - protocol: TCP
+      port: 8000
+      targetPort: 8000
