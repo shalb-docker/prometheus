@@ -199,3 +199,29 @@ data:
      #      regex: 'probe_success|probe_failed_due_to_regex|probe_http_status_code|probe_duration_seconds|probe_http_duration_seconds|probe_http_content_length|probe_ssl_earliest_cert_expiry'
      #      action: keep
 
+
+     #- job_name: 'elasticsearch_exporter kubernetes'
+     #  kubernetes_sd_configs:
+     #  - role: pod
+     #  relabel_configs:
+     #  - source_labels: [__meta_kubernetes_pod_annotation_monitoring]
+     #    regex: "true"
+     #    action: keep
+     #  - source_labels: [__address__]
+     #    regex: ".*:9114"
+     #    action: keep
+     #  - source_labels: [__meta_kubernetes_namespace]
+     #    target_label: namespace
+     #  - source_labels: [__meta_kubernetes_pod_node_name]
+     #    target_label: node_name
+     #  - source_labels: [__meta_kubernetes_pod_name]
+     #    target_label: pod_name
+     #  - source_labels: [__meta_kubernetes_pod_container_name]
+     #    target_label: container_name
+     #  - source_labels: [__meta_kubernetes_pod_annotation_elasticsearch_service]
+     #    target_label: hostname
+     #  metric_relabel_configs:
+     #    - source_labels: [ __name__ ]
+     #      regex: 'elasticsearch_cluster_health_up|elasticsearch_node_stats_up|elasticsearch_cluster_health_status|elasticsearch_jvm_gc_collection_seconds_count|elasticsearch_jvm_gc_collection_seconds_sum|elasticsearch_jvm_buffer_pool_used_bytes|elasticsearch_jvm_memory_pool_used_bytes|elasticsearch_jvm_memory_used_bytes'
+     #      action: keep
+

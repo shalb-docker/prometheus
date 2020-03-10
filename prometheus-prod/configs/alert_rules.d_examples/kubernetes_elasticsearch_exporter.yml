@@ -1,0 +1,59 @@
+groups:
+  - name: "kubernetes_elasticsearch_exporter down alerts"
+    rules:
+      - alert: "kubernetes_elasticsearch_exporter down P5"
+        expr: up{instance=~".*:9114"} == 0
+        for: 3m
+        annotations:
+          summary: "kubernetes_elasticsearch_exporter down"
+          description: 'Connect to cluster: "{{ $labels.cluster_name }}" in env: "{{ $labels.server_env }}" and check if pod: "{{ $labels.pod_name }}" is running'
+          grafana: "{{ GRAFANA_KUBERNETES_ELASTICSEARCH_EXPORTER_UP_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
+          priority: "P3"
+
+
+  - name: "parse errors - kubernetes_elasticsearch_exporter"
+    rules:
+      - alert: "kubernetes_elasticsearch_exporter cluster_health has new errors"
+        expr: elasticsearch_cluster_health_up != 1
+        for: 3m
+        annotations:
+          description: 'Connect to cluster: "{{ $labels.cluster_name }}" in env: "{{ $labels.server_env }}" and check log for pod: "{{ $labels.pod_name }}"'
+          grafana: "{{ GRAFANA_KUBERNETES_ELASTICSEARCH_EXPORTER_SCRAPE_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
+          priority: "P3"
+
+
+      - alert: "kubernetes_elasticsearch_exporter node_stats has new errors"
+        expr: elasticsearch_node_stats_up != 1
+        for: 3m
+        annotations:
+          summary: "kubernetes_elasticsearch_exporter has new errors"
+          description: 'Connect to cluster: "{{ $labels.cluster_name }}" in env: "{{ $labels.server_env }}" and check log for pod: "{{ $labels.pod_name }}"'
+          grafana: "{{ GRAFANA_KUBERNETES_ELASTICSEARCH_EXPORTER_SCRAPE_NODE_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
+          priority: "P3"
+
+
+  - name: elasticsearch health alerts
+    rules:
+      - alert: "elasticsearch health is red"
+        expr: elasticsearch_cluster_health_status{color="red"} != 0
+        for: 3m
+        annotations:
+          summary: 'elasticsearch health is {{ $labels.color }}'
+          description: 'Connect to cluster: "{{ $labels.cluster_name }}" in env: "{{ $labels.server_env }}" and find out why elasicsearch health satus is {{ $labels.color }}"'
+          grafana: "{{ GRAFANA_KUBERNETES_ELASTICSEARCH_EXPORTER_HEALTH_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
+          priority: "P3"
+
+      - alert: "elasticsearch health is yellow"
+        expr: elasticsearch_cluster_health_status{color="yellow"} != 0
+        for: 3m
+        annotations:
+          summary: 'elasticsearch health is {{ $labels.color }}'
+          description: 'Connect to cluster: "{{ $labels.cluster_name }}" in env: "{{ $labels.server_env }}" and find out why elasicsearch health satus is {{ $labels.color }}"'
+          grafana: "{{ GRAFANA_KUBERNETES_ELASTICSEARCH_EXPORTER_HEALTH_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
+          priority: "P3"
+
