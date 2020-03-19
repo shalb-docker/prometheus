@@ -188,57 +188,57 @@ groups:
           priority: "P3"
 
 
-      - alert: "mysql repliaction slave IO thread is not running P1-P2"
+      - alert: "mysql replication slave IO thread is not running P1-P2"
         expr: mysql_slave_status_slave_io_running{host_priority=~"P[1-2]"} != 1
         annotations:
-          summary: 'mysql repliaction slave IO thread is not running for master: "{{ $labels.master_host }}"'
-          description: 'Go to instance: "{{ $labels.instance }}" and check repliaction slave IO thread is not running'
+          summary: 'mysql replication slave IO thread is not running for master: "{{ $labels.master_host }}"'
+          description: 'Go to instance: "{{ $labels.instance }}" and check replication slave IO thread is not running'
           grafana: "{{ GRAFANA_ALL_ALERTS_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P2"
 
-      - alert: "mysql repliaction slave IO thread is not running P4-P5"
+      - alert: "mysql replication slave IO thread is not running P4-P5"
         expr: mysql_slave_status_slave_io_running{host_priority=~"P[4-5]"} != 1
         annotations:
-          summary: 'mysql repliaction slave IO thread is not running for master: "{{ $labels.master_host }}"'
-          description: 'Go to instance: "{{ $labels.instance }}" and check repliaction slave IO thread is not running'
+          summary: 'mysql replication slave IO thread is not running for master: "{{ $labels.master_host }}"'
+          description: 'Go to instance: "{{ $labels.instance }}" and check replication slave IO thread is not running'
           grafana: "{{ GRAFANA_ALL_ALERTS_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P5"
 
-      - alert: "mysql repliaction slave IO thread is not running"
+      - alert: "mysql replication slave IO thread is not running"
         expr: mysql_slave_status_slave_io_running{host_priority!~"P[1245]"} != 1
         annotations:
-          summary: 'mysql repliaction slave IO thread is not running for master: "{{ $labels.master_host }}"'
-          description: 'Go to instance: "{{ $labels.instance }}" and check repliaction slave IO thread is not running'
+          summary: 'mysql replication slave IO thread is not running for master: "{{ $labels.master_host }}"'
+          description: 'Go to instance: "{{ $labels.instance }}" and check replication slave IO thread is not running'
           grafana: "{{ GRAFANA_ALL_ALERTS_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P3"
 
 
-      - alert: "mysql repliaction slave SQL thread is not running P1-P2"
+      - alert: "mysql replication slave SQL thread is not running P1-P2"
         expr: mysql_slave_status_slave_sql_running{host_priority=~"P[1-2]"} != 1
         annotations:
-          summary: 'mysql repliaction slave SQL thread is not running for master: "{{ $labels.master_host }}"'
-          description: 'Go to instance: "{{ $labels.instance }}" and check repliaction slave SQL thread is not running'
+          summary: 'mysql replication slave SQL thread is not running for master: "{{ $labels.master_host }}"'
+          description: 'Go to instance: "{{ $labels.instance }}" and check replication slave SQL thread is not running'
           grafana: "{{ GRAFANA_ALL_ALERTS_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P2"
 
-      - alert: "mysql repliaction slave SQL thread is not running P4-P5"
+      - alert: "mysql replication slave SQL thread is not running P4-P5"
         expr: mysql_slave_status_slave_sql_running{host_priority=~"P[4-5]"} != 1
         annotations:
-          summary: 'mysql repliaction slave SQL thread is not running for master: "{{ $labels.master_host }}"'
-          description: 'Go to instance: "{{ $labels.instance }}" and check repliaction slave SQL thread is not running'
+          summary: 'mysql replication slave SQL thread is not running for master: "{{ $labels.master_host }}"'
+          description: 'Go to instance: "{{ $labels.instance }}" and check replication slave SQL thread is not running'
           grafana: "{{ GRAFANA_ALL_ALERTS_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P5"
 
-      - alert: "mysql repliaction slave SQL thread is not running"
+      - alert: "mysql replication slave SQL thread is not running"
         expr: mysql_slave_status_slave_sql_running{host_priority!~"P[1245]"} != 1
         annotations:
-          summary: 'mysql repliaction slave SQL thread is not running for master: "{{ $labels.master_host }}"'
-          description: 'Go to instance: "{{ $labels.instance }}" and check repliaction slave SQL thread is not running'
+          summary: 'mysql replication slave SQL thread is not running for master: "{{ $labels.master_host }}"'
+          description: 'Go to instance: "{{ $labels.instance }}" and check replication slave SQL thread is not running'
           grafana: "{{ GRAFANA_ALL_ALERTS_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P3"
