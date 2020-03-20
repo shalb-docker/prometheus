@@ -28,7 +28,7 @@ rule_files:
 ##- "/etc/prometheus/alert_rules.d/redis_exporter.yml"
 ##- "/etc/prometheus/alert_rules.d/elasticsearch_exporter.yml"
 ##- "/etc/prometheus/alert_rules.d/cloudwatch_exporter.yml"
-##- "/etc/prometheus/alert_rules.d/mysqld_exporter.yml"
+# - "/etc/prometheus/alert_rules.d/mysqld_exporter.yml"
 # - "/etc/prometheus/alert_rules.d/postgres_exporter.yml"
   - "/etc/prometheus/alert_rules.d/docker_exporter.yml"
 ##- "/etc/prometheus/alert_rules.d/proxysql_exporter.yml"
