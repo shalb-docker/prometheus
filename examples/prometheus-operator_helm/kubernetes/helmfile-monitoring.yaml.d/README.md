@@ -1,3 +1,15 @@
+# Software versions
+
+~~~~
+helm: v2.14.3
+helmfile: v0.81.0
+
+helm plugins:
+NAME    VERSION         DESCRIPTION
+diff    3.0.0-rc.7      Preview helm upgrade changes as a diff
+tiller  0.9.3           Start a Tiller server locally, aka Tillerless Helm
+~~~~
+
 # Install particular helm version
 
 Regarding to https://github.com/helm/charts/issues/17261
@@ -25,7 +37,7 @@ bash ./helmfile-monitoring.yaml.d/add_secrets.sh
 
 # Kustomize ingress configs
 
-In most cases ingress configs have some differences per customer, fing and customize each config:
+In most cases ingress configs have some differences per customer, find and customize each config:
 
 ~~~~
 ls -la ./helmfile-monitoring.yaml.d/prometheus-operator/*_ingress.yml
