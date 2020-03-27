@@ -7,7 +7,7 @@ groups:
         annotations:
           summary: "proxysql_exporter down"
           description: 'Go to instance: "{{ $labels.instance }}" and check if service: "proxysql_exporter" is running'
-          grafana: "{{ GRAFANA_ALL_ALERTS_DASHBOARD }}"
+          grafana: "{{ GRAFANA_PROXYSQL_EXPORTER_UP_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P3"
 
@@ -17,7 +17,7 @@ groups:
         annotations:
           summary: "proxysql_exporter down"
           description: 'Go to instance: "{{ $labels.instance }}" and check if service: "proxysql_exporter" is running'
-          grafana: "{{ GRAFANA_ALL_ALERTS_DASHBOARD }}"
+          grafana: "{{ GRAFANA_PROXYSQL_EXPORTER_UP_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P3"
 
@@ -27,7 +27,7 @@ groups:
         annotations:
           summary: "proxysql_exporter down"
           description: 'Go to instance: "{{ $labels.instance }}" and check if service: "proxysql_exporter" is running'
-          grafana: "{{ GRAFANA_ALL_ALERTS_DASHBOARD }}"
+          grafana: "{{ GRAFANA_PROXYSQL_EXPORTER_UP_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P2"
 
@@ -37,7 +37,7 @@ groups:
         annotations:
           summary: "proxysql_exporter down"
           description: 'Go to instance: "{{ $labels.instance }}" and check if service: "proxysql_exporter" is running'
-          grafana: "{{ GRAFANA_ALL_ALERTS_DASHBOARD }}"
+          grafana: "{{ GRAFANA_PROXYSQL_EXPORTER_UP_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P2"
 
@@ -47,7 +47,7 @@ groups:
         annotations:
           summary: "proxysql_exporter down"
           description: 'Go to instance: "{{ $labels.instance }}" and check if service: "proxysql_exporter" is running'
-          grafana: "{{ GRAFANA_ALL_ALERTS_DASHBOARD }}"
+          grafana: "{{ GRAFANA_PROXYSQL_EXPORTER_UP_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P1"
 
@@ -57,7 +57,7 @@ groups:
         annotations:
           summary: "proxysql_exporter down"
           description: 'Go to instance: "{{ $labels.instance }}" and check if service: "proxysql_exporter" is running'
-          grafana: "{{ GRAFANA_ALL_ALERTS_DASHBOARD }}"
+          grafana: "{{ GRAFANA_PROXYSQL_EXPORTER_UP_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P3"
 
@@ -70,7 +70,7 @@ groups:
         annotations:
           summary: "proxysql_exporter has new errors"
           description: 'Go to instance: "{{ $labels.instance }}" and check log for proxysql_exporter'
-          grafana: "{{ GRAFANA_ALL_ALERTS_DASHBOARD }}"
+          grafana: "{{ GRAFANA_PROXYSQL_EXPORTER_SCRAPE_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P2"
 
@@ -80,7 +80,7 @@ groups:
         annotations:
           summary: "proxysql_exporter has new errors"
           description: 'Go to instance: "{{ $labels.instance }}" and check log for proxysql_exporter'
-          grafana: "{{ GRAFANA_ALL_ALERTS_DASHBOARD }}"
+          grafana: "{{ GRAFANA_PROXYSQL_EXPORTER_SCRAPE_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P3"
 
@@ -90,7 +90,7 @@ groups:
         annotations:
           summary: "proxysql_exporter has new errors"
           description: 'Go to instance: "{{ $labels.instance }}" and check log for proxysql_exporter'
-          grafana: "{{ GRAFANA_ALL_ALERTS_DASHBOARD }}"
+          grafana: "{{ GRAFANA_PROXYSQL_EXPORTER_SCRAPE_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P3"
 
@@ -103,7 +103,7 @@ groups:
         annotations:
           summary: "proxysql endpoint down"
           description: 'Go to instance: "{{ $labels.instance }}" and check connection to endpoint: "{{ $labels.endpoint }}" by command: "SELECT hostgroup_id, hostname, status FROM runtime_mysql_servers;"'
-          grafana: "{{ GRAFANA_PROXYSQL_DASHBOARD }}"
+          grafana: "{{ GRAFANA_PROXYSQL_EXPORTER_ENDPOINTS_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P2"
 
@@ -113,7 +113,7 @@ groups:
         annotations:
           summary: "proxysql endpoint down"
           description: 'Go to instance: "{{ $labels.instance }}" and check connection to endpoint: "{{ $labels.endpoint }}" by command: "SELECT hostgroup_id, hostname, status FROM runtime_mysql_servers;"'
-          grafana: "{{ GRAFANA_PROXYSQL_DASHBOARD }}"
+          grafana: "{{ GRAFANA_PROXYSQL_EXPORTER_ENDPOINTS_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P3"
 
@@ -123,7 +123,7 @@ groups:
         annotations:
           summary: "proxysql endpoint down"
           description: 'Go to instance: "{{ $labels.instance }}" and check connection to endpoint: "{{ $labels.endpoint }}" by command: "SELECT hostgroup_id, hostname, status FROM runtime_mysql_servers;"'
-          grafana: "{{ GRAFANA_PROXYSQL_DASHBOARD }}"
+          grafana: "{{ GRAFANA_PROXYSQL_EXPORTER_ENDPOINTS_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P3"
 
