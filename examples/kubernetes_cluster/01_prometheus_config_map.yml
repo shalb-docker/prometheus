@@ -200,6 +200,32 @@ data:
      #      action: keep
 
 
+     #- job_name: 'blackbox-exporter kubernetes services tcp'
+     #  metrics_path: /probe
+     #  params:
+     #    module: [tcp_connect]
+     #  kubernetes_sd_configs:
+     #  - role: service
+     #  relabel_configs:
+     #    - source_labels: [__meta_kubernetes_service_name]
+     #      regex: "redis-slave|redis-headless|redis-master"
+     #      action: keep
+     #    - source_labels: [__address__]
+     #      target_label: instance
+     #    - source_labels: [__address__]
+     #      target_label: __param_target
+     #    - target_label: __address__
+     #      replacement: blackbox-exporter:9115
+     #    - source_labels: [__meta_kubernetes_namespace]
+     #      target_label: namespace
+     #    - source_labels: [__meta_kubernetes_service_name]
+     #      target_label: service_name
+     #  metric_relabel_configs:
+     #    - source_labels: [ __name__ ]
+     #      regex: 'probe_success|probe_failed_due_to_regex|probe_http_status_code|probe_duration_seconds|probe_http_duration_seconds|probe_http_content_length|probe_ssl_earliest_cert_expiry'
+     #      action: keep
+
+
      #- job_name: 'elasticsearch_exporter kubernetes'
      #  kubernetes_sd_configs:
      #  - role: pod

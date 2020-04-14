@@ -43,7 +43,7 @@ spec:
        #- mountPath: /host/root
        #  mountPropagation: HostToContainer
        #  name: root
-          readOnly: true
+       #  readOnly: true
         ports:
         - containerPort: 9100
           hostPort: 9100
