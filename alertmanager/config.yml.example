@@ -15,6 +15,12 @@ route:
 #     server_env: "prod[2-3]"
 #   repeat_interval: 8737h
 
+# - receiver: example_mail
+#   group_by: {{ ALERTMANAGER_GROUP_BY }}
+#   match:
+#     project: "test"
+#   repeat_interval: 8737h
+
   - receiver: opsgenie_monitoring_team
     group_by: {{ ALERTMANAGER_GROUP_BY }}
     match_re:
@@ -94,6 +100,19 @@ receivers:
 #      smarthost: postfix-relay:25
 #      require_tls: false
 #      send_resolved: true
+
+#- name: example_mail_templeted
+#  email_configs:
+#    - to: test@example.com
+#      from: alertmanager@grafana.{{ REMOTE_HOST }}
+#      smarthost: postfix-relay:25
+#      require_tls: false
+#      send_resolved: true
+#      headers:
+#        subject: "status: '{{ .Status }}' | host: '{{ .GroupLabels.hostname }}' | alert: '{{ .CommonAnnotations.summary }}'"
+#      text: "{{ .CommonAnnotations.description }}"
+#      html: "<p>{{ .CommonAnnotations.description }}</p>"
+
 
 #- name: example_aws_ses_mail
 #  email_configs:
