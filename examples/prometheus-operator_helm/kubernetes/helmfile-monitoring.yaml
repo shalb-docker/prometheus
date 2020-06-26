@@ -24,3 +24,11 @@ releases:
       - helmfile-monitoring.yaml.d/prometheus-operator/prometheus_scrape_configs.yml
      #- helmfile-monitoring.yaml.d/prometheus-operator/prometheus_alerts.yml
 
+  - name: prometheus-blackbox-exporter
+    installed: true
+    namespace: monitoring
+    chart: stable/prometheus-blackbox-exporter
+    version: 3.1.0
+    values:
+      - helmfile-monitoring.yaml.d/prometheus-blackbox-exporter/config.yml
+

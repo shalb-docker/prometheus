@@ -1,0 +1,61 @@
+groups:
+  - name: "airflow_exporter down alerts"
+    rules:
+      - alert: "airflow_exporter down"
+        expr: up{instance=~".*:9132"} == 0
+        for: 3m
+        annotations:
+          summary: "airflow_exporter down"
+          description: 'Check if service: "airflow_exporter" is running'
+          grafana: "{{ GRAFANA_AIRFLOW_EXPORTER_UP_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
+          priority: "P3"
+
+
+  - name: "parse errors - airflow_exporter"
+    rules:
+      - alert: "airflow_exporter has new errors"
+        expr: airflow_exporter_up != 1
+        for: 3m
+        annotations:
+          summary: "airflow_exporter has new errors"
+          description: 'Check log for airflow_exporter'
+          grafana: "{{ GRAFANA_AIRFLOW_EXPORTER_SCRAPE_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
+          priority: "P3"
+
+
+  - name: "health alerts - airflow_exporter"
+    rules:
+      - alert: "airflow health check fails"
+        expr: airflow_exporter_health_status != 1
+        for: 3m
+        annotations:
+          summary: "airflow health check fails"
+          description: 'Check health for airflow service: "{{ $labels.airflow_service }}"'
+          grafana: "{{ GRAFANA_AIRFLOW_EXPORTER_HEALTH_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
+          priority: "P3"
+
+      - alert: "airflow scheduler heartbeat to old"
+        expr: time() - airflow_exporter_scheduler_seconds > 300
+        annotations:
+          summary: "airflow scheduler heartbeat to old"
+          description: 'Airflow scheduler not sending heartbeats in time'
+          grafana: "{{ GRAFANA_AIRFLOW_EXPORTER_HEALTH_SCHEDULER_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
+          priority: "P3"
+
+
+  - name: "dags alerts - airflow_exporter"
+    rules:
+      - alert: "airflow last dag run failed"
+        expr: airflow_exporter_dags_last_status != 1
+        for: 10m
+        annotations:
+          summary: "airflow last dag run failed"
+          description: 'Check logs for DAG: "{{ $labels.dag_id }}"'
+          grafana: "{{ GRAFANA_AIRFLOW_EXPORTER_DAGS_STATUS_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
+          priority: "P3"
+

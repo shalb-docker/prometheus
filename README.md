@@ -120,7 +120,7 @@ editor ./add_variables.sh
 # Apply it
 bash ./add_variables.sh
 # Create storage directories
-mkdir prometheus/storage/
+mkdir prometheus-prod/storage/
 mkdir grafana/storage/
 mkdir alertmanager/storage/
 chmod -R 777 */storage/
@@ -131,8 +131,8 @@ editor .gitignore
 #### Add hosts to prometheus config and customize
 
 ~~~~
-cp -a prometheus/configs/prometheus.yml.example prometheus/configs/prometheus.yml
-editor prometheus/configs/prometheus.yml
+cp -a prometheus-prod/configs/prometheus.yml.example prometheus-prod/configs/prometheus.yml
+editor prometheus-prod/configs/prometheus.yml
 ~~~~
 
 #### run stack by docker-compose
@@ -172,9 +172,9 @@ When you need it and what files:
 * docker-compose.yml - because better to split data per environment among prometheus daemons in case of storage retention, test cases and so on
 * customize standard alerting rules - because sometime yous need to change some alerting rules, for example you should copy needed file:
 ~~~~
-cp prometheus/configs/alert_rules.d/la.yml prometheus/configs/alert_rules.d/la_custom.yml
+cp prometheus-prod/configs/alert_rules.d/la.yml prometheus-prod/configs/alert_rules.d/la_custom.yml
 # add include for 'la_custom.yml' to 'prometheus.yml'
-editor prometheus/configs/prometheus.yml
+editor prometheus-prod/configs/prometheus.yml
 ~~~~
 
 * other cases are rare

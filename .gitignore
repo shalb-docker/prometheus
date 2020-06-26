@@ -12,7 +12,7 @@ nginx/ssl/*
 secrets
 prometheus-*/secrets/*
 alertmanager/config.yml
-prometheus-*/configs/prometheus.yml
+#prometheus-*/configs/prometheus.yml
 
 # uncommennt if needed:
 #docker-compose.yml
