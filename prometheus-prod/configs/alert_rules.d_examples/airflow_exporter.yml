@@ -29,7 +29,7 @@ groups:
     rules:
       - alert: "airflow health check fails"
         expr: airflow_exporter_health_status != 1
-        for: 3m
+        for: 15m
         annotations:
           summary: "airflow health check fails"
           description: 'Check health for airflow service: "{{ $labels.airflow_service }}"'
@@ -38,7 +38,7 @@ groups:
           priority: "P3"
 
       - alert: "airflow scheduler heartbeat to old"
-        expr: time() - airflow_exporter_scheduler_seconds > 300
+        expr: time() - airflow_exporter_scheduler_seconds > 900
         annotations:
           summary: "airflow scheduler heartbeat to old"
           description: 'Airflow scheduler not sending heartbeats in time'
@@ -50,7 +50,7 @@ groups:
   - name: "dags alerts - airflow_exporter"
     rules:
       - alert: "airflow last dag run failed"
-        expr: airflow_exporter_dags_last_status != 1
+        expr: airflow_exporter_dags_last_status == -1
         for: 10m
         annotations:
           summary: "airflow last dag run failed"
@@ -58,4 +58,24 @@ groups:
           grafana: "{{ GRAFANA_AIRFLOW_EXPORTER_DAGS_STATUS_DASHBOARD }}"
           access: "{{ WIKI_MONITORING_ACCESS }}"
           priority: "P3"
+
+      - alert: "airflow last dag run upstream failed"
+        expr: airflow_exporter_dags_last_status == -7
+        for: 10m
+        annotations:
+          summary: "airflow last dag run upstream failed"
+          description: 'Check logs for DAG: "{{ $labels.dag_id }}"'
+          grafana: "{{ GRAFANA_AIRFLOW_EXPORTER_DAGS_STATUS_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
+          priority: "P3"
+
+      - alert: "airflow last dag run has no status"
+        expr: airflow_exporter_dags_last_status == 0
+        for: 10m
+        annotations:
+          summary: "airflow last dag run has no status"
+          description: 'Check logs for DAG: "{{ $labels.dag_id }}"'
+          grafana: "{{ GRAFANA_AIRFLOW_EXPORTER_DAGS_STATUS_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
+          priority: "P5"
 
