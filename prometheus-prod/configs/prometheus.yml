@@ -39,6 +39,7 @@ rule_files:
 # - "/etc/prometheus/alert_rules.d/kubernetes_elasticsearch_exporter.yml"
 # - "/etc/prometheus/alert_rules.d/http_pingdom.yml"
 # - "/etc/prometheus/alert_rules.d/nginx_exporter.yml"
+# - "/etc/prometheus/alert_rules.d/mongodb_exporter.yml"
 
 
 scrape_configs:
@@ -288,4 +289,18 @@ scrape_configs:
 #       target_label: creator
 #     - source_labels: [__meta_ec2_tag_DOMAIN]
 #       target_label: domain
+
+
+# - job_name: 'mongodb_exporter'
+#   relabel_configs:
+#   - source_labels: [__address__]
+#     regex: '([a-zA-Z].*):[0-9]+'
+#     target_label: hostname
+#     replacement: '$1'
+#   static_configs:
+#     - targets: ['test.shalb.com:9001']
+#       labels:
+#         host_priority: 'P3'
+#         server_env: 'prod'
+#         project: 'test'
 

@@ -250,4 +250,26 @@ data:
      #    - source_labels: [ __name__ ]
      #      regex: 'elasticsearch_cluster_health_up|elasticsearch_node_stats_up|elasticsearch_cluster_health_status|elasticsearch_jvm_gc_collection_seconds_count|elasticsearch_jvm_gc_collection_seconds_sum|elasticsearch_jvm_buffer_pool_used_bytes|elasticsearch_jvm_memory_pool_used_bytes|elasticsearch_jvm_memory_used_bytes'
      #      action: keep
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: prometheus-scripts
+  namespace: monitoring
+  labels:
+    app: prometheus
+data:
+  reload-config.sh: |+
+    while [ "True" ]
+        do
+        last_state=$(ls -la /etc/prometheus/..data/prometheus.yml)
+        sleep 30
+        current_state=$(ls -la /etc/prometheus/..data/prometheus.yml)
+        if [ "${last_state}" != "${current_state}" ]
+            then
+            date
+            echo "Reloading prometheus..."
+            curl -d '' http://prometheus:9090/-/reload
+        fi
+    done
 

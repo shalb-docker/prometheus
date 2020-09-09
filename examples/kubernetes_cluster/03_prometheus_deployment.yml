@@ -20,10 +20,27 @@ spec:
     spec:
       serviceAccountName: prometheus
       containers:
+      - args: []
+        name: prometheus-config-reloader
+        image: curlimages/curl:7.70.0
+        command: ["/bin/sh", "-c", "sleep 60 && /bin/sh /opt/scripts/reload-config.sh"]
+        resources:
+          requests:
+            memory: "0.1Gi"
+            cpu: "0.1"
+          limits:
+            memory: "0.2Gi"
+        volumeMounts:
+        - mountPath: /etc/prometheus
+          name: config-main
+          readOnly: true
+        - mountPath: /opt/scripts
+          name: scripts
+          readOnly: true
       - args:
         - --log.level=debug
         - --web.enable-lifecycle
-        - --web.external-url=https://prometheus.easygenerator.com/
+        - --web.external-url=https://prometheus.example.com/
         - --config.file=/etc/prometheus/prometheus.yml
         - --web.console.libraries=/usr/share/prometheus/console_libraries
         - --web.console.templates=/usr/share/prometheus/consoles
@@ -38,9 +55,10 @@ spec:
           name: data
         - mountPath: /etc/prometheus
           name: config-main
-#       volumeMounts:
-#       - name: prometheus-data-volume
-#         mountPath: /data
+          readOnly: true
+        - mountPath: /opt/scripts
+          name: scripts
+          readOnly: true
       volumes:
         - name: data
           emptyDir: {}
@@ -50,7 +68,9 @@ spec:
             items:
             - key: prometheus.yml
               path: prometheus.yml
-#     volumes:
-#     - name: prometheus-data-volume
-#       persistentVolumeClaim:
-#         claimName: prometheus-data-claim
+        - name: scripts
+          configMap:
+            name: prometheus-scripts
+            items:
+            - key: reload-config.sh
+              path: reload-config.sh

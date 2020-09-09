@@ -1,0 +1,107 @@
+# https://github.com/dcu/mongodb_exporter
+groups:
+  - name: "mongodb_exporter down alerts"
+    rules:
+      - alert: "mongodb_exporter down P5"
+        expr: up{host_priority="P5",instance=~".*:9001"} == 0
+        for: 10m
+        annotations:
+          summary: "mongodb_exporter down"
+          description: 'Go to instance: "{{ $labels.instance }}" and check if service: "mongodb_exporter" is running'
+          grafana: "{{ GRAFANA_MONGODB_EXPORTER_UP_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
+          priority: "P3"
+
+      - alert: "mongodb_exporter down P4"
+        expr: up{host_priority="P4",instance=~".*:9001"} == 0
+        for: 5m
+        annotations:
+          summary: "mongodb_exporter down"
+          description: 'Go to instance: "{{ $labels.instance }}" and check if service: "mongodb_exporter" is running'
+          grafana: "{{ GRAFANA_MONGODB_EXPORTER_UP_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
+          priority: "P3"
+
+      - alert: "mongodb_exporter down P3"
+        expr: up{host_priority="P3",instance=~".*:9001"} == 0
+        for: 4m
+        annotations:
+          summary: "mongodb_exporter down"
+          description: 'Go to instance: "{{ $labels.instance }}" and check if service: "mongodb_exporter" is running'
+          grafana: "{{ GRAFANA_MONGODB_EXPORTER_UP_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
+          priority: "P2"
+
+      - alert: "mongodb_exporter down P2"
+        expr: up{host_priority="P2",instance=~".*:9001"} == 0
+        for: 3m
+        annotations:
+          summary: "mongodb_exporter down"
+          description: 'Go to instance: "{{ $labels.instance }}" and check if service: "mongodb_exporter" is running'
+          grafana: "{{ GRAFANA_MONGODB_EXPORTER_UP_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
+          priority: "P2"
+
+      - alert: "mongodb_exporter down P1"
+        expr: up{host_priority="P1",instance=~".*:9001"} == 0
+        for: 2m
+        annotations:
+          summary: "mongodb_exporter down"
+          description: 'Go to instance: "{{ $labels.instance }}" and check if service: "mongodb_exporter" is running'
+          grafana: "{{ GRAFANA_MONGODB_EXPORTER_UP_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
+          priority: "P1"
+
+      - alert: "mongodb_exporter down"
+        expr: up{host_priority!~"P[1-5]",instance=~".*:9001"} == 0
+        for: 4m
+        annotations:
+          summary: "mongodb_exporter down"
+          description: 'Go to instance: "{{ $labels.instance }}" and check if service: "mongodb_exporter" is running'
+          grafana: "{{ GRAFANA_MONGODB_EXPORTER_UP_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
+          priority: "P3"
+
+
+  - name: "parse errors - mongodb_exporter"
+    rules:
+      - alert: "mongodb_exporter cluster_health has new errors P1-3"
+        expr: delta(http_response_size_bytes_sum{instance=~".*:9001"}[1m]) < 10000
+        for: 3m
+        annotations:
+          summary: "mongodb_exporter has new errors"
+          description: 'Go to instance: "{{ $labels.instance }}" and check log for mongodb_exporter'
+          grafana: "{{ GRAFANA_MONGODB_EXPORTER_SCRAPE_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
+          priority: "P3"
+
+
+  - name: mongodb replication alerts
+    rules:
+      - alert: "mongodb replication lag > 5m P1-2"
+        expr: abs(max(mongodb_replset_member_optime_date{host_priority=~"P[1-2]",state="PRIMARY"}) without (name, state)  - min(mongodb_replset_member_optime_date{state="SECONDARY"}) without (name, state)) > 300
+        annotations:
+          summary: 'mongodb replication lag more than 5 minutes'
+          description: 'Check why mongodb replication has such lag'
+          grafana: "{{ GRAFANA_MONGODB_EXPORTER_REPLICATION_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
+          priority: "P2"
+
+      - alert: "mongodb replication lag > 5m P3"
+        expr: abs(max(mongodb_replset_member_optime_date{host_priority=~"P3|^$",state="PRIMARY"}) without (name, state)  - min(mongodb_replset_member_optime_date{state="SECONDARY"}) without (name, state)) > 300
+        annotations:
+          summary: 'mongodb replication lag more than 5 minutes'
+          description: 'Check why mongodb replication has such lag'
+          grafana: "{{ GRAFANA_MONGODB_EXPORTER_REPLICATION_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
+          priority: "P3"
+
+      - alert: "mongodb replication lag > 5m P4-5"
+        expr: abs(max(mongodb_replset_member_optime_date{host_priority=~"P[4-5]",state="PRIMARY"}) without (name, state)  - min(mongodb_replset_member_optime_date{state="SECONDARY"}) without (name, state)) > 300
+        annotations:
+          summary: 'mongodb replication lag more than 5 minutes'
+          description: 'Check why mongodb replication has such lag'
+          grafana: "{{ GRAFANA_MONGODB_EXPORTER_REPLICATION_DASHBOARD }}"
+          access: "{{ WIKI_MONITORING_ACCESS }}"
+          priority: "P5"
+
