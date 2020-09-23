@@ -55,9 +55,14 @@ route:
 
 inhibit_rules:
   - source_match_re:
-       alertname: '^host\s+down\s+P[1-5]$'
+       alertname: '^host\s+down.*$'
     target_match_re:
        alertname: '.*'
+    equal: ['hostname']
+  - source_match_re:
+       alertname: '^mysqld\s+exporter\s+down.*'
+    target_match_re:
+       alertname: '^mysql\s+repliaction\s+absent.*'
     equal: ['hostname']
   - source_match_re:
        alertname: '^host\s+down.*'

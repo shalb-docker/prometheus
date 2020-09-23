@@ -226,6 +226,48 @@ data:
      #      action: keep
 
 
+     #- job_name: 'blackbox-exporter kubernetes relabelings'
+     #  metrics_path: /probe
+     #  params:
+     #    module: [http_2xx]
+     #  kubernetes_sd_configs:
+     #  - role: service
+     #  relabel_configs:
+     #  - source_labels: [__meta_kubernetes_namespace]
+     #    regex: "prod"
+     #    action: keep
+     #  - source_labels: [__meta_kubernetes_service_name]
+     #    regex: "service-11|service-22"
+     #    action: drop
+     #  - source_labels: [__address__]
+     #    target_label: instance
+     #  - source_labels: [__address__]
+     #    replacement: '$1/api/healthz'
+     #    target_label: __param_target
+     #  - target_label: request
+     #    replacement: '/api/healthz'
+     # # old healthz start
+     #  - source_labels: [__address__]
+     #    regex: "(service-1|service-2)(.*svc:[0-9]+)"
+     #    replacement: '$1$2/healthz'
+     #    target_label: __param_target
+     #  - source_labels: [__address__]
+     #    regex: "(service-3|service-4).*svc:[0-9]+"
+     #    replacement: '/healthz'
+     #    target_label: request
+     # # old healthz end
+     #  - target_label: __address__
+     #    replacement: blackbox-exporter:9115
+     #  - source_labels: [__meta_kubernetes_namespace]
+     #    target_label: namespace
+     #  - source_labels: [__meta_kubernetes_service_name]
+     #    target_label: service_name
+     #  metric_relabel_configs:
+     #  - source_labels: [ __name__ ]
+     #    regex: 'probe_success|probe_http_status_code|probe_duration_seconds|probe_http_duration_seconds|probe_http_content_length'
+     #    action: keep
+
+
      #- job_name: 'elasticsearch_exporter kubernetes'
      #  kubernetes_sd_configs:
      #  - role: pod
