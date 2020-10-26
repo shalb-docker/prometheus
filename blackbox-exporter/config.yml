@@ -18,6 +18,9 @@ modules:
 #     fail_if_header_not_matches:
 #       - header: "content-type"
 #         regexp: "application/json"
+#     basic_auth:
+#       username: "user"
+#       password: "pass"
   tcp_connect:
     prober: tcp
     timeout: 5s
