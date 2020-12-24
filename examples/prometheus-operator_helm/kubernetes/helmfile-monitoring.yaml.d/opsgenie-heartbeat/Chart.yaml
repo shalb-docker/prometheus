@@ -1,0 +1,4 @@
+apiVersion: v1
+name: opsgenie-heartbeat
+version: 0.0.1
+description: see https://docs.opsgenie.com/docs/heartbeat-monitoring

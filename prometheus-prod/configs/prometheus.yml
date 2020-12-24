@@ -42,6 +42,7 @@ rule_files:
 # - "/etc/prometheus/alert_rules.d/mongodb_exporter.yml"
 
 
+
 scrape_configs:
   - job_name: 'opsgenie-heartbeat local'
     scrape_interval: 1m
@@ -101,6 +102,20 @@ scrape_configs:
           server_env: 'prod'
           hostname: 'grafana.monitoring-test.shalb.com'
           project: 'test'
+
+  - job_name: 'alertmanager-exporter local'
+    honor_labels: true
+    static_configs:
+      - targets: ['alertmanager-exporter:9753']
+        labels:
+          host_priority: 'P5'
+          server_env: 'prod'
+          hostname: 'grafana.monitoring-test.shalb.com'
+          project: 'test'
+    metric_relabel_configs:
+      - source_labels: [ __name__ ]
+        regex: 'alertmanager_exporter.*'
+        action: keep
 
   - job_name: 'docker_exporter prod local'
     static_configs:
@@ -289,7 +304,6 @@ scrape_configs:
 #       target_label: creator
 #     - source_labels: [__meta_ec2_tag_DOMAIN]
 #       target_label: domain
-
 
 # - job_name: 'mongodb_exporter'
 #   relabel_configs:

@@ -52,7 +52,7 @@ groups:
           priority: "P5"
 
 
-  - name: blackbox_exporter http checks ssl exiration
+  - name: blackbox_exporter http checks ssl expiration
     rules:
       - alert: "Ssl will be expired in next 10 days"
         expr: (probe_ssl_earliest_cert_expiry{job!="blackbox-exporter kubernetes services"} - time())  / (3600 * 24) < 10

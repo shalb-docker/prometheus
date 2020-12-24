@@ -32,3 +32,10 @@ releases:
     values:
       - helmfile-monitoring.yaml.d/prometheus-blackbox-exporter/config.yml
 
+  - name: opsgenie-heartbeat
+    namespace: monitoring
+    chart: ./helmfile-monitoring.yaml.d/opsgenie-heartbeat
+    version: 0.0.1
+    values:
+      - ./helmfile-monitoring.yaml.d/opsgenie-heartbeat/my_values.yaml.gotmpl
+
